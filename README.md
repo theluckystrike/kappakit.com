@@ -22,9 +22,7 @@ Select any tool from the sidebar or top navigation. Each tool loads instantly wi
 
 - Vanilla JavaScript (no frameworks, no dependencies)
 - Client-side only — your data never leaves your browser
-- Part of the [Zovo Tools](https://zovo.one) open network
 
-## Related Tools
 
 - [Epoch & Time Converter](https://epochpilot.com) — convert timestamps and parse cron expressions
 - [Image Compressor](https://krzen.com) — compress and convert images before uploading
