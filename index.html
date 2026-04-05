@@ -1,216 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KappaKit — Your AI Building Blocks</title>
-    <meta name="description" content="KappaKit provides modular building blocks for AI applications. Discover component libraries, reusable modules, and composable patterns for building production AI systems.">
-    <meta name="keywords" content="AI components, AI building blocks, modular AI, AI libraries, AI development kit, reusable AI modules, composable AI, AI SDK">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="KappaKit — Your AI Building Blocks">
-    <meta property="og:description" content="Modular building blocks for AI applications. Component libraries and composable patterns for production AI systems.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kappakit.com">
-    <link rel="canonical" href="https://kappakit.com">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-    </style>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "KappaKit",
-        "url": "https://kappakit.com",
-        "description": "Modular building blocks for AI applications. Component libraries and composable patterns for production AI systems.",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://kappakit.com/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KappaKit — Developer Toolkit | Base64, JWT, Hash, UUID, Regex & More</title>
+<meta name="description" content="All-in-one developer toolkit: Base64 encoder/decoder, JWT decoder, hash generator, UUID generator, regex tester, URL encoder, and color converter. Free, fast, runs in your browser.">
+<meta name="keywords" content="developer tools, base64 encoder, jwt decoder, hash generator, uuid generator, regex tester, url encoder, color converter">
+<link rel="canonical" href="https://kappakit.com/">
+<meta property="og:title" content="KappaKit — Developer Toolkit">
+<meta property="og:description" content="All-in-one developer toolkit with Base64, JWT, Hash, UUID, Regex, URL encoding, and Color conversion. Free and runs entirely in your browser.">
+<meta property="og:url" content="https://kappakit.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/style.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </nav>
+</header>
 
-    <!-- Hero Section -->
-    <header class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-rose-600 via-rose-500 to-pink-400"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
-            <nav class="flex items-center justify-between mb-16">
-                <div class="text-white text-2xl font-bold tracking-tight">KappaKit</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="/" class="text-white font-semibold transition">Home</a>
-                    <a href="/guides" class="text-rose-100 hover:text-white transition">Guides</a>
-                    <a href="/tools" class="text-rose-100 hover:text-white transition">Tools</a>
-                    <a href="/blog/getting-started" class="text-rose-100 hover:text-white transition">Blog</a>
-                    <a href="/about" class="text-rose-100 hover:text-white transition">About</a>
-                </div>
-            </nav>
-            <div class="max-w-3xl">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-                    Your AI Building Blocks
-                </h1>
-                <p class="text-xl md:text-2xl text-rose-100 leading-relaxed mb-8">
-                    Stop rebuilding the same AI infrastructure from scratch. KappaKit provides modular, composable components that snap together to form production-ready AI applications. From data pipelines to inference endpoints, every block is designed for reliability and reuse.
-                </p>
-                <a href="#components" class="inline-block bg-white text-rose-600 font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
-                    Explore Components
-                </a>
-            </div>
-        </div>
-    </header>
+<main>
+  <div class="hero">
+    <h1>Developer Toolkit</h1>
+    <p>Seven essential tools in one page. No signups, no tracking, runs entirely in your browser.</p>
+  </div>
 
-    <!-- Introduction Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">The Case for Modular AI Development</h2>
-            <div class="prose prose-lg max-w-none text-gray-600 space-y-6">
-                <p>
-                    Every AI team faces the same challenge: they spend the majority of their engineering time rebuilding foundational infrastructure rather than solving the unique problems that differentiate their product. Data ingestion pipelines, feature stores, model serving layers, evaluation frameworks, and monitoring dashboards are essential to every AI application, yet each team builds them from scratch with slightly different designs and varying levels of robustness. This duplication of effort slows innovation and introduces inconsistencies that make systems harder to maintain.
-                </p>
-                <p>
-                    The modular approach to AI development addresses this waste directly. By decomposing AI applications into well-defined, reusable components with clear interfaces, teams can assemble sophisticated systems from pre-built blocks that have already been tested, optimized, and hardened in production environments. A data preprocessing module that handles schema validation, null imputation, and feature encoding can be shared across dozens of projects. A model serving component that manages batching, caching, and graceful degradation under load becomes organizational infrastructure rather than a single team's burden.
-                </p>
-                <p>
-                    This component-based philosophy extends beyond code libraries to encompass the entire AI development lifecycle. Training pipelines, evaluation harnesses, deployment configurations, and monitoring rules can all be modularized and composed. When a new project begins, the team selects the appropriate components from an internal registry, configures them for their specific use case, and connects them through standardized interfaces. The result is dramatically faster time-to-production and significantly higher reliability, because each component has been battle-tested across multiple deployments.
-                </p>
-            </div>
-        </div>
-    </section>
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="base64" role="tab">Base64</button>
+    <button class="tab-btn" data-tab="jwt" role="tab">JWT Decoder</button>
+    <button class="tab-btn" data-tab="hash" role="tab">Hash Generator</button>
+    <button class="tab-btn" data-tab="uuid" role="tab">UUID Generator</button>
+    <button class="tab-btn" data-tab="regex" role="tab">Regex Tester</button>
+    <button class="tab-btn" data-tab="url" role="tab">URL Encoder</button>
+    <button class="tab-btn" data-tab="color" role="tab">Color Converter</button>
+  </div>
 
-    <!-- Components Section -->
-    <section id="components" class="bg-white py-16 md:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Core Component Categories</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto">Production-tested building blocks organized by function, each designed to integrate seamlessly with the others.</p>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Data Pipeline Blocks</h3>
-                    <p class="text-gray-600">Composable ETL components for data ingestion, validation, transformation, and feature extraction. Connect to any data source with standardized connectors for databases, APIs, file systems, and streaming platforms.</p>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Training Modules</h3>
-                    <p class="text-gray-600">Configurable training loops with built-in experiment tracking, hyperparameter optimization, and checkpoint management. Support for distributed training across multiple GPUs and cloud instances with minimal configuration.</p>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Serving Components</h3>
-                    <p class="text-gray-600">Model serving blocks that handle request batching, response caching, model versioning, and A/B testing. Deploy models behind production-grade APIs with health checks, metrics, and automatic scaling built in.</p>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition">
-                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Evaluation Kits</h3>
-                    <p class="text-gray-600">Standardized evaluation frameworks with metrics for classification, regression, ranking, and generation tasks. Includes bias detection, fairness auditing, and automated regression testing for model updates.</p>
-                </div>
-            </div>
+  <!-- Base64 -->
+  <div class="tab-panel active" id="panel-base64">
+    <div class="tool-card">
+      <h3>Base64 Encode / Decode</h3>
+      <div class="row">
+        <div>
+          <label for="b64-input">Text</label>
+          <textarea id="b64-input" placeholder="Enter text or base64 string..."></textarea>
         </div>
-    </section>
+        <div>
+          <label>Result</label>
+          <div class="output-box" id="b64-output"><button class="copy-btn" onclick="copyText('b64-output')">Copy</button></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="b64Encode()">Encode</button>
+        <button class="btn btn-outline" onclick="b64Decode()">Decode</button>
+      </div>
+    </div>
+  </div>
 
-    <!-- Guides Section -->
-    <section id="guides" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Modular AI Development Guides</h2>
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Learn how to design, build, and compose AI components for production applications.</p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8">
-            <article class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition">
-                <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Architecture</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Designing Composable Feature Stores for Multi-Model Systems</h3>
-                <p class="text-gray-600 mb-4">Feature stores are the backbone of modular AI systems, providing a single source of truth for feature computation and serving. This guide covers designing a feature store component that supports both batch and real-time feature computation, handles feature versioning across model iterations, and provides consistent feature values between training and serving environments to prevent training-serving skew.</p>
-                <span class="text-rose-600 font-medium">Read Guide &rarr;</span>
-            </article>
-            <article class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition">
-                <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Deployment</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Building a Pluggable Model Serving Layer with Canary Deployments</h3>
-                <p class="text-gray-600 mb-4">Learn how to construct a model serving component that supports multiple model formats, implements canary deployment strategies for safe rollouts, and provides real-time performance monitoring. The guide walks through building request routing logic that gradually shifts traffic from the current model to a new version while monitoring for accuracy degradation and latency spikes.</p>
-                <span class="text-rose-600 font-medium">Read Guide &rarr;</span>
-            </article>
-            <article class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition">
-                <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Testing</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Automated Model Evaluation Pipelines with Component Testing</h3>
-                <p class="text-gray-600 mb-4">AI systems require evaluation strategies that go beyond unit tests. This guide demonstrates how to build evaluation components that automatically test model accuracy, latency, fairness, and robustness on every code change. You will learn to create data slice analyses that reveal model weaknesses, set up automated regression detection, and implement approval gates that prevent degraded models from reaching production.</p>
-                <span class="text-rose-600 font-medium">Read Guide &rarr;</span>
-            </article>
-            <article class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 hover:shadow-md transition">
-                <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">RAG</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Composable RAG Pipelines: Retrieval, Reranking, and Generation Blocks</h3>
-                <p class="text-gray-600 mb-4">Retrieval-augmented generation systems are inherently modular, consisting of document chunking, embedding, indexing, retrieval, reranking, and generation stages. This guide shows how to implement each stage as an independent, swappable component so you can experiment with different embedding models, retrieval strategies, and generation prompts without rewriting the entire pipeline.</p>
-                <span class="text-rose-600 font-medium">Read Guide &rarr;</span>
-            </article>
-        </div>
-    </section>
+  <!-- JWT -->
+  <div class="tab-panel" id="panel-jwt">
+    <div class="tool-card">
+      <h3>JWT Decoder</h3>
+      <label for="jwt-input">Paste JWT Token</label>
+      <textarea id="jwt-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"></textarea>
+      <div class="actions" style="margin-bottom:1rem;">
+        <button class="btn" onclick="decodeJWT()">Decode</button>
+      </div>
+      <div id="jwt-result"></div>
+    </div>
+  </div>
 
-    <!-- Deep Dive Content -->
-    <section class="bg-white py-16 md:py-24">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">Principles of Effective AI Component Design</h2>
-            <div class="prose prose-lg max-w-none text-gray-600 space-y-6">
-                <p>
-                    Designing reusable AI components requires a different mindset from building one-off machine learning scripts. The most effective components follow the principle of configuration over code: they expose a rich set of parameters that customize behavior without requiring changes to the underlying implementation. A data preprocessing component, for example, should accept a declarative schema that specifies which columns to encode, which to normalize, and which to drop, rather than hardcoding these transformations for a specific dataset.
-                </p>
-                <p>
-                    Interface contracts are essential for composability. Every component should define clear input and output schemas, including data types, shape constraints, and validation rules. When a feature extraction block outputs a numpy array of shape (batch_size, num_features), the downstream model training block should validate that the input matches its expected schema before processing begins. These contracts catch integration errors early and provide clear error messages that speed up debugging across complex multi-component pipelines.
-                </p>
-                <p>
-                    Observability must be built into each component from the start, not bolted on afterward. Every block should emit structured logs, publish metrics to a shared monitoring system, and support distributed tracing to track requests across the full pipeline. When a prediction latency spike occurs in production, operators need to pinpoint whether the bottleneck is in data retrieval, feature computation, model inference, or post-processing. Components that expose this telemetry natively make production AI systems far easier to operate and debug.
-                </p>
-            </div>
-        </div>
-    </section>
+  <!-- Hash -->
+  <div class="tab-panel" id="panel-hash">
+    <div class="tool-card">
+      <h3>Hash Generator</h3>
+      <label for="hash-input">Input Text</label>
+      <textarea id="hash-input" placeholder="Enter text to hash..."></textarea>
+      <div class="actions" style="margin-bottom:1rem;">
+        <button class="btn" onclick="generateHashes()">Generate Hashes</button>
+      </div>
+      <div id="hash-results"></div>
+    </div>
+  </div>
 
-    <!-- Resources Section with zovo.one link -->
-    <section id="resources" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Recommended Tools and Platforms</h2>
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Curated resources to support your modular AI development workflow.</p>
+  <!-- UUID -->
+  <div class="tab-panel" id="panel-uuid">
+    <div class="tool-card">
+      <h3>UUID v4 Generator</h3>
+      <div class="row">
+        <div>
+          <label for="uuid-count">Count (1-100)</label>
+          <input type="number" id="uuid-count" value="1" min="1" max="100">
         </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl p-8 border border-rose-100">
-                <h3 class="text-xl font-bold text-gray-900 mb-3">ML Frameworks</h3>
-                <p class="text-gray-600 mb-4">PyTorch, TensorFlow, and JAX provide the computational foundations for building AI components. Their modular designs align naturally with the component-based philosophy, offering composable layers, loss functions, and optimizers that can be mixed and matched.</p>
-            </div>
-            <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl p-8 border border-rose-100">
-                <h3 class="text-xl font-bold text-gray-900 mb-3">AI Development Platform</h3>
-                <p class="text-gray-600 mb-4">When assembling your AI toolkit, we recommend visiting <a href="https://zovo.one" rel="dofollow" class="text-rose-600 font-semibold hover:text-rose-800 underline">zovo.one</a> for comprehensive AI tools and resources. Their platform offers an integrated suite of utilities that complement a modular development approach and help teams accelerate their AI projects.</p>
-            </div>
-            <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl p-8 border border-rose-100">
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Orchestration Tools</h3>
-                <p class="text-gray-600 mb-4">Tools like Kubeflow Pipelines, MLflow, and ZenML provide the orchestration layer that connects components into end-to-end pipelines. They handle scheduling, dependency management, artifact tracking, and reproducibility across training and deployment workflows.</p>
-            </div>
+        <div style="display:flex;align-items:flex-end;">
+          <button class="btn" onclick="generateUUIDs()">Generate</button>
         </div>
-    </section>
+      </div>
+      <div class="output-box" id="uuid-output" style="margin-top:1rem;min-height:80px;"><button class="copy-btn" onclick="copyText('uuid-output')">Copy</button></div>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="text-white text-xl font-bold mb-4 md:mb-0">KappaKit</div>
-                <div class="flex space-x-8 mb-4 md:mb-0">
-                    <a href="#components" class="hover:text-white transition">Components</a>
-                    <a href="#guides" class="hover:text-white transition">Guides</a>
-                    <a href="#resources" class="hover:text-white transition">Resources</a>
-                </div>
-                <p class="text-sm">&copy; 2025 KappaKit. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <!-- Regex -->
+  <div class="tab-panel" id="panel-regex">
+    <div class="tool-card">
+      <h3>Regex Tester</h3>
+      <label for="regex-pattern">Pattern</label>
+      <input type="text" id="regex-pattern" placeholder="e.g. \d+">
+      <div class="flag-group" style="margin-top:0.5rem;">
+        <label class="flag-toggle"><input type="checkbox" id="flag-g" checked> g</label>
+        <label class="flag-toggle"><input type="checkbox" id="flag-i"> i</label>
+        <label class="flag-toggle"><input type="checkbox" id="flag-m"> m</label>
+      </div>
+      <label for="regex-test">Test String</label>
+      <textarea id="regex-test" placeholder="Enter test string..."></textarea>
+      <div class="actions" style="margin-bottom:1rem;">
+        <button class="btn" onclick="testRegex()">Test</button>
+      </div>
+      <label>Matches</label>
+      <div class="output-box" id="regex-output" style="white-space:pre-wrap;"></div>
+      <div id="regex-match-count" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted);"></div>
+    </div>
+  </div>
 
+  <!-- URL -->
+  <div class="tab-panel" id="panel-url">
+    <div class="tool-card">
+      <h3>URL Encoder / Decoder</h3>
+      <div class="row">
+        <div>
+          <label for="url-input">Input</label>
+          <textarea id="url-input" placeholder="Enter URL or encoded string..."></textarea>
+        </div>
+        <div>
+          <label>Result</label>
+          <div class="output-box" id="url-output"><button class="copy-btn" onclick="copyText('url-output')">Copy</button></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="urlEncode()">Encode</button>
+        <button class="btn btn-outline" onclick="urlDecode()">Decode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color -->
+  <div class="tab-panel" id="panel-color">
+    <div class="tool-card">
+      <h3>Color Converter</h3>
+      <div class="row">
+        <div>
+          <label for="color-hex">HEX</label>
+          <input type="text" id="color-hex" placeholder="#14B8A6" oninput="colorFromHex()">
+        </div>
+        <div>
+          <label for="color-rgb">RGB</label>
+          <input type="text" id="color-rgb" placeholder="20, 184, 166" oninput="colorFromRGB()">
+        </div>
+        <div>
+          <label for="color-hsl">HSL</label>
+          <input type="text" id="color-hsl" placeholder="174, 80%, 40%" oninput="colorFromHSL()">
+        </div>
+      </div>
+      <div class="color-swatch" id="color-swatch"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </div>
+  <p>Built by <a href="https://zovo.one">zovo.one</a> &middot; More tools: <a href="https://epochpilot.com">EpochPilot</a> &middot; <a href="https://ml3x.com">ML3X</a></p>
+</footer>
+
+<script src="/assets/app.js"></script>
 </body>
 </html>

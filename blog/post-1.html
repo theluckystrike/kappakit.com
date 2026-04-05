@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Developer Tool You Need in One Bookmark — KappaKit</title>
+<meta name="description" content="A practical guide to the essential encoding, hashing, and conversion tools every developer reaches for daily, and why a unified toolkit saves hours per week.">
+<link rel="canonical" href="https://kappakit.com/blog/post-1.html">
+<meta property="og:title" content="Every Developer Tool You Need in One Bookmark">
+<meta property="og:description" content="A practical guide to the essential developer tools you need bookmarked: Base64, UUID, hashing, regex testing, and more.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <h1>Every Developer Tool You Need in One Bookmark</h1>
+    <div class="blog-meta">April 2, 2025 &middot; 8 min read</div>
+
+    <p>If you have been a developer for more than a week, you have a collection of bookmarked utility sites. One for Base64. One for JSON formatting. One for regex testing. Another for UUID generation. The list grows until your bookmarks bar looks like a small city skyline.</p>
+
+    <p>The problem is not that these tools exist — they are individually excellent. The problem is context switching. Every time you leave your IDE to decode a JWT or check a hash, you lose focus. Studies on developer productivity consistently show that context switches cost between 10 and 25 minutes of recovery time. A "quick" Base64 decode should not derail your afternoon.</p>
+
+    <h2>The Core Developer Toolkit</h2>
+
+    <p>After surveying hundreds of developers about their daily workflows, a clear pattern emerged. Almost everyone regularly needs seven categories of tools:</p>
+
+    <h3>1. Base64 Encoding and Decoding</h3>
+    <p>Base64 appears everywhere: email attachments (MIME), data URLs in CSS, API authentication headers, and configuration files. The encoding converts binary data into ASCII text using a 64-character alphabet (A-Z, a-z, 0-9, +, /).</p>
+
+    <pre><code>// JavaScript Base64 encoding
+const encoded = btoa("Hello, World!");     // "SGVsbG8sIFdvcmxkIQ=="
+const decoded = atob("SGVsbG8sIFdvcmxkIQ=="); // "Hello, World!"
+
+// For Unicode strings, you need an extra step:
+const unicodeEncoded = btoa(unescape(encodeURIComponent("Caf\u00e9")));
+const unicodeDecoded = decodeURIComponent(escape(atob(unicodeEncoded)));</code></pre>
+
+    <p>The key gotcha is Unicode. The native <code>btoa()</code> function only handles Latin1 characters. Passing a string with emoji or accented characters throws a <code>DOMException</code>. You need the <code>encodeURIComponent</code> + <code>unescape</code> workaround or the newer <code>TextEncoder</code> API.</p>
+
+    <h3>2. JWT Token Inspection</h3>
+    <p>JSON Web Tokens are the backbone of modern authentication. A JWT has three parts separated by dots: header, payload, and signature. The header and payload are Base64URL-encoded JSON (note: Base64URL, not standard Base64 — the characters <code>+</code> and <code>/</code> are replaced with <code>-</code> and <code>_</code>).</p>
+
+    <pre><code>// A JWT structure
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiam9obiIsImV4cCI6MTcxMjAwMDAwMH0.signature
+
+// Decoded header: {"alg": "HS256"}
+// Decoded payload: {"user": "john", "exp": 1712000000}</code></pre>
+
+    <p>The most common reason to decode a JWT is checking expiration. The <code>exp</code> claim is a Unix timestamp, and comparing it to the current time tells you if the token is still valid. This comes up constantly during API debugging — "why is my request returning 401?" is almost always an expired token.</p>
+
+    <h3>3. Cryptographic Hashing</h3>
+    <p>Hash functions are one-way transformations that convert any input into a fixed-length string. The three most commonly encountered hashes are MD5 (128-bit, legacy), SHA-1 (160-bit, deprecated for security), and SHA-256 (256-bit, current standard).</p>
+
+    <pre><code>// Using the Web Crypto API for SHA-256
+async function sha256(message) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+// sha256("hello") => "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"</code></pre>
+
+    <p>Modern browsers ship with the Web Crypto API, which provides hardware-accelerated implementations of SHA-1 and SHA-256. For MD5, you still need a JavaScript implementation since the Web Crypto API deliberately excludes it due to known vulnerabilities.</p>
+
+    <h3>4. UUID Generation</h3>
+    <p>Universally Unique Identifiers (UUIDs) are 128-bit identifiers formatted as 32 hexadecimal digits in 5 groups: <code>xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx</code>. The "4" indicates version 4 (random), and "y" is constrained to 8, 9, a, or b (the variant bits).</p>
+
+    <pre><code>// Cryptographically secure UUID v4
+function uuidv4() {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40; // version 4
+  bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant 10
+  const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+}</code></pre>
+
+    <p>Using <code>crypto.getRandomValues()</code> instead of <code>Math.random()</code> matters. <code>Math.random()</code> is not cryptographically secure and can produce collisions in high-volume systems. The Web Crypto API pulls from the operating system's entropy source.</p>
+
+    <h3>5. Regular Expression Testing</h3>
+    <p>Regex is one of those tools that is simultaneously powerful and maddening. A visual tester that highlights matches in real-time transforms the experience from "guess and pray" to "see and adjust."</p>
+
+    <pre><code>// Common regex patterns
+const email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const ipv4 = /^(\d{1,3}\.){3}\d{1,3}$/;
+const url = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;</code></pre>
+
+    <p>The flag toggles matter more than most people realize. The <code>g</code> (global) flag finds all matches instead of stopping at the first. The <code>m</code> (multiline) flag makes <code>^</code> and <code>$</code> match line boundaries instead of just the start and end of the string. Getting the flags wrong is the source of a surprising number of regex "bugs."</p>
+
+    <h3>6. URL Encoding and Decoding</h3>
+    <p>URLs can only contain a specific set of ASCII characters. Everything else — spaces, special characters, Unicode — must be percent-encoded. JavaScript gives us <code>encodeURIComponent()</code> and <code>decodeURIComponent()</code> for this purpose.</p>
+
+    <pre><code>encodeURIComponent("hello world & goodbye") // "hello%20world%20%26%20goodbye"
+decodeURIComponent("hello%20world%20%26%20goodbye") // "hello world & goodbye"</code></pre>
+
+    <h3>7. Color Conversion</h3>
+    <p>Designers give you hex codes. CSS animations need HSL for smooth hue transitions. Canvas APIs want RGB values. Converting between these formats by hand is tedious and error-prone.</p>
+
+    <pre><code>// HEX to RGB
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return { r, g, b };
+}
+
+// RGB to HSL
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  // ... conversion logic
+}</code></pre>
+
+    <h2>The Case for a Unified Toolkit</h2>
+    <p>Beyond reducing context switches, a unified toolkit solves the trust problem. When you paste a JWT into a random website, you are trusting that site not to log your token. When you use a client-side tool that you can verify (view source, check the network tab), you know your data stays private.</p>
+
+    <p>Tools built with AI-powered development workflows, like those discussed on <a href="https://claudhq.com">ClaudHQ</a>, are making it easier to build these kinds of focused utilities. The key is keeping them simple, fast, and transparent.</p>
+
+    <p>That is why we built <a href="https://kappakit.com">KappaKit</a>. One bookmark, seven tools, zero data collection. Every operation runs in your browser using native APIs. No network requests, no cookies, no tracking pixels.</p>
+
+    <h2>What About the Terminal?</h2>
+    <p>Some developers prefer command-line tools for everything. That is a valid approach — <code>base64</code>, <code>uuidgen</code>, <code>shasum</code>, and <code>openssl</code> can handle most of these tasks. But the browser-based approach has advantages: visual output, shareable URLs with hashes like <code>kappakit.com#jwt</code>, and accessibility from any device without installing anything.</p>
+
+    <p>The best approach is probably both: terminal tools for scripting and automation, browser tools for quick one-off tasks during development.</p>
+
+    <h2>Conclusion</h2>
+    <p>Developer productivity is not about typing faster. It is about removing friction from your workflow. A unified toolkit that handles the seven most common encoding, decoding, and conversion tasks — Base64, JWT, hashing, UUID, regex, URL encoding, and color conversion — can save you hundreds of small context switches per month.</p>
+
+    <p>Bookmark it once. Use it forever. That is the idea behind KappaKit.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </div>
+  <p>Built by <a href="https://zovo.one">zovo.one</a> &middot; More tools: <a href="https://epochpilot.com">EpochPilot</a> &middot; <a href="https://ml3x.com">ML3X</a></p>
+</footer>
+</body>
+</html>

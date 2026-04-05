@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWT Tokens Demystified: Structure, Security, and Common Mistakes — KappaKit</title>
+<meta name="description" content="A deep dive into JSON Web Tokens: how JWTs work, their three-part structure, security best practices, and the most common mistakes developers make.">
+<link rel="canonical" href="https://kappakit.com/blog/post-2.html">
+<meta property="og:title" content="JWT Tokens Demystified: Structure, Security, and Common Mistakes">
+<meta property="og:description" content="Learn how JWTs work, their three-part structure, and the security pitfalls most developers overlook.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <h1>JWT Tokens Demystified: Structure, Security, and Common Mistakes</h1>
+    <div class="blog-meta">March 18, 2025 &middot; 10 min read</div>
+
+    <p>JSON Web Tokens (JWTs) have become the de facto standard for API authentication. They appear in OAuth 2.0 flows, single sign-on systems, and microservice architectures. Yet despite their ubiquity, many developers treat JWTs as opaque blobs — copy-paste them into headers and hope for the best.</p>
+
+    <p>This guide breaks down exactly how JWTs work, the security model they rely on, and the mistakes that lead to vulnerabilities. If you work with APIs, this is foundational knowledge.</p>
+
+    <h2>The Three-Part Structure</h2>
+
+    <p>A JWT is a string with three Base64URL-encoded sections separated by dots:</p>
+
+    <pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+|_____________HEADER_____________|._________________PAYLOAD__________________|.___________SIGNATURE___________|</code></pre>
+
+    <h3>Header</h3>
+    <p>The header declares the token type and the signing algorithm. The two most common algorithms are:</p>
+    <ul>
+      <li><strong>HS256</strong> — HMAC with SHA-256. Symmetric: the same secret key signs and verifies.</li>
+      <li><strong>RS256</strong> — RSA with SHA-256. Asymmetric: a private key signs, a public key verifies.</li>
+    </ul>
+
+    <pre><code>{
+  "alg": "HS256",
+  "typ": "JWT"
+}</code></pre>
+
+    <h3>Payload (Claims)</h3>
+    <p>The payload contains claims — statements about the user and metadata. There are three types of claims:</p>
+
+    <p><strong>Registered claims</strong> are standardized by RFC 7519:</p>
+    <ul>
+      <li><code>iss</code> (Issuer) — Who created the token</li>
+      <li><code>sub</code> (Subject) — Who the token is about (usually a user ID)</li>
+      <li><code>aud</code> (Audience) — Who the token is intended for</li>
+      <li><code>exp</code> (Expiration) — Unix timestamp when the token expires</li>
+      <li><code>iat</code> (Issued At) — Unix timestamp when the token was created</li>
+      <li><code>nbf</code> (Not Before) — Token is not valid before this time</li>
+      <li><code>jti</code> (JWT ID) — Unique identifier for the token</li>
+    </ul>
+
+    <pre><code>{
+  "sub": "user_123",
+  "name": "Jane Developer",
+  "role": "admin",
+  "iat": 1712000000,
+  "exp": 1712086400
+}</code></pre>
+
+    <p><strong>Public claims</strong> are defined by the application (like <code>name</code> and <code>role</code> above). <strong>Private claims</strong> are custom claims agreed upon between parties.</p>
+
+    <h3>Signature</h3>
+    <p>The signature is computed over the header and payload:</p>
+
+    <pre><code>HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret
+)</code></pre>
+
+    <p>The signature ensures integrity (the payload has not been tampered with) and authenticity (the token was issued by someone who knows the secret). It does <em>not</em> provide encryption — the payload is only Base64-encoded, not encrypted. Anyone can read it.</p>
+
+    <h2>How JWT Authentication Works</h2>
+
+    <p>The typical flow looks like this:</p>
+    <ol>
+      <li>User sends credentials (username/password) to the authentication server.</li>
+      <li>Server validates credentials and creates a JWT signed with a secret key.</li>
+      <li>Server returns the JWT to the client.</li>
+      <li>Client stores the JWT (usually in memory or an HTTP-only cookie).</li>
+      <li>Client sends the JWT with each API request in the <code>Authorization: Bearer &lt;token&gt;</code> header.</li>
+      <li>API server validates the signature and checks claims (expiration, audience, etc.).</li>
+    </ol>
+
+    <p>The key advantage over session-based authentication is that the server does not need to store session state. The JWT is self-contained — all the information needed to validate it is in the token itself (plus the secret key). This makes JWTs particularly useful in distributed systems where you do not want to share session stores across services.</p>
+
+    <h2>Base64URL vs Base64</h2>
+
+    <p>JWTs use Base64URL encoding, not standard Base64. The differences are small but important:</p>
+    <ul>
+      <li><code>+</code> is replaced with <code>-</code></li>
+      <li><code>/</code> is replaced with <code>_</code></li>
+      <li>Padding (<code>=</code>) is removed</li>
+    </ul>
+
+    <pre><code>// Decoding Base64URL in JavaScript
+function base64UrlDecode(str) {
+  str = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (str.length % 4) str += '=';
+  return atob(str);
+}</code></pre>
+
+    <p>This matters when you are building your own JWT decoder. Using standard <code>atob()</code> directly on a JWT segment will sometimes work (when there happen to be no <code>-</code> or <code>_</code> characters) and sometimes fail — leading to intermittent bugs that are painful to debug.</p>
+
+    <h2>Security Pitfalls and Common Mistakes</h2>
+
+    <h3>Mistake 1: Storing JWTs in localStorage</h3>
+    <p>The <code>localStorage</code> API is accessible to any JavaScript running on your domain. If an attacker achieves XSS (Cross-Site Scripting), they can steal the token with a single line: <code>localStorage.getItem('token')</code>.</p>
+    <p><strong>Better approach:</strong> Store JWTs in HTTP-only cookies with the <code>Secure</code> and <code>SameSite</code> flags. This makes them inaccessible to JavaScript.</p>
+
+    <h3>Mistake 2: Not Validating the Algorithm</h3>
+    <p>The <code>alg</code> field in the header tells the server which algorithm to use for verification. A classic attack changes <code>alg</code> to <code>"none"</code>, which some libraries accept without checking the signature at all.</p>
+    <p><strong>Better approach:</strong> Always hardcode the expected algorithm on the server side. Never trust the <code>alg</code> header from the token.</p>
+
+    <h3>Mistake 3: Using Weak Secrets</h3>
+    <p>For HS256, the secret key must be at least 256 bits (32 bytes) of cryptographically random data. Secrets like <code>"my-secret"</code> or <code>"password123"</code> can be brute-forced in minutes.</p>
+
+    <pre><code># Generate a proper secret
+openssl rand -base64 32
+# Example output: dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk</code></pre>
+
+    <h3>Mistake 4: No Expiration or Long Expiration</h3>
+    <p>JWTs without an <code>exp</code> claim are valid forever. JWTs with a 30-day expiration are valid for 30 days even if the user's account is compromised. There is no built-in revocation mechanism.</p>
+    <p><strong>Better approach:</strong> Short-lived access tokens (5-15 minutes) paired with longer-lived refresh tokens stored in HTTP-only cookies. This limits the damage window of a stolen token.</p>
+
+    <h3>Mistake 5: Putting Sensitive Data in the Payload</h3>
+    <p>Remember: the payload is only encoded, not encrypted. Do not put passwords, credit card numbers, or other secrets in JWTs. Anyone who intercepts the token can decode the payload trivially — you can do it yourself right now with our <a href="https://kappakit.com/#jwt">JWT Decoder</a>.</p>
+
+    <h2>Debugging JWTs in Practice</h2>
+
+    <p>When you hit a 401 error with JWT authentication, here is a systematic debugging checklist:</p>
+    <ol>
+      <li><strong>Decode the token</strong> — Check the payload for an <code>exp</code> claim and compare it to the current Unix timestamp. This is the most common issue.</li>
+      <li><strong>Check the audience</strong> — If the API validates the <code>aud</code> claim, make sure the token was issued for the correct audience.</li>
+      <li><strong>Verify the issuer</strong> — In multi-service architectures, the <code>iss</code> claim must match what the API expects.</li>
+      <li><strong>Inspect the header</strong> — Confirm the algorithm matches what the server expects.</li>
+      <li><strong>Check clock skew</strong> — If the token was issued by a different server, clock differences can cause <code>nbf</code> (not before) validation to fail.</li>
+    </ol>
+
+    <p>For teams working with machine learning APIs and model serving, JWT authentication is especially common. Platforms like those discussed on <a href="https://heytensor.com">HeyTensor</a> and <a href="https://zovo.one">Zovo</a> frequently use JWTs to secure model endpoints, making token debugging a daily skill for ML engineers.</p>
+
+    <h2>JWTs vs Session Tokens</h2>
+
+    <p>JWTs are not always the right choice. Here is a quick comparison:</p>
+
+    <p><strong>Use JWTs when:</strong></p>
+    <ul>
+      <li>You have a distributed system with multiple services</li>
+      <li>You need stateless authentication</li>
+      <li>You want to embed user claims in the token</li>
+      <li>You are building an API consumed by third parties</li>
+    </ul>
+
+    <p><strong>Use sessions when:</strong></p>
+    <ul>
+      <li>You need instant revocation (logout, account ban)</li>
+      <li>You have a monolithic application</li>
+      <li>You do not want token size growing with claims</li>
+      <li>You need to track active sessions</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>JWTs are a powerful tool, but they require understanding. The three-part structure (header, payload, signature) is elegant in its simplicity. The security model is sound when implemented correctly. The common mistakes — localStorage storage, missing algorithm validation, weak secrets, long expirations, and sensitive data in payloads — are all avoidable with awareness.</p>
+
+    <p>Next time you encounter a JWT, decode it. Look at the header. Check the claims. Understand what you are working with instead of treating it as a magic string. Your debugging sessions will be shorter and your applications will be more secure.</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+  </div>
+  <p>Built by <a href="https://zovo.one">zovo.one</a> &middot; More tools: <a href="https://epochpilot.com">EpochPilot</a> &middot; <a href="https://ml3x.com">ML3X</a></p>
+</footer>
+</body>
+</html>
