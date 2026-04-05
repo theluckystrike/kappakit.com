@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Modular AI Development — KappaKit</title>
+    <meta name="description" content="A practical guide to adopting modular AI development practices, from designing your first reusable component to assembling complete ML pipelines.">
+    <meta name="keywords" content="modular AI getting started, reusable ML components tutorial, AI pipeline development, composable AI beginner guide">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Getting Started with Modular AI Development — KappaKit">
+    <meta property="og:description" content="A practical guide to adopting modular AI development practices.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kappakit.com/blog/getting-started">
+    <link rel="canonical" href="https://kappakit.com/blog/getting-started">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>* { font-family: 'Inter', sans-serif; } html { scroll-behavior: smooth; }</style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Getting Started with Modular AI Development","url":"https://kappakit.com/blog/getting-started","publisher":{"@type":"Organization","name":"KappaKit","url":"https://kappakit.com"}}
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-gradient-to-r from-rose-600 to-pink-500 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="text-white text-2xl font-bold tracking-tight">KappaKit</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-rose-100 hover:text-white transition">Home</a>
+                    <a href="/guides" class="text-rose-100 hover:text-white transition">Guides</a>
+                    <a href="/tools" class="text-rose-100 hover:text-white transition">Tools</a>
+                    <a href="/blog/getting-started" class="text-white font-semibold transition">Blog</a>
+                    <a href="/about" class="text-rose-100 hover:text-white transition">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <header class="mb-12">
+            <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Getting Started</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">Getting Started with Modular AI Development</h1>
+            <p class="text-xl text-gray-500">Build your first reusable AI component and learn the principles that make modular ML development effective.</p>
+        </header>
+        <div class="prose prose-lg max-w-none text-gray-600">
+            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Why Modular AI?</h2>
+            <p>Every AI team has experienced the frustration of rebuilding the same infrastructure for each new project. Data loading, preprocessing, feature engineering, model training, evaluation, and serving are required for every ML application, yet each project implements them slightly differently. This duplication wastes engineering time, introduces inconsistencies, and makes it harder to maintain and improve systems over time. Modular AI development addresses this problem by treating each pipeline stage as an independent, reusable component with a well-defined interface.</p>
+            <p>The benefits of modularity compound over time. The first project that adopts modular practices invests extra effort in defining interfaces and abstracting configuration. But the second project reuses those components and moves faster. By the fifth project, the team has a rich library of battle-tested components that can be assembled into new pipelines in hours rather than weeks. The organizational value of this component library far exceeds the value of any individual model.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Your First Component: A Data Validator</h2>
+            <p>The best place to start with modular AI development is a data validation component. Data quality issues are the most common source of model failures, and a reusable validator that catches problems early saves debugging time across every project. Here is a minimal implementation using Pydantic and Pandera:</p>
+            <pre class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto"><code>import pandera as pa
+from pydantic import BaseModel
+from typing import Dict, List
+
+class DataValidatorConfig(BaseModel):
+    """Configuration for the data validation component."""
+    schema_checks: Dict[str, str]  # column -> expected dtype
+    nullable_columns: List[str] = []
+    min_rows: int = 1
+
+class DataValidator:
+    def __init__(self, config: DataValidatorConfig):
+        self.config = config
+        self._build_schema()
+
+    def _build_schema(self):
+        columns = {}
+        for col, dtype in self.config.schema_checks.items():
+            nullable = col in self.config.nullable_columns
+            columns[col] = pa.Column(dtype, nullable=nullable)
+        self.schema = pa.DataFrameSchema(columns)
+
+    def validate(self, df):
+        """Validate dataframe and return validated result."""
+        self.schema.validate(df)
+        if len(df) < self.config.min_rows:
+            raise ValueError(f"Expected >= {self.config.min_rows} rows")
+        return df</code></pre>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Composing Components into Pipelines</h2>
+            <p>Once you have individual components, the next step is composing them into pipelines. A pipeline is simply an ordered sequence of components where the output of each component feeds into the input of the next. The key design decision is whether to use a framework like ZenML or Kedro for pipeline orchestration, or to build a lightweight composition layer yourself. For teams just starting with modular AI, a simple Python class that chains components is often sufficient:</p>
+            <pre class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto"><code>class Pipeline:
+    def __init__(self, components):
+        self.components = components
+
+    def run(self, data):
+        result = data
+        for component in self.components:
+            result = component.process(result)
+        return result
+
+# Usage
+pipeline = Pipeline([
+    DataValidator(validator_config),
+    FeatureExtractor(feature_config),
+    ModelPredictor(model_config),
+])
+predictions = pipeline.run(raw_data)</code></pre>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Testing Modular Components</h2>
+            <p>One of the greatest advantages of modular AI development is testability. Each component can be unit tested in isolation with known inputs and expected outputs, without requiring the full pipeline to be assembled. Write tests that verify correct behavior for normal inputs, edge cases, and error conditions. Test that components reject invalid inputs with clear error messages rather than silently producing wrong results. Integration tests that verify the full pipeline produces correct end-to-end results complement unit tests but should not replace them.</p>
+            <p>Property-based testing is particularly effective for AI components. Instead of writing specific test cases, define properties that should hold for any valid input, and let a library like <a href="https://hypothesis.readthedocs.io/" class="text-rose-600 hover:text-rose-800 underline">Hypothesis</a> generate random test inputs that verify those properties. For a preprocessing component, properties might include output shape matches expected dimensions, no NaN values in output when input has no NaN values, and output values fall within expected ranges after normalization.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Building Your Component Library</h2>
+            <p>As you build more components, organize them into a shared library with consistent naming conventions, documentation standards, and versioning practices. Each component should include a README that describes its purpose, configuration options, input/output schemas, and usage examples. Version your component library using semantic versioning so that downstream pipelines can pin to specific versions and upgrade deliberately. For teams managing automation alongside their AI components, <a href="https://invokebot.com" class="text-rose-600 hover:text-rose-800 underline">InvokeBot</a> provides complementary resources on orchestrating component-based workflows.</p>
+            <p>Invest in component discoverability. A searchable registry or catalog that lists available components with their interfaces, performance characteristics, and usage statistics helps team members find and reuse existing components rather than building new ones. This cultural shift from building to composing is the ultimate goal of modular AI development, and it requires both good tooling and intentional team practices to sustain.</p>
+        </div>
+    </article>
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-white text-xl font-bold mb-4 md:mb-0">KappaKit</div>
+                <div class="flex space-x-8 mb-4 md:mb-0">
+                    <a href="/" class="hover:text-white transition">Home</a>
+                    <a href="/guides" class="hover:text-white transition">Guides</a>
+                    <a href="/tools" class="hover:text-white transition">Tools</a>
+                    <a href="/blog/getting-started" class="hover:text-white transition">Blog</a>
+                    <a href="/about" class="hover:text-white transition">About</a>
+                </div>
+                <p class="text-sm">&copy; 2025 KappaKit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KappaKit — Guides</title>
+    <meta name="description" content="Comprehensive guides on building modular AI components, composable ML pipelines, and reusable building blocks for production AI applications.">
+    <meta name="keywords" content="AI components guide, modular ML development, composable AI pipelines, reusable AI modules, AI SDK tutorial">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="KappaKit — Guides">
+    <meta property="og:description" content="Comprehensive guides on building modular AI components and composable ML pipelines.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kappakit.com/guides">
+    <link rel="canonical" href="https://kappakit.com/guides">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>* { font-family: 'Inter', sans-serif; } html { scroll-behavior: smooth; }</style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebPage","name":"KappaKit — Guides","url":"https://kappakit.com/guides","description":"Guides on building modular AI components and composable ML pipelines.","isPartOf":{"@type":"WebSite","name":"KappaKit","url":"https://kappakit.com"}}
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-gradient-to-r from-rose-600 to-pink-500 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="/" class="text-white text-2xl font-bold tracking-tight">KappaKit</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-rose-100 hover:text-white transition">Home</a>
+                    <a href="/guides" class="text-white font-semibold transition">Guides</a>
+                    <a href="/tools" class="text-rose-100 hover:text-white transition">Tools</a>
+                    <a href="/blog/getting-started" class="text-rose-100 hover:text-white transition">Blog</a>
+                    <a href="/about" class="text-rose-100 hover:text-white transition">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <header class="bg-gradient-to-br from-rose-600 via-rose-500 to-pink-400 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Component Development Guides</h1>
+            <p class="text-xl text-rose-100 max-w-2xl">Step-by-step guides for designing, building, and composing modular AI components for production systems.</p>
+        </div>
+    </header>
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <article>
+            <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Architecture</span>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Designing Type-Safe AI Component Interfaces</h2>
+            <div class="prose prose-lg max-w-none text-gray-600 space-y-4">
+                <p>The foundation of any modular AI system is well-defined component interfaces. When an embedding generator component feeds into a vector search component, both sides must agree on the exact shape, type, and semantics of the data being exchanged. Without this contract, integrating components becomes a brittle process of trial and error, and silent type mismatches can produce incorrect results that are difficult to debug. Type-safe interfaces bring the same reliability guarantees to AI pipelines that typed APIs bring to web services.</p>
+                <p>In Python, libraries like <a href="https://docs.pydantic.dev/" class="text-rose-600 hover:text-rose-800 underline">Pydantic</a> provide the tools to define strict data schemas for component inputs and outputs. Each component declares its input model and output model as Pydantic classes with field types, validators, and default values. At runtime, inputs are validated automatically before the component processes them, and outputs are validated before being passed to downstream components. This validation catches integration errors immediately with clear error messages, rather than allowing bad data to propagate through the pipeline and produce mysterious failures at the final stage.</p>
+                <p>Beyond type safety, component interfaces should encode semantic constraints that pure type checking cannot capture. A preprocessing component might output feature vectors that are L2-normalized, and the downstream similarity search component might depend on this normalization for correct results. Documenting these semantic contracts through component metadata, and optionally enforcing them through runtime assertions, prevents subtle correctness bugs that arise when components are composed in new combinations. Teams at <a href="https://claudhq.com" class="text-rose-600 hover:text-rose-800 underline">ClaudHQ</a> have developed excellent patterns for encoding semantic contracts into component metadata schemas.</p>
+            </div>
+            <div class="mt-6 bg-rose-50 border-l-4 border-rose-500 p-6 rounded-r-lg">
+                <h4 class="font-semibold text-rose-800 mb-2">Key Takeaway</h4>
+                <p class="text-rose-700">Type-safe interfaces using Pydantic models catch integration errors early and make AI pipelines reliable. Encode semantic constraints beyond types to prevent subtle correctness bugs when composing components.</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <article>
+                <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Data Pipelines</span>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Building Reusable Data Preprocessing Components</h2>
+                <div class="prose prose-lg max-w-none text-gray-600 space-y-4">
+                    <p>Data preprocessing consumes a disproportionate amount of engineering time in AI projects, and the resulting code is often the least reusable. A preprocessing script written for one project typically hardcodes column names, transformation logic, and output formats specific to that project's dataset. Refactoring preprocessing into reusable components requires abstracting these specifics into configuration while keeping the transformation logic generic. The result is a library of preprocessing blocks that can be composed into pipelines for any dataset.</p>
+                    <p>A well-designed preprocessing component accepts a declarative configuration that specifies which input columns to process, what transformations to apply, and what output format to produce. For numerical features, common transformations include standardization, min-max scaling, log transformation, and binning. For categorical features, transformations include one-hot encoding, target encoding, and frequency encoding. For text features, transformations include tokenization, TF-IDF vectorization, and embedding generation. Each transformation is implemented as an independent, testable function that can be composed into a preprocessing pipeline through configuration. The <a href="https://zovo.one" rel="dofollow" class="text-rose-600 font-semibold hover:text-rose-800 underline">zovo.one</a> platform provides additional resources for teams designing composable data processing architectures.</p>
+                    <p>The critical requirement for preprocessing components is consistency between training and serving. A model trained on standardized features will produce garbage predictions if the serving pipeline applies a different standardization (for example, using different mean and standard deviation values). Preprocessing components must support a fit-transform pattern where statistics are computed during training, persisted as artifacts, and applied identically during inference. Storing these artifacts alongside the model in a model registry ensures that preprocessing and model versions are always synchronized.</p>
+                </div>
+                <div class="mt-6 bg-rose-50 border-l-4 border-rose-500 p-6 rounded-r-lg">
+                    <h4 class="font-semibold text-rose-800 mb-2">Key Takeaway</h4>
+                    <p class="text-rose-700">Abstract preprocessing logic into configuration-driven components with a fit-transform pattern that ensures consistency between training and serving environments.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <article>
+            <span class="inline-block bg-rose-100 text-rose-700 text-sm font-medium px-3 py-1 rounded-full mb-4">Evaluation</span>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Creating Standardized Model Evaluation Components</h2>
+            <div class="prose prose-lg max-w-none text-gray-600 space-y-4">
+                <p>Model evaluation in production AI systems requires more than computing a single accuracy number. A comprehensive evaluation component should assess model performance across multiple dimensions: overall accuracy, performance on critical data slices, latency characteristics, fairness metrics across demographic groups, and robustness to input perturbations. Standardizing this evaluation into a reusable component ensures that every model in your organization is assessed against the same quality bar before deployment.</p>
+                <p>Slice-based evaluation is particularly important for catching problems that aggregate metrics hide. A fraud detection model with 99 percent overall accuracy might have only 70 percent accuracy on transactions from a specific region or merchant category. An evaluation component that automatically tests performance across predefined data slices reveals these weaknesses before they impact users. The slicing strategy should be defined in configuration and should include both business-relevant segments (customer tiers, product categories) and technical segments (input length ranges, feature value distributions).</p>
+                <p>Regression testing for model updates prevents accidental quality degradation. When a new model version is trained, the evaluation component should compare its performance against the current production model on a fixed benchmark dataset. The comparison should flag any statistically significant regressions in overall metrics or on specific slices, and the deployment pipeline should block rollout until regressions are investigated and resolved. This automated quality gate is essential for teams that retrain models frequently, as manual evaluation does not scale with model update velocity. Teams working on ML security can also benefit from the model protection strategies documented at <a href="https://lockml.com" class="text-rose-600 hover:text-rose-800 underline">LockML</a>.</p>
+            </div>
+            <div class="mt-6 bg-rose-50 border-l-4 border-rose-500 p-6 rounded-r-lg">
+                <h4 class="font-semibold text-rose-800 mb-2">Key Takeaway</h4>
+                <p class="text-rose-700">Standardize evaluation into reusable components that test across data slices, enforce regression gates on model updates, and assess fairness and robustness beyond aggregate accuracy.</p>
+            </div>
+        </article>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-white text-xl font-bold mb-4 md:mb-0">KappaKit</div>
+                <div class="flex space-x-8 mb-4 md:mb-0">
+                    <a href="/" class="hover:text-white transition">Home</a>
+                    <a href="/guides" class="hover:text-white transition">Guides</a>
+                    <a href="/tools" class="hover:text-white transition">Tools</a>
+                    <a href="/blog/getting-started" class="hover:text-white transition">Blog</a>
+                    <a href="/about" class="hover:text-white transition">About</a>
+                </div>
+                <p class="text-sm">&copy; 2025 KappaKit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
