@@ -7,18 +7,25 @@
 <meta name="description" content="All-in-one developer toolkit: Base64 encoder/decoder, JWT decoder, hash generator, UUID generator, regex tester, URL encoder, and color converter. Free, fast, runs in your browser.">
 <meta name="keywords" content="developer tools, base64 encoder, jwt decoder, hash generator, uuid generator, regex tester, url encoder, color converter">
 <link rel="canonical" href="https://kappakit.com/">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/">
     <link rel="alternate" type="application/atom+xml" title="KappaKit — Developer Toolkit Blog Feed" href="/blog/feed.xml">
-<meta property="og:title" content="KappaKit — Developer Toolkit">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KappaKit — Developer Toolkit | Base64, JWT, Hash, UUID, Regex & More">
 <meta property="og:description" content="All-in-one developer toolkit with Base64, JWT, Hash, UUID, Regex, URL encoding, and Color conversion. Free and runs entirely in your browser.">
 <meta property="og:url" content="https://kappakit.com/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="Zovo Tools">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KappaKit — Developer Toolkit | Base64, JWT, Hash, UUID, Regex & More">
+<meta name="twitter:description" content="All-in-one developer toolkit with Base64, JWT, Hash, UUID, Regex, URL encoding, and Color conversion. Free and runs entirely in your browser.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
 <link rel="stylesheet" href="/assets/style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "KappaKit — Developer Toolkit | Base64, JWT, Hash, UUID, Regex & More",
+  "name": "KappaKit — Developer Toolkit",
   "url": "https://kappakit.com/",
   "description": "All-in-one developer toolkit: Base64 encoder/decoder, JWT decoder, hash generator, UUID generator, regex tester, URL encoder, and color converter. Free, fast, runs in your browser.",
   "applicationCategory": "DeveloperApplication",
@@ -30,8 +37,68 @@
   },
   "author": {
     "@type": "Person",
-    "name": "Zovo"
-  }
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-05",
+  "dateModified": "2026-04-06",
+  "featureList": ["Base64 Encoder/Decoder", "JWT Token Decoder", "SHA-256/MD5 Hash Generator", "UUID v4 Generator", "Regex Tester with Flag Toggles", "URL Encoder/Decoder", "HEX/RGB/HSL Color Converter"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I encode text to Base64 online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your text into the KappaKit Base64 tool and click Encode. The tool converts your input to Base64 using the browser's native btoa() function with full Unicode support. No data is sent to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I decode a JWT token?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your JWT into KappaKit's JWT Decoder tab. It splits the token into its three parts (header, payload, signature), Base64URL-decodes the header and payload, and displays the JSON contents including expiration time and claims."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What hash algorithms does KappaKit support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KappaKit generates MD5, SHA-1, and SHA-256 hashes simultaneously. SHA-1 and SHA-256 use the browser's Web Crypto API for hardware-accelerated performance. MD5 uses a JavaScript implementation since the Web Crypto API excludes it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to paste my JWT token into an online decoder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KappaKit runs entirely in your browser with zero server requests. Your JWT token never leaves your machine. You can verify this by opening the browser's Network tab while using the tool — no outbound requests are made."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I generate a UUID v4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click the UUID Generator tab in KappaKit and hit Generate. The tool uses crypto.getRandomValues() for cryptographically secure random UUIDs. You can generate up to 100 UUIDs at once and copy them with one click."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I test regular expressions with flag toggles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. KappaKit's Regex Tester lets you toggle global (g), case-insensitive (i), and multiline (m) flags independently. It highlights all matches in real-time and shows a match count, making it easy to debug complex patterns."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -53,6 +120,7 @@
   <div class="hero">
     <h1>Developer Toolkit</h1>
     <p>Seven essential tools in one page. No signups, no tracking, runs entirely in your browser.</p>
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a></p>
   </div>
 
   <div class="tabs" role="tablist">
@@ -193,6 +261,66 @@
       <div class="color-swatch" id="color-swatch"></div>
     </div>
   </div>
+
+  <div class="last-updated"><time datetime="2026-04-06">Last updated: April 6, 2026</time></div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>How do I encode text to Base64 online?</summary>
+      <p>Paste your text into the KappaKit Base64 tool and click Encode. The developer toolkit converts your input to Base64 using the browser's native btoa() function with full Unicode support. No data is sent to any server — everything runs client-side.</p>
+    </details>
+
+    <details>
+      <summary>How do I decode a JWT token without sending it to a server?</summary>
+      <p>Use the JWT Decoder tab in KappaKit. Paste your token and it splits the three parts (header, payload, signature), Base64URL-decodes them, and displays the JSON contents including expiration time and claims. Your token never leaves your browser.</p>
+    </details>
+
+    <details>
+      <summary>What hash algorithms does KappaKit support?</summary>
+      <p>KappaKit generates MD5, SHA-1, and SHA-256 hashes simultaneously from any input text. SHA-1 and SHA-256 use the Web Crypto API for hardware-accelerated speed. MD5 uses a JavaScript implementation since the Web Crypto API deliberately excludes it.</p>
+    </details>
+
+    <details>
+      <summary>Is it safe to paste sensitive data into KappaKit?</summary>
+      <p>Yes. KappaKit is a fully client-side developer toolkit — no data ever leaves your browser. There are zero network requests, no cookies, and no tracking pixels. You can verify this by checking the Network tab in your browser's dev tools.</p>
+    </details>
+
+    <details>
+      <summary>How does the UUID v4 generator work?</summary>
+      <p>KappaKit uses crypto.getRandomValues() to generate cryptographically secure random UUIDs following the RFC 4122 v4 specification. This is safer than Math.random()-based generators. You can generate up to 100 UUIDs at once and copy them all with one click.</p>
+    </details>
+
+    <details>
+      <summary>Can I test regular expressions with different flags?</summary>
+      <p>Yes. The regex tester lets you toggle global (g), case-insensitive (i), and multiline (m) flags independently. It highlights all matches in real-time and shows a total match count, making it easy to debug complex patterns before using them in your code.</p>
+    </details>
+  </section>
+
+  <!-- How It Works Explainer Section -->
+  <section class="explainer-section" style="max-width:720px;margin:2rem auto;line-height:1.7;">
+    <h2>How KappaKit Works</h2>
+
+    <p>KappaKit is a free, browser-based developer toolkit that brings seven essential encoding, decoding, and conversion tools into a single page. Instead of juggling bookmarks across a dozen different utility sites, you open one URL and get instant access to Base64 encoding, JWT decoding, cryptographic hashing, UUID generation, regex testing, URL encoding, and color conversion. Every operation executes entirely in your browser using native Web APIs — there are no server calls, no user accounts, and no data collection of any kind.</p>
+
+    <p>The toolkit is built with static HTML, CSS, and vanilla JavaScript. There are no frameworks, no build tools, and no third-party dependencies. This means the page loads in under a second on any connection and works offline once cached. The Base64 encoder handles full Unicode text using the TextEncoder API, the hash generator leverages the Web Crypto API for hardware-accelerated SHA-256 computation, and the UUID generator uses crypto.getRandomValues() for true cryptographic randomness.</p>
+
+    <p>Each tool is designed to solve a specific problem that developers encounter daily. The JWT decoder parses the three-part token structure and displays the header, payload, and expiration status — making it invaluable for debugging authentication issues. The regex tester provides real-time match highlighting with flag toggles, so you can iterate on patterns without switching contexts. The color converter handles instant bidirectional conversion between HEX, RGB, and HSL formats with a live preview swatch.</p>
+
+    <h3>Features</h3>
+    <p>KappaKit includes a Base64 encoder and decoder with full Unicode support, a JWT token decoder that parses headers, payloads, and expiration claims, a hash generator producing MD5, SHA-1, and SHA-256 digests simultaneously, a UUID v4 generator with bulk generation up to 100 at once, a regex tester with global, case-insensitive, and multiline flag toggles, a URL encoder and decoder for percent-encoding, and a color converter supporting HEX, RGB, and HSL formats with a live preview swatch. All results include one-click copy buttons for fast workflow integration.</p>
+
+    <h3>Who Uses This</h3>
+    <p>KappaKit is built for software developers, DevOps engineers, QA testers, and security researchers who need quick access to encoding and conversion tools during their daily workflow. Frontend developers use the Base64 and color converter tools regularly. Backend engineers rely on the JWT decoder and hash generator for API debugging. DevOps teams use the UUID generator and URL encoder when working with infrastructure configuration. If you work with timestamps and cron schedules, check out <a href="https://epochpilot.com">EpochPilot</a> for epoch conversion and timezone tools. For machine learning work involving matrix operations, <a href="https://ml3x.com">ML3X</a> provides a step-by-step matrix calculator. Security professionals who need to verify API tokens can combine the JWT decoder with the hash generator for thorough token inspection.</p>
+
+    <h3>Privacy</h3>
+    <p>Everything in KappaKit runs locally in your browser. No data is transmitted to any server — not your JWT tokens, not your hashed text, not your regex patterns. The entire site is static files served from GitHub Pages with Cloudflare CDN. The source code is open and available on <a href="https://github.com/theluckystrike/kappakit.com">GitHub</a>, so you can inspect exactly what runs on your machine. There are no cookies, no analytics scripts, and no tracking pixels.</p>
+
+    <h3>Contact</h3>
+    <p>KappaKit is built and maintained by <a href="https://zovo.one">Michael Lip</a>. For questions or feedback, email <a href="mailto:michael@zovo.one">michael@zovo.one</a> or visit the project on <a href="https://github.com/theluckystrike/kappakit.com">GitHub</a>.</p>
+  </section>
 </main>
 
 <footer>
