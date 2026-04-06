@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Image Encoder & Decoder Online | Free Tool | KappaKit</title>
+<meta name="description" content="Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.">
+<meta name="keywords" content="base64 image encoder, developer tools, online tool, free tool">
+<link rel="canonical" href="https://kappakit.com/tools/base64-image.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/base64-image.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/base64-image.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Base64 Image Encoder & Decoder Online | Free Tool | KappaKit">
+<meta property="og:description" content="Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.">
+<meta property="og:url" content="https://kappakit.com/tools/base64-image.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Base64 Image Encoder & Decoder Online | Free Tool | KappaKit">
+<meta name="twitter:description" content="Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Image Encoder & Decoder",
+  "url": "https://kappakit.com/tools/base64-image.html",
+  "description": "Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Base64 image?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Base64 image is an image file encoded as a Base64 text string, typically formatted as a data URI (data:image/png;base64,...). This allows images to be embedded directly in HTML, CSS, or JSON without separate file requests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use Base64 images?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use Base64 images for small icons, logos, and UI elements (under 10KB) to reduce HTTP requests. Avoid it for large images as Base64 increases file size by roughly 33%. It is ideal for email templates, single-file HTML, and inline CSS backgrounds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Base64 encoding increase image size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Base64 encoding increases data size by approximately 33% because it represents 3 bytes of binary data using 4 ASCII characters. For small images this trade-off is worth the reduced HTTP requests; for large images, use regular file references."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What image formats does this tool support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool supports any image format your browser supports, including PNG, JPEG, GIF, SVG, WebP, and AVIF. The tool detects the MIME type automatically and generates the correct data URI prefix."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>Base64 Image Encoder & Decoder</span>
+    </nav>
+    <h1>Base64 Image Encoder & Decoder</h1>
+    <p>Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.</p>
+  </div>
+
+  <div class="tool-container" data-component="encoder-decoder" data-config='{"type":"base64-image"}'>
+    <div class="tool-card" id="tool-mount">
+      <div class="tool-loading">Loading tool...</div>
+    </div>
+  </div>
+
+  <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+        <details>
+      <summary>What is a Base64 image?</summary>
+      <p>A Base64 image is an image file encoded as a Base64 text string, typically formatted as a data URI (data:image/png;base64,...). This allows images to be embedded directly in HTML, CSS, or JSON without separate file requests.</p>
+    </details>
+
+    <details>
+      <summary>When should I use Base64 images?</summary>
+      <p>Use Base64 images for small icons, logos, and UI elements (under 10KB) to reduce HTTP requests. Avoid it for large images as Base64 increases file size by roughly 33%. It is ideal for email templates, single-file HTML, and inline CSS backgrounds.</p>
+    </details>
+
+    <details>
+      <summary>Does Base64 encoding increase image size?</summary>
+      <p>Yes. Base64 encoding increases data size by approximately 33% because it represents 3 bytes of binary data using 4 ASCII characters. For small images this trade-off is worth the reduced HTTP requests; for large images, use regular file references.</p>
+    </details>
+
+    <details>
+      <summary>What image formats does this tool support?</summary>
+      <p>This tool supports any image format your browser supports, including PNG, JPEG, GIF, SVG, WebP, and AVIF. The tool detects the MIME type automatically and generates the correct data URI prefix.</p>
+    </details>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+            <a href="/tools/base64-encode.html" class="related-card">Base64 Encode &amp; Decode Online</a>
+      <a href="/tools/hex-to-rgb.html" class="related-card">Hex to RGB Color Converter</a>
+      <a href="/tools/url-encode.html" class="related-card">URL Encode &amp; Decode Online</a>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+</body>
+</html>

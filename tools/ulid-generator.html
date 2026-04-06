@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULID Generator Online | Sortable Unique IDs Free | KappaKit</title>
+<meta name="description" content="Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.">
+<meta name="keywords" content="ulid generator, developer tools, online tool, free tool">
+<link rel="canonical" href="https://kappakit.com/tools/ulid-generator.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/ulid-generator.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/ulid-generator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ULID Generator Online | Sortable Unique IDs Free | KappaKit">
+<meta property="og:description" content="Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.">
+<meta property="og:url" content="https://kappakit.com/tools/ulid-generator.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ULID Generator Online | Sortable Unique IDs Free | KappaKit">
+<meta name="twitter:description" content="Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ULID Generator -- Sortable Unique IDs",
+  "url": "https://kappakit.com/tools/ulid-generator.html",
+  "description": "Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a ULID?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A ULID (Universally Unique Lexicographically Sortable Identifier) is a 128-bit identifier encoded as a 26-character Crockford Base32 string. It consists of a 48-bit timestamp and 80 bits of randomness. ULIDs are sortable, URL-safe, and more compact than UUIDs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is ULID different from UUID?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ULIDs are encoded in Crockford Base32 (26 characters vs UUID's 36), are lexicographically sortable, use no special characters (no hyphens), and are case-insensitive. Like UUID v7, they embed a timestamp, but ULIDs are more compact and URL-friendly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I extract the timestamp from a ULID?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The first 10 characters of a ULID encode the Unix millisecond timestamp in Crockford Base32. This tool decodes and displays the creation timestamp for each generated ULID in human-readable format."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are ULIDs suitable for database IDs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. ULIDs are excellent database identifiers because they are sortable by creation time (preserving index locality), globally unique, compact (26 characters), and contain no special characters. They are widely used as primary keys in modern databases."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>ULID Generator -- Sortable Unique IDs</span>
+    </nav>
+    <h1>ULID Generator -- Sortable Unique IDs</h1>
+    <p>Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.</p>
+  </div>
+
+  <div class="tool-container" data-component="uuid-generator" data-config='{"type":"ulid"}'>
+    <div class="tool-card" id="tool-mount">
+      <div class="tool-loading">Loading tool...</div>
+    </div>
+  </div>
+
+  <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+        <details>
+      <summary>What is a ULID?</summary>
+      <p>A ULID (Universally Unique Lexicographically Sortable Identifier) is a 128-bit identifier encoded as a 26-character Crockford Base32 string. It consists of a 48-bit timestamp and 80 bits of randomness. ULIDs are sortable, URL-safe, and more compact than UUIDs.</p>
+    </details>
+
+    <details>
+      <summary>How is ULID different from UUID?</summary>
+      <p>ULIDs are encoded in Crockford Base32 (26 characters vs UUID's 36), are lexicographically sortable, use no special characters (no hyphens), and are case-insensitive. Like UUID v7, they embed a timestamp, but ULIDs are more compact and URL-friendly.</p>
+    </details>
+
+    <details>
+      <summary>Can I extract the timestamp from a ULID?</summary>
+      <p>Yes. The first 10 characters of a ULID encode the Unix millisecond timestamp in Crockford Base32. This tool decodes and displays the creation timestamp for each generated ULID in human-readable format.</p>
+    </details>
+
+    <details>
+      <summary>Are ULIDs suitable for database IDs?</summary>
+      <p>Yes. ULIDs are excellent database identifiers because they are sortable by creation time (preserving index locality), globally unique, compact (26 characters), and contain no special characters. They are widely used as primary keys in modern databases.</p>
+    </details>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+            <a href="/tools/uuid-v7.html" class="related-card">UUID v7 Generator -- Timestamp UUID</a>
+      <a href="/tools/uuid-v4.html" class="related-card">UUID v4 Generator -- Random UUID</a>
+      <a href="/tools/uuid-generator.html" class="related-card">UUID Generator -- v4 &amp; v7</a>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+</body>
+</html>

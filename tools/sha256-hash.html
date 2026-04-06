@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHA-256 Hash Generator Online | Free SHA256 Tool | KappaKit</title>
+<meta name="description" content="Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.">
+<meta name="keywords" content="sha256 hash generator, developer tools, online tool, free tool">
+<link rel="canonical" href="https://kappakit.com/tools/sha256-hash.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/sha256-hash.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/sha256-hash.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SHA-256 Hash Generator Online | Free SHA256 Tool | KappaKit">
+<meta property="og:description" content="Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.">
+<meta property="og:url" content="https://kappakit.com/tools/sha256-hash.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SHA-256 Hash Generator Online | Free SHA256 Tool | KappaKit">
+<meta name="twitter:description" content="Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SHA-256 Hash Generator",
+  "url": "https://kappakit.com/tools/sha256-hash.html",
+  "description": "Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is SHA-256?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SHA-256 is part of the SHA-2 family designed by the NSA. It produces a 256-bit (64-character hex) hash digest. SHA-256 is the most widely used cryptographic hash function today, securing everything from Bitcoin to TLS certificates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SHA-256 secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. SHA-256 has no known practical vulnerabilities. It would take billions of years to find a collision using current computing technology. It is the recommended hash function for most security applications including digital signatures, password hashing (with salt), and blockchain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this tool compute SHA-256?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool uses the browser's native Web Crypto API (crypto.subtle.digest with 'SHA-256'). This provides hardware-accelerated hashing that runs entirely client-side. No data is transmitted to any server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is SHA-256 used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SHA-256 is used for digital signatures, SSL/TLS certificates, Bitcoin mining, password hashing, file integrity verification, and code signing. It is the default hash algorithm in most modern security protocols."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>SHA-256 Hash Generator</span>
+    </nav>
+    <h1>SHA-256 Hash Generator</h1>
+    <p>Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.</p>
+  </div>
+
+  <div class="tool-container" data-component="hash-generator" data-config='{"algorithm":"SHA-256"}'>
+    <div class="tool-card" id="tool-mount">
+      <div class="tool-loading">Loading tool...</div>
+    </div>
+  </div>
+
+  <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+        <details>
+      <summary>What is SHA-256?</summary>
+      <p>SHA-256 is part of the SHA-2 family designed by the NSA. It produces a 256-bit (64-character hex) hash digest. SHA-256 is the most widely used cryptographic hash function today, securing everything from Bitcoin to TLS certificates.</p>
+    </details>
+
+    <details>
+      <summary>Is SHA-256 secure?</summary>
+      <p>Yes. SHA-256 has no known practical vulnerabilities. It would take billions of years to find a collision using current computing technology. It is the recommended hash function for most security applications including digital signatures, password hashing (with salt), and blockchain.</p>
+    </details>
+
+    <details>
+      <summary>How does this tool compute SHA-256?</summary>
+      <p>This tool uses the browser's native Web Crypto API (crypto.subtle.digest with 'SHA-256'). This provides hardware-accelerated hashing that runs entirely client-side. No data is transmitted to any server.</p>
+    </details>
+
+    <details>
+      <summary>What is SHA-256 used for?</summary>
+      <p>SHA-256 is used for digital signatures, SSL/TLS certificates, Bitcoin mining, password hashing, file integrity verification, and code signing. It is the default hash algorithm in most modern security protocols.</p>
+    </details>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+            <a href="/tools/sha512-hash.html" class="related-card">SHA-512 Hash Generator</a>
+      <a href="/tools/sha1-hash.html" class="related-card">SHA-1 Hash Generator</a>
+      <a href="/tools/md5-hash.html" class="related-card">MD5 Hash Generator</a>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID v4 Generator Online | Random UUID Free Tool | KappaKit</title>
+<meta name="description" content="Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.">
+<meta name="keywords" content="uuid v4 generator, developer tools, online tool, free tool">
+<link rel="canonical" href="https://kappakit.com/tools/uuid-v4.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/uuid-v4.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/uuid-v4.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="UUID v4 Generator Online | Random UUID Free Tool | KappaKit">
+<meta property="og:description" content="Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.">
+<meta property="og:url" content="https://kappakit.com/tools/uuid-v4.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UUID v4 Generator Online | Random UUID Free Tool | KappaKit">
+<meta name="twitter:description" content="Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "UUID v4 Generator -- Random UUID",
+  "url": "https://kappakit.com/tools/uuid-v4.html",
+  "description": "Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-06",
+  "dateModified": "2026-04-06"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is UUID v4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UUID v4 is a randomly generated universally unique identifier. It uses 122 bits of cryptographic randomness (6 bits are reserved for version and variant markers). The format is xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx, where 4 indicates version 4."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is UUID v4 generated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool uses crypto.getRandomValues() to fill 16 random bytes, then sets the version bits (0100 for v4) at position 13 and the variant bits (10xx) at position 17. The result is formatted as a standard 36-character UUID string."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is UUID v4 suitable for database primary keys?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UUID v4 works as a primary key but has a drawback: random UUIDs fragment B-tree indexes because inserts are distributed randomly. For better database performance, consider UUID v7 which is timestamp-ordered and maintains index locality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can UUID v4 collide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Theoretically yes, but practically no. With 122 random bits, the probability of collision is 1 in 2^61 after generating 2.71 quintillion UUIDs. For any real-world application, UUID v4 collisions are not a concern."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>UUID v4 Generator -- Random UUID</span>
+    </nav>
+    <h1>UUID v4 Generator -- Random UUID</h1>
+    <p>Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.</p>
+  </div>
+
+  <div class="tool-container" data-component="uuid-generator" data-config='{"type":"v4"}'>
+    <div class="tool-card" id="tool-mount">
+      <div class="tool-loading">Loading tool...</div>
+    </div>
+  </div>
+
+  <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+        <details>
+      <summary>What is UUID v4?</summary>
+      <p>UUID v4 is a randomly generated universally unique identifier. It uses 122 bits of cryptographic randomness (6 bits are reserved for version and variant markers). The format is xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx, where 4 indicates version 4.</p>
+    </details>
+
+    <details>
+      <summary>How is UUID v4 generated?</summary>
+      <p>This tool uses crypto.getRandomValues() to fill 16 random bytes, then sets the version bits (0100 for v4) at position 13 and the variant bits (10xx) at position 17. The result is formatted as a standard 36-character UUID string.</p>
+    </details>
+
+    <details>
+      <summary>Is UUID v4 suitable for database primary keys?</summary>
+      <p>UUID v4 works as a primary key but has a drawback: random UUIDs fragment B-tree indexes because inserts are distributed randomly. For better database performance, consider UUID v7 which is timestamp-ordered and maintains index locality.</p>
+    </details>
+
+    <details>
+      <summary>Can UUID v4 collide?</summary>
+      <p>Theoretically yes, but practically no. With 122 random bits, the probability of collision is 1 in 2^61 after generating 2.71 quintillion UUIDs. For any real-world application, UUID v4 collisions are not a concern.</p>
+    </details>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+            <a href="/tools/uuid-v7.html" class="related-card">UUID v7 Generator -- Timestamp UUID</a>
+      <a href="/tools/uuid-generator.html" class="related-card">UUID Generator -- v4 &amp; v7</a>
+      <a href="/tools/ulid-generator.html" class="related-card">ULID Generator -- Sortable Unique IDs</a>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/app.js"></script>
+</body>
+</html>

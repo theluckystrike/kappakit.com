@@ -401,6 +401,139 @@ footer .footer-copy a {
   text-decoration: none;
 }
 
+/* === V9: Tool Pages === */
+.tool-page-hero {
+  padding: 2rem 0 1.5rem;
+}
+
+.tool-page-hero h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.tool-page-hero p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 700px;
+}
+
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.breadcrumb span {
+  margin: 0 0.35rem;
+  color: var(--border);
+}
+
+.tool-container {
+  margin-bottom: 1.5rem;
+}
+
+.tool-loading {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.related-section h2 {
+  margin-bottom: 1rem;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.related-card {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.related-card:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.author-section {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+/* Tools Hub */
+.tools-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tool-hub-card {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.tool-hub-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.tool-hub-card h3 {
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.tool-hub-card p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hub-category {
+  margin-top: 2rem;
+}
+
+.hub-category h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.hub-category-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
 /* === V5: Pro Nudge === */
 .pro-nudge {
   margin-top: 1.5rem;

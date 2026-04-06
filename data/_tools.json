@@ -1,0 +1,482 @@
+[
+  {
+    "slug": "md5-hash",
+    "title": "MD5 Hash Generator Online | Free MD5 Checksum Tool",
+    "h1": "MD5 Hash Generator",
+    "description": "Generate MD5 hashes instantly in your browser. Free online MD5 hash generator with hex and base64 output. No data sent to any server — 100% client-side.",
+    "keyword": "md5 hash generator",
+    "component": "hash-generator",
+    "config": {"algorithm": "MD5"},
+    "faq": [
+      {"q": "What is an MD5 hash?", "a": "MD5 (Message-Digest Algorithm 5) is a 128-bit hash function that produces a 32-character hexadecimal digest. It converts any input into a fixed-size fingerprint. While no longer recommended for cryptographic security, MD5 remains widely used for checksums and data integrity verification."},
+      {"q": "Is MD5 still safe to use?", "a": "MD5 is not considered cryptographically secure due to known collision vulnerabilities. However, it is still useful for non-security purposes like file checksums, cache keys, and data deduplication. For security-sensitive applications, use SHA-256 or SHA-512 instead."},
+      {"q": "Does this tool send my data to a server?", "a": "No. This MD5 hash generator runs entirely in your browser using JavaScript. Your input text never leaves your machine. You can verify this by checking the Network tab in your browser's developer tools."},
+      {"q": "How do I verify an MD5 checksum?", "a": "Paste the original text or file content into the input field, generate the MD5 hash, and compare the output with the expected checksum. If the two hashes match exactly, the data has not been altered."}
+    ],
+    "related": ["sha256-hash", "sha1-hash", "sha512-hash"]
+  },
+  {
+    "slug": "sha1-hash",
+    "title": "SHA-1 Hash Generator Online | Free SHA1 Tool",
+    "h1": "SHA-1 Hash Generator",
+    "description": "Generate SHA-1 hashes instantly using the Web Crypto API. Free online SHA-1 hash generator with hex output. Runs entirely in your browser — no server requests.",
+    "keyword": "sha1 hash generator",
+    "component": "hash-generator",
+    "config": {"algorithm": "SHA-1"},
+    "faq": [
+      {"q": "What is SHA-1?", "a": "SHA-1 (Secure Hash Algorithm 1) produces a 160-bit (40-character hex) hash digest. It was designed by the NSA and published by NIST. While stronger than MD5, SHA-1 has known theoretical weaknesses and has been deprecated for digital signatures."},
+      {"q": "Is SHA-1 secure?", "a": "SHA-1 is no longer considered secure for cryptographic purposes. Google demonstrated a practical collision attack (SHAttered) in 2017. For security-critical applications, use SHA-256 or SHA-512 instead. SHA-1 is still acceptable for non-security checksums."},
+      {"q": "How fast is this SHA-1 generator?", "a": "This tool uses the Web Crypto API (crypto.subtle.digest), which provides hardware-accelerated hashing in modern browsers. SHA-1 hashes are generated in microseconds, even for large inputs."},
+      {"q": "What is the difference between SHA-1 and SHA-256?", "a": "SHA-1 produces a 160-bit hash (40 hex characters) while SHA-256 produces a 256-bit hash (64 hex characters). SHA-256 is significantly more resistant to collision attacks and is the current standard for most security applications."}
+    ],
+    "related": ["sha256-hash", "md5-hash", "sha512-hash"]
+  },
+  {
+    "slug": "sha256-hash",
+    "title": "SHA-256 Hash Generator Online | Free SHA256 Tool",
+    "h1": "SHA-256 Hash Generator",
+    "description": "Generate SHA-256 hashes instantly with the Web Crypto API. Free online SHA-256 hash generator producing 64-character hex digests. 100% client-side, no data leaves your browser.",
+    "keyword": "sha256 hash generator",
+    "component": "hash-generator",
+    "config": {"algorithm": "SHA-256"},
+    "faq": [
+      {"q": "What is SHA-256?", "a": "SHA-256 is part of the SHA-2 family designed by the NSA. It produces a 256-bit (64-character hex) hash digest. SHA-256 is the most widely used cryptographic hash function today, securing everything from Bitcoin to TLS certificates."},
+      {"q": "Is SHA-256 secure?", "a": "Yes. SHA-256 has no known practical vulnerabilities. It would take billions of years to find a collision using current computing technology. It is the recommended hash function for most security applications including digital signatures, password hashing (with salt), and blockchain."},
+      {"q": "How does this tool compute SHA-256?", "a": "This tool uses the browser's native Web Crypto API (crypto.subtle.digest with 'SHA-256'). This provides hardware-accelerated hashing that runs entirely client-side. No data is transmitted to any server."},
+      {"q": "What is SHA-256 used for?", "a": "SHA-256 is used for digital signatures, SSL/TLS certificates, Bitcoin mining, password hashing, file integrity verification, and code signing. It is the default hash algorithm in most modern security protocols."}
+    ],
+    "related": ["sha512-hash", "sha1-hash", "md5-hash"]
+  },
+  {
+    "slug": "sha512-hash",
+    "title": "SHA-512 Hash Generator Online | Free SHA512 Tool",
+    "h1": "SHA-512 Hash Generator",
+    "description": "Generate SHA-512 hashes instantly using the Web Crypto API. Free online SHA-512 hash generator producing 128-character hex digests. Runs entirely in your browser.",
+    "keyword": "sha512 hash generator",
+    "component": "hash-generator",
+    "config": {"algorithm": "SHA-512"},
+    "faq": [
+      {"q": "What is SHA-512?", "a": "SHA-512 is a member of the SHA-2 family that produces a 512-bit (128-character hex) hash digest. It provides an even larger output than SHA-256 and is often preferred on 64-bit systems where it can be faster than SHA-256 due to native 64-bit arithmetic."},
+      {"q": "When should I use SHA-512 over SHA-256?", "a": "Use SHA-512 when you need a larger hash output for higher collision resistance, or when running on 64-bit systems where SHA-512 can be faster. SHA-512 is common in digital signatures, certificate authorities, and high-security applications."},
+      {"q": "Is SHA-512 slower than SHA-256?", "a": "On 64-bit systems, SHA-512 is often faster than SHA-256 because it uses 64-bit arithmetic natively. On 32-bit systems, SHA-256 is typically faster. This browser-based tool uses the Web Crypto API which optimizes for your hardware."},
+      {"q": "How many characters is a SHA-512 hash?", "a": "A SHA-512 hash is 128 hexadecimal characters long (512 bits). This is twice the length of SHA-256 (64 hex characters) and over three times longer than MD5 (32 hex characters)."}
+    ],
+    "related": ["sha256-hash", "sha1-hash", "md5-hash"]
+  },
+  {
+    "slug": "bcrypt-generator",
+    "title": "Bcrypt Hash Generator & Verifier Online | Free Tool",
+    "h1": "Bcrypt Hash Generator & Verifier",
+    "description": "Generate and verify bcrypt password hashes in your browser. Simplified bcrypt demonstration with configurable cost factor. Free online tool — no server required.",
+    "keyword": "bcrypt hash generator",
+    "component": "hash-generator",
+    "config": {"algorithm": "bcrypt"},
+    "faq": [
+      {"q": "What is bcrypt?", "a": "Bcrypt is a password hashing function based on the Blowfish cipher. It includes a built-in salt and a configurable cost factor that makes it intentionally slow, protecting against brute-force attacks. It is one of the most recommended algorithms for password storage."},
+      {"q": "Why is bcrypt better than SHA-256 for passwords?", "a": "Bcrypt is designed to be slow and includes a configurable cost factor. SHA-256 is designed to be fast, which makes it vulnerable to brute-force attacks on passwords. Bcrypt's intentional slowness means an attacker needs significantly more time per guess."},
+      {"q": "Is this a real bcrypt implementation?", "a": "This is a simplified demonstration of the bcrypt concept running in JavaScript. For production password hashing, use a server-side bcrypt library (like bcrypt in Node.js or Python). Real bcrypt is computationally intensive and best handled server-side."},
+      {"q": "What cost factor should I use for bcrypt?", "a": "A cost factor of 10-12 is common for most applications. Each increment doubles the computation time. Factor 10 takes roughly 100ms, factor 12 takes roughly 400ms. Choose a value that provides acceptable login latency while maximizing security."}
+    ],
+    "related": ["sha256-hash", "sha512-hash", "md5-hash"]
+  },
+  {
+    "slug": "base64-encode",
+    "title": "Base64 Encode & Decode Online | Free Base64 Tool",
+    "h1": "Base64 Encode & Decode Online",
+    "description": "Encode and decode Base64 strings instantly. Free online Base64 encoder/decoder with full UTF-8 Unicode support. Runs 100% in your browser — no data sent to any server.",
+    "keyword": "base64 encode decode",
+    "component": "encoder-decoder",
+    "config": {"type": "base64"},
+    "faq": [
+      {"q": "What is Base64 encoding?", "a": "Base64 is a binary-to-text encoding scheme that represents binary data using 64 ASCII characters (A-Z, a-z, 0-9, +, /). It is commonly used to embed binary data in text-based formats like JSON, XML, HTML, and email (MIME)."},
+      {"q": "How do I encode text to Base64?", "a": "Paste your text into the input field and click Encode. This tool uses the browser's native btoa() function with TextEncoder for full UTF-8 Unicode support. The Base64-encoded output appears instantly in the result field."},
+      {"q": "Can Base64 handle Unicode characters?", "a": "Yes. This tool uses TextEncoder to convert Unicode text to UTF-8 bytes before Base64 encoding, ensuring proper handling of non-ASCII characters like emojis, Chinese characters, and accented letters."},
+      {"q": "Is Base64 encryption?", "a": "No. Base64 is an encoding scheme, not encryption. Anyone can decode a Base64 string back to the original data. It provides no security or confidentiality. Use actual encryption (AES, RSA) if you need to protect data."}
+    ],
+    "related": ["url-encode", "html-encode", "base64-image"]
+  },
+  {
+    "slug": "url-encode",
+    "title": "URL Encode & Decode Online | Free Percent-Encoding Tool",
+    "h1": "URL Encode & Decode Online",
+    "description": "Encode and decode URLs with percent-encoding instantly. Free online URL encoder/decoder using encodeURIComponent. Runs in your browser — no server requests.",
+    "keyword": "url encode decode",
+    "component": "encoder-decoder",
+    "config": {"type": "url"},
+    "faq": [
+      {"q": "What is URL encoding?", "a": "URL encoding (percent-encoding) replaces unsafe ASCII characters with a percent sign followed by two hex digits. For example, a space becomes %20 and an ampersand becomes %26. This ensures special characters are transmitted correctly in URLs."},
+      {"q": "When do I need to URL encode?", "a": "URL encode whenever you include user input in URL parameters, form data, or API requests. Characters like &, =, ?, /, #, and spaces have special meaning in URLs and must be encoded to be treated as literal data."},
+      {"q": "What is the difference between encodeURI and encodeURIComponent?", "a": "encodeURI encodes a full URI but preserves characters like :, /, ?, and #. encodeURIComponent encodes everything except letters, digits, and - _ . ~. Use encodeURIComponent for individual parameter values, and encodeURI for complete URLs."},
+      {"q": "Does this tool handle Unicode in URLs?", "a": "Yes. This tool uses encodeURIComponent which converts Unicode characters to their UTF-8 byte sequences and then percent-encodes each byte. This handles any language or emoji correctly."}
+    ],
+    "related": ["base64-encode", "html-encode", "hex-to-decimal"]
+  },
+  {
+    "slug": "html-encode",
+    "title": "HTML Entity Encode & Decode Online | Free Tool",
+    "h1": "HTML Entity Encode & Decode",
+    "description": "Encode and decode HTML entities instantly. Convert special characters to HTML entities and back. Free online tool running entirely in your browser.",
+    "keyword": "html entity encode decode",
+    "component": "encoder-decoder",
+    "config": {"type": "html"},
+    "faq": [
+      {"q": "What are HTML entities?", "a": "HTML entities are special codes that represent characters with meaning in HTML. For example, &lt; represents <, &gt; represents >, &amp; represents &, and &quot; represents \". They prevent browsers from interpreting these characters as HTML markup."},
+      {"q": "Why do I need to encode HTML entities?", "a": "HTML entity encoding prevents Cross-Site Scripting (XSS) attacks and ensures special characters display correctly. When inserting user-generated content into HTML, encoding prevents malicious script injection and rendering issues."},
+      {"q": "What characters need HTML encoding?", "a": "The five essential characters to encode are: < (&lt;), > (&gt;), & (&amp;), \" (&quot;), and ' (&#39;). These have special meaning in HTML and must be encoded when used as literal text content."},
+      {"q": "Can I decode HTML entities back to text?", "a": "Yes. Paste the HTML-encoded string into the input, select Decode, and the tool converts entities back to their original characters. This works for both named entities (&amp;) and numeric entities (&#38;)."}
+    ],
+    "related": ["url-encode", "base64-encode", "base64-image"]
+  },
+  {
+    "slug": "base64-image",
+    "title": "Base64 Image Encoder & Decoder Online | Free Tool",
+    "h1": "Base64 Image Encoder & Decoder",
+    "description": "Convert images to Base64 data URIs and decode Base64 strings back to images. Free online tool for embedding images in HTML and CSS. 100% client-side.",
+    "keyword": "base64 image encoder",
+    "component": "encoder-decoder",
+    "config": {"type": "base64-image"},
+    "faq": [
+      {"q": "What is a Base64 image?", "a": "A Base64 image is an image file encoded as a Base64 text string, typically formatted as a data URI (data:image/png;base64,...). This allows images to be embedded directly in HTML, CSS, or JSON without separate file requests."},
+      {"q": "When should I use Base64 images?", "a": "Use Base64 images for small icons, logos, and UI elements (under 10KB) to reduce HTTP requests. Avoid it for large images as Base64 increases file size by roughly 33%. It is ideal for email templates, single-file HTML, and inline CSS backgrounds."},
+      {"q": "Does Base64 encoding increase image size?", "a": "Yes. Base64 encoding increases data size by approximately 33% because it represents 3 bytes of binary data using 4 ASCII characters. For small images this trade-off is worth the reduced HTTP requests; for large images, use regular file references."},
+      {"q": "What image formats does this tool support?", "a": "This tool supports any image format your browser supports, including PNG, JPEG, GIF, SVG, WebP, and AVIF. The tool detects the MIME type automatically and generates the correct data URI prefix."}
+    ],
+    "related": ["base64-encode", "hex-to-rgb", "url-encode"]
+  },
+  {
+    "slug": "json-formatter",
+    "title": "JSON Formatter & Prettifier Online | Free JSON Tool",
+    "h1": "JSON Formatter & Prettifier",
+    "description": "Format and prettify JSON with proper indentation instantly. Free online JSON formatter with syntax highlighting. Paste minified JSON and get readable output.",
+    "keyword": "json formatter prettifier",
+    "component": "json-tool",
+    "config": {"mode": "format"},
+    "faq": [
+      {"q": "What does JSON formatting do?", "a": "JSON formatting (prettifying) takes compact or minified JSON and adds proper indentation, line breaks, and spacing to make it human-readable. This tool uses 2-space indentation and applies syntax highlighting to keys, strings, numbers, and booleans."},
+      {"q": "How do I format minified JSON?", "a": "Paste your minified JSON into the input field. The tool automatically parses it with JSON.parse() and re-serializes it with JSON.stringify(null, 2) to produce properly indented, readable output with syntax highlighting."},
+      {"q": "Does this tool validate JSON while formatting?", "a": "Yes. The formatting process requires valid JSON. If your input contains syntax errors, the tool will display a clear error message indicating what went wrong and approximately where the error is located."},
+      {"q": "Can I customize the indentation level?", "a": "The default indentation is 2 spaces, which is the most common convention for JSON. The formatted output uses consistent indentation throughout the entire document."}
+    ],
+    "related": ["json-validator", "json-minifier", "json-to-yaml"]
+  },
+  {
+    "slug": "json-validator",
+    "title": "JSON Validator Online | Check JSON Syntax Free",
+    "h1": "JSON Validator -- Check Syntax",
+    "description": "Validate JSON syntax and find errors with line numbers. Free online JSON validator that checks your JSON instantly in the browser. No data sent to any server.",
+    "keyword": "json validator",
+    "component": "json-tool",
+    "config": {"mode": "validate"},
+    "faq": [
+      {"q": "How does JSON validation work?", "a": "This tool uses JSON.parse() to attempt parsing your input. If the JSON is valid, it confirms success and shows the parsed structure. If there are errors, it displays the error message with an approximate line number to help you locate and fix the issue."},
+      {"q": "What are common JSON syntax errors?", "a": "Common JSON errors include: trailing commas after the last element, single quotes instead of double quotes, unquoted keys, missing commas between elements, and using undefined or NaN values. JSON requires strict syntax compared to JavaScript object literals."},
+      {"q": "Can I validate large JSON files?", "a": "Yes. This tool runs entirely in your browser and can handle JSON files of any size that your browser's memory allows. There is no server-side limit. For very large files (100MB+), parsing may take a few seconds."},
+      {"q": "Does this tool fix invalid JSON?", "a": "This tool identifies and reports errors but does not automatically fix them. It shows the error message and position so you can make the correction yourself. Common fixes include adding missing commas, replacing single quotes, and removing trailing commas."}
+    ],
+    "related": ["json-formatter", "json-minifier", "json-diff"]
+  },
+  {
+    "slug": "json-minifier",
+    "title": "JSON Minifier Online | Compact JSON Free",
+    "h1": "JSON Minifier -- Compact JSON",
+    "description": "Minify JSON by removing whitespace and formatting. Free online JSON minifier that compacts your JSON instantly. Reduce JSON size for APIs and storage.",
+    "keyword": "json minifier",
+    "component": "json-tool",
+    "config": {"mode": "minify"},
+    "faq": [
+      {"q": "What does JSON minification do?", "a": "JSON minification removes all unnecessary whitespace, line breaks, and indentation from JSON data. The result is a compact, single-line JSON string that is functionally identical but smaller in size. This is ideal for API responses, storage, and network transfer."},
+      {"q": "How much space does minification save?", "a": "Savings depend on the original formatting. Prettified JSON with 2-space indentation typically reduces by 20-40% when minified. Deeply nested structures with many keys see the largest reductions. The tool shows both original and minified sizes."},
+      {"q": "Does minification change the JSON data?", "a": "No. Minification only removes whitespace and formatting. The actual data, structure, keys, values, and types remain exactly the same. You can always re-format minified JSON back to a readable state without any data loss."},
+      {"q": "When should I minify JSON?", "a": "Minify JSON before sending API responses, storing data in databases, or transmitting over networks. Every byte counts for performance. Keep prettified JSON in source code and configuration files where readability matters."}
+    ],
+    "related": ["json-formatter", "json-validator", "json-to-yaml"]
+  },
+  {
+    "slug": "json-to-typescript",
+    "title": "JSON to TypeScript Interface Generator | Free Tool",
+    "h1": "JSON to TypeScript Interface Generator",
+    "description": "Convert JSON objects to TypeScript interfaces automatically. Free online tool that generates type-safe TypeScript definitions from any JSON structure.",
+    "keyword": "json to typescript",
+    "component": "json-tool",
+    "config": {"mode": "convert"},
+    "faq": [
+      {"q": "How does JSON to TypeScript conversion work?", "a": "This tool analyzes your JSON structure and infers TypeScript types for each value. Strings become 'string', numbers become 'number', booleans become 'boolean', arrays are typed by their element types, and nested objects generate separate interfaces."},
+      {"q": "Does it handle nested objects?", "a": "Yes. Nested objects are extracted into separate named interfaces. For example, if your JSON has a 'user' object with an 'address' sub-object, the tool generates both a User interface and an Address interface with proper type references."},
+      {"q": "Can it handle arrays?", "a": "Yes. The tool inspects array elements to determine the element type. Homogeneous arrays (all strings, all numbers) get typed arrays. Mixed-type arrays or complex objects are handled with union types. Empty arrays default to 'any[]'."},
+      {"q": "What JSON structures are supported?", "a": "Any valid JSON is supported: objects, arrays, nested structures, null values, and primitives. The tool handles optional fields (null values become 'type | null'), arrays of objects, and deeply nested hierarchies."}
+    ],
+    "related": ["json-formatter", "json-validator", "json-to-yaml"]
+  },
+  {
+    "slug": "json-diff",
+    "title": "JSON Diff Online | Compare Two JSON Objects Free",
+    "h1": "JSON Diff -- Compare Two JSON Objects",
+    "description": "Compare two JSON objects and see the differences highlighted. Free online JSON diff tool that shows additions, deletions, and changes. Runs in your browser.",
+    "keyword": "json diff compare",
+    "component": "json-tool",
+    "config": {"mode": "diff"},
+    "faq": [
+      {"q": "How does JSON diff work?", "a": "This tool parses both JSON inputs, then recursively compares their structures. It identifies added keys, removed keys, and changed values. Results are displayed with color-coded highlighting: green for additions, red for deletions, and yellow for modifications."},
+      {"q": "Does it handle nested objects?", "a": "Yes. The diff algorithm recursively compares nested objects and arrays at every level. Changes deep within the structure are reported with their full path (e.g., 'user.address.city'), so you can quickly locate exactly what changed."},
+      {"q": "Can I compare arrays?", "a": "Yes. Arrays are compared element by element. Added elements, removed elements, and changed elements are all identified and highlighted. The tool handles arrays of primitives, objects, and nested arrays."},
+      {"q": "Does order matter in JSON comparison?", "a": "For objects, key order does not matter — the tool compares by key name regardless of order. For arrays, order does matter — elements are compared by their index position. This matches how JSON is typically used in practice."}
+    ],
+    "related": ["json-formatter", "json-validator", "text-diff"]
+  },
+  {
+    "slug": "uuid-generator",
+    "title": "UUID Generator Online | v4 & v7 UUID Free Tool",
+    "h1": "UUID Generator -- v4 & v7",
+    "description": "Generate UUID v4 (random) and v7 (timestamp) identifiers instantly. Free online UUID generator with bulk generation and copy support. Cryptographically secure.",
+    "keyword": "uuid generator",
+    "component": "uuid-generator",
+    "config": {"type": "v4"},
+    "faq": [
+      {"q": "What is a UUID?", "a": "A UUID (Universally Unique Identifier) is a 128-bit identifier formatted as 32 hex digits in 5 groups (8-4-4-4-12). UUIDs are designed to be unique without a central authority. The most common versions are v4 (random) and v7 (timestamp-based)."},
+      {"q": "What is the difference between UUID v4 and v7?", "a": "UUID v4 is entirely random, generated using cryptographic randomness. UUID v7 embeds a Unix timestamp in the first 48 bits, making UUIDs sortable by creation time while still being unique. V7 is preferred for database primary keys."},
+      {"q": "Are UUIDs truly unique?", "a": "For practical purposes, yes. UUID v4 has 122 random bits, giving 5.3 x 10^36 possible values. The probability of generating a duplicate is astronomically low — you would need to generate 2.71 quintillion UUIDs to have a 50% chance of one collision."},
+      {"q": "How many UUIDs can I generate at once?", "a": "This tool supports bulk generation of 1, 5, 10, or 50 UUIDs at once. All UUIDs are generated using crypto.getRandomValues() for cryptographic security. You can copy individual UUIDs or all of them at once."}
+    ],
+    "related": ["uuid-v4", "uuid-v7", "ulid-generator"]
+  },
+  {
+    "slug": "uuid-v4",
+    "title": "UUID v4 Generator Online | Random UUID Free Tool",
+    "h1": "UUID v4 Generator -- Random UUID",
+    "description": "Generate cryptographically secure random UUID v4 identifiers. Free online UUID v4 generator using crypto.getRandomValues(). Bulk generation with one-click copy.",
+    "keyword": "uuid v4 generator",
+    "component": "uuid-generator",
+    "config": {"type": "v4"},
+    "faq": [
+      {"q": "What is UUID v4?", "a": "UUID v4 is a randomly generated universally unique identifier. It uses 122 bits of cryptographic randomness (6 bits are reserved for version and variant markers). The format is xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx, where 4 indicates version 4."},
+      {"q": "How is UUID v4 generated?", "a": "This tool uses crypto.getRandomValues() to fill 16 random bytes, then sets the version bits (0100 for v4) at position 13 and the variant bits (10xx) at position 17. The result is formatted as a standard 36-character UUID string."},
+      {"q": "Is UUID v4 suitable for database primary keys?", "a": "UUID v4 works as a primary key but has a drawback: random UUIDs fragment B-tree indexes because inserts are distributed randomly. For better database performance, consider UUID v7 which is timestamp-ordered and maintains index locality."},
+      {"q": "Can UUID v4 collide?", "a": "Theoretically yes, but practically no. With 122 random bits, the probability of collision is 1 in 2^61 after generating 2.71 quintillion UUIDs. For any real-world application, UUID v4 collisions are not a concern."}
+    ],
+    "related": ["uuid-v7", "uuid-generator", "ulid-generator"]
+  },
+  {
+    "slug": "uuid-v7",
+    "title": "UUID v7 Generator Online | Timestamp UUID Free Tool",
+    "h1": "UUID v7 Generator -- Timestamp UUID",
+    "description": "Generate UUID v7 identifiers with embedded timestamps. Free online UUID v7 generator that creates sortable, time-ordered unique IDs. Ideal for database primary keys.",
+    "keyword": "uuid v7 generator",
+    "component": "uuid-generator",
+    "config": {"type": "v7"},
+    "faq": [
+      {"q": "What is UUID v7?", "a": "UUID v7 is a time-ordered UUID that embeds a Unix millisecond timestamp in the first 48 bits. The remaining bits are random. This makes v7 UUIDs naturally sortable by creation time while remaining globally unique. UUID v7 is defined in RFC 9562."},
+      {"q": "Why use UUID v7 instead of v4?", "a": "UUID v7 is preferred for database primary keys because its timestamp ordering maintains B-tree index locality, resulting in significantly better insert performance. It also allows extracting the creation timestamp from the UUID itself."},
+      {"q": "Can I extract the timestamp from a UUID v7?", "a": "Yes. The first 48 bits of a UUID v7 contain the Unix timestamp in milliseconds. This tool shows the extracted timestamp alongside each generated UUID, converting it to a human-readable date and time."},
+      {"q": "Is UUID v7 as unique as v4?", "a": "UUID v7 has 74 random bits (vs 122 in v4), but the timestamp component adds uniqueness through time ordering. The probability of collision is extremely low for UUIDs generated at different milliseconds, and the random bits handle same-millisecond generation."}
+    ],
+    "related": ["uuid-v4", "uuid-generator", "ulid-generator"]
+  },
+  {
+    "slug": "ulid-generator",
+    "title": "ULID Generator Online | Sortable Unique IDs Free",
+    "h1": "ULID Generator -- Sortable Unique IDs",
+    "description": "Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) instantly. Free online ULID generator with timestamp extraction and bulk generation.",
+    "keyword": "ulid generator",
+    "component": "uuid-generator",
+    "config": {"type": "ulid"},
+    "faq": [
+      {"q": "What is a ULID?", "a": "A ULID (Universally Unique Lexicographically Sortable Identifier) is a 128-bit identifier encoded as a 26-character Crockford Base32 string. It consists of a 48-bit timestamp and 80 bits of randomness. ULIDs are sortable, URL-safe, and more compact than UUIDs."},
+      {"q": "How is ULID different from UUID?", "a": "ULIDs are encoded in Crockford Base32 (26 characters vs UUID's 36), are lexicographically sortable, use no special characters (no hyphens), and are case-insensitive. Like UUID v7, they embed a timestamp, but ULIDs are more compact and URL-friendly."},
+      {"q": "Can I extract the timestamp from a ULID?", "a": "Yes. The first 10 characters of a ULID encode the Unix millisecond timestamp in Crockford Base32. This tool decodes and displays the creation timestamp for each generated ULID in human-readable format."},
+      {"q": "Are ULIDs suitable for database IDs?", "a": "Yes. ULIDs are excellent database identifiers because they are sortable by creation time (preserving index locality), globally unique, compact (26 characters), and contain no special characters. They are widely used as primary keys in modern databases."}
+    ],
+    "related": ["uuid-v7", "uuid-v4", "uuid-generator"]
+  },
+  {
+    "slug": "regex-tester",
+    "title": "Regex Tester Online | Test Regular Expressions Free",
+    "h1": "Regex Tester -- Test Regular Expressions",
+    "description": "Test and debug regular expressions with real-time match highlighting. Free online regex tester with flag toggles (g, i, m, s), match groups, and match count.",
+    "keyword": "regex tester",
+    "component": "regex-tester",
+    "config": {"mode": "tester"},
+    "faq": [
+      {"q": "How do I test a regular expression?", "a": "Enter your regex pattern in the pattern field, type or paste your test string below, and matches are highlighted in real-time. Toggle flags (global, case-insensitive, multiline, dotAll) to modify matching behavior. Match count and group details are shown below."},
+      {"q": "What regex flags are supported?", "a": "This tool supports four flags: g (global - find all matches), i (case-insensitive), m (multiline - ^ and $ match line boundaries), and s (dotAll - dot matches newlines). Toggle each flag independently to see how it affects your matches."},
+      {"q": "Does this tool show capture groups?", "a": "Yes. When your regex contains capturing groups (parentheses), the tool displays each group's matched content. Named groups and numbered groups are both shown, making it easy to debug complex patterns with multiple captures."},
+      {"q": "Is this regex tester JavaScript-compatible?", "a": "Yes. This tool uses JavaScript's native RegExp engine, so your patterns will work identically in any JavaScript environment (Node.js, browsers, Deno). The syntax and behavior match exactly what you would get in your code."}
+    ],
+    "related": ["regex-generator", "word-counter", "text-diff"]
+  },
+  {
+    "slug": "regex-generator",
+    "title": "Regex Generator | Common Regex Patterns Free",
+    "h1": "Regex Generator -- Common Patterns",
+    "description": "Find and copy common regex patterns for email, URL, IP address, phone number, date, and more. Free online regex pattern library with live testing.",
+    "keyword": "regex generator patterns",
+    "component": "regex-tester",
+    "config": {"mode": "generator"},
+    "faq": [
+      {"q": "What common regex patterns are included?", "a": "This tool includes pre-built patterns for: email addresses, URLs, IPv4 and IPv6 addresses, phone numbers, dates (multiple formats), credit card numbers, hex colors, MAC addresses, and more. Each pattern is tested and ready to use."},
+      {"q": "Can I test the patterns against my own data?", "a": "Yes. Select any preset pattern and it is loaded into the regex tester. Enter your test string and see matches highlighted in real-time. You can modify the pattern to suit your specific requirements before copying it."},
+      {"q": "Are these regex patterns production-ready?", "a": "These patterns cover the most common use cases and are suitable for basic validation. For production systems, consider edge cases specific to your application. For example, the email regex handles standard formats but may need adjustment for unusual valid addresses."},
+      {"q": "Can I use these patterns in any programming language?", "a": "Most patterns use standard regex syntax compatible with JavaScript, Python, Java, PHP, Ruby, and Go. Some features like lookahead/lookbehind may vary between languages. The patterns shown here use JavaScript-compatible syntax."}
+    ],
+    "related": ["regex-tester", "word-counter", "case-converter"]
+  },
+  {
+    "slug": "word-counter",
+    "title": "Word Counter Online | Count Words & Characters Free",
+    "h1": "Word Counter -- Count Words & Characters",
+    "description": "Count words, characters, sentences, paragraphs, and estimated reading time instantly. Free online word counter for writers, students, and SEO professionals.",
+    "keyword": "word counter",
+    "component": "text-tool",
+    "config": {"mode": "counter"},
+    "faq": [
+      {"q": "How does the word counter work?", "a": "This tool splits your text by whitespace to count words, measures string length for characters, counts periods/exclamation/question marks for sentences, and counts double line breaks for paragraphs. Reading time is estimated at 200 words per minute."},
+      {"q": "Is the reading time estimate accurate?", "a": "The estimate uses 200 words per minute, which is the average adult reading speed. Technical content may take longer (150 wpm), while familiar topics may be faster (250 wpm). The estimate gives a useful ballpark for content planning."},
+      {"q": "Does it count spaces and punctuation?", "a": "The tool shows both 'characters' (including spaces) and 'characters without spaces' counts. Punctuation marks are included in character counts. The word count excludes empty whitespace tokens."},
+      {"q": "Can I use this for SEO meta descriptions?", "a": "Yes. SEO meta descriptions should be 150-160 characters. The character counter helps you stay within this limit. Title tags should be under 60 characters. Use the character count to optimize your content for search engines."}
+    ],
+    "related": ["character-counter", "case-converter", "text-diff"]
+  },
+  {
+    "slug": "character-counter",
+    "title": "Character Counter Online | Count Characters Free",
+    "h1": "Character Counter Online",
+    "description": "Count characters, words, sentences, and paragraphs in real-time. Free online character counter for Twitter, SEO meta descriptions, and content writing.",
+    "keyword": "character counter",
+    "component": "text-tool",
+    "config": {"mode": "counter"},
+    "faq": [
+      {"q": "How many characters can a tweet have?", "a": "Twitter/X allows up to 280 characters per tweet (140 for some older accounts). This character counter shows your count in real-time so you can compose tweets that fit within the limit. URLs count as 23 characters regardless of length."},
+      {"q": "What is the ideal meta description length?", "a": "Google typically displays 150-160 characters of a meta description in search results. Use this counter to ensure your descriptions stay within this range. Going over may result in truncation with an ellipsis."},
+      {"q": "Does the counter include spaces?", "a": "Yes. The tool shows both total characters (with spaces) and characters without spaces. Most social media platforms and SEO tools count spaces, so the total character count is what you should use for those limits."},
+      {"q": "Can I count characters in multiple languages?", "a": "Yes. This tool correctly counts Unicode characters including Chinese, Japanese, Korean, Arabic, emoji, and accented characters. Each character counts as one regardless of its byte size in UTF-8."}
+    ],
+    "related": ["word-counter", "case-converter", "text-diff"]
+  },
+  {
+    "slug": "case-converter",
+    "title": "Case Converter | UPPER, lower, Title, camelCase Free",
+    "h1": "Case Converter -- UPPER, lower, Title, camelCase",
+    "description": "Convert text between UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case. Free online case converter running entirely in your browser.",
+    "keyword": "case converter",
+    "component": "text-tool",
+    "config": {"mode": "case"},
+    "faq": [
+      {"q": "What case conversions are supported?", "a": "This tool supports six conversions: UPPERCASE (all caps), lowercase (all lower), Title Case (capitalize first letter of each word), camelCase (first word lowercase, subsequent words capitalized), snake_case (words joined by underscores), and kebab-case (words joined by hyphens)."},
+      {"q": "How does camelCase conversion work?", "a": "The tool splits your text into words, lowercases the first word, capitalizes the first letter of each subsequent word, and joins them without spaces. For example, 'hello world test' becomes 'helloWorldTest'."},
+      {"q": "When would I use snake_case vs kebab-case?", "a": "snake_case is the convention in Python, Ruby, and SQL (e.g., user_name, created_at). kebab-case is used in CSS, HTML attributes, and URL slugs (e.g., font-size, user-profile). Use whichever matches your language or platform convention."},
+      {"q": "Does it handle special characters?", "a": "Yes. Special characters, numbers, and punctuation are preserved. The case conversion only affects alphabetic characters. Unicode characters (accented letters, etc.) are handled correctly."}
+    ],
+    "related": ["word-counter", "character-counter", "text-diff"]
+  },
+  {
+    "slug": "text-diff",
+    "title": "Text Diff Online | Compare Two Texts Free",
+    "h1": "Text Diff -- Compare Two Texts",
+    "description": "Compare two texts and see differences highlighted. Free online text diff tool showing additions, deletions, and changes line by line. Runs in your browser.",
+    "keyword": "text diff compare",
+    "component": "text-tool",
+    "config": {"mode": "diff"},
+    "faq": [
+      {"q": "How does text diff work?", "a": "This tool compares two texts line by line. Lines present only in the first text are marked as deletions (red). Lines present only in the second text are marked as additions (green). Unchanged lines are shown in the default color for context."},
+      {"q": "Can I compare code with this tool?", "a": "Yes. This tool works with any text including source code, configuration files, documentation, and prose. The line-by-line comparison format is similar to what you see in Git diffs and code review tools."},
+      {"q": "Does it handle large texts?", "a": "Yes. The diff runs entirely in your browser with no size limits other than available memory. For very large texts (thousands of lines), the comparison may take a moment to compute but results are displayed incrementally."},
+      {"q": "What diff algorithm is used?", "a": "This tool uses a line-by-line comparison approach that identifies the longest common subsequence between the two texts. This is the same fundamental approach used by tools like Git diff and Unix diff."}
+    ],
+    "related": ["json-diff", "word-counter", "case-converter"]
+  },
+  {
+    "slug": "hex-to-rgb",
+    "title": "Hex to RGB Color Converter Online | Free Tool",
+    "h1": "Hex to RGB Color Converter",
+    "description": "Convert hex color codes to RGB values and back instantly. Free online color converter with live preview swatch. Supports 3-digit and 6-digit hex codes.",
+    "keyword": "hex to rgb converter",
+    "component": "converter",
+    "config": {"type": "hex-rgb"},
+    "faq": [
+      {"q": "How do I convert hex to RGB?", "a": "Enter a hex color code (e.g., #14B8A6) and the tool instantly shows the RGB equivalent (20, 184, 166). The hex code is split into three pairs of hexadecimal digits representing red, green, and blue values (0-255 each)."},
+      {"q": "What is the difference between hex and RGB?", "a": "Hex and RGB represent the same colors in different formats. Hex uses a 6-digit hexadecimal string (#RRGGBB), while RGB uses three decimal numbers (R, G, B from 0-255). Hex is more common in CSS; RGB is used in design tools and programming."},
+      {"q": "Does it support 3-digit hex codes?", "a": "Yes. Three-digit hex codes like #1A2 are automatically expanded to 6 digits (#11AA22) by doubling each digit. This follows the same convention used by CSS."},
+      {"q": "Can I convert RGB back to hex?", "a": "Yes. Enter RGB values (e.g., 20, 184, 166) and get the hex equivalent (#14B8A6). The conversion works bidirectionally with instant results. A color preview swatch updates in real-time."}
+    ],
+    "related": ["hex-to-decimal", "binary-to-decimal", "css-formatter"]
+  },
+  {
+    "slug": "hex-to-decimal",
+    "title": "Hex to Decimal Converter Online | Free Tool",
+    "h1": "Hex to Decimal Converter",
+    "description": "Convert hexadecimal to decimal, binary, and octal instantly. Free online number base converter with real-time conversion. Runs entirely in your browser.",
+    "keyword": "hex to decimal converter",
+    "component": "converter",
+    "config": {"type": "number-base"},
+    "faq": [
+      {"q": "How do I convert hex to decimal?", "a": "Enter a hexadecimal number (e.g., FF) and the tool instantly shows the decimal equivalent (255). The conversion uses positional notation: each hex digit represents a power of 16. This tool also shows binary and octal equivalents simultaneously."},
+      {"q": "What is hexadecimal?", "a": "Hexadecimal (base 16) uses digits 0-9 and letters A-F. It is widely used in computing because each hex digit represents exactly 4 binary bits, making it a compact way to represent binary data. Memory addresses, color codes, and byte values all use hex."},
+      {"q": "Can I convert between all number bases?", "a": "Yes. This tool converts between hexadecimal (base 16), decimal (base 10), binary (base 2), and octal (base 8). Enter a value in any field and the others update instantly."},
+      {"q": "What is the maximum value supported?", "a": "This tool uses JavaScript's native number parsing which handles integers up to 2^53-1 (9,007,199,254,740,991) precisely. For most programming use cases including 32-bit and 64-bit values, this range is sufficient."}
+    ],
+    "related": ["binary-to-decimal", "hex-to-rgb", "base64-encode"]
+  },
+  {
+    "slug": "binary-to-decimal",
+    "title": "Binary to Decimal Converter Online | Free Tool",
+    "h1": "Binary to Decimal Converter",
+    "description": "Convert binary to decimal, hexadecimal, and octal instantly. Free online binary converter with real-time conversion. Learn binary with step-by-step explanation.",
+    "keyword": "binary to decimal converter",
+    "component": "converter",
+    "config": {"type": "number-base"},
+    "faq": [
+      {"q": "How do I convert binary to decimal?", "a": "Enter a binary number (e.g., 11111111) and the tool shows the decimal equivalent (255). Binary uses only 0 and 1. Each position represents a power of 2: the rightmost bit is 2^0 (1), the next is 2^1 (2), then 2^2 (4), and so on."},
+      {"q": "What is binary used for?", "a": "Binary (base 2) is the fundamental number system of all digital computers. Processors, memory, and storage all operate on binary values. Understanding binary is essential for low-level programming, networking (subnet masks), and digital electronics."},
+      {"q": "How do I read binary numbers?", "a": "Read binary right to left, multiplying each digit by its power of 2. For example, 1101 = (1x8) + (1x4) + (0x2) + (1x1) = 13. The tool shows the decimal result instantly, plus hex and octal equivalents."},
+      {"q": "Can I convert negative binary numbers?", "a": "This tool handles unsigned binary numbers. For signed integers in two's complement notation, the leftmost bit is the sign bit. The tool focuses on positive integer conversion between binary, decimal, hex, and octal bases."}
+    ],
+    "related": ["hex-to-decimal", "hex-to-rgb", "base64-encode"]
+  },
+  {
+    "slug": "sql-formatter",
+    "title": "SQL Formatter Online | Prettify SQL Queries Free",
+    "h1": "SQL Formatter -- Prettify SQL Queries",
+    "description": "Format and prettify SQL queries with proper indentation and uppercase keywords. Free online SQL formatter for SELECT, INSERT, UPDATE, and DELETE statements.",
+    "keyword": "sql formatter",
+    "component": "formatter",
+    "config": {"language": "sql"},
+    "faq": [
+      {"q": "How does SQL formatting work?", "a": "This tool parses your SQL query and applies consistent formatting: keywords are uppercased (SELECT, FROM, WHERE), each major clause starts on a new line, and nested clauses are indented. The result is readable, well-structured SQL."},
+      {"q": "What SQL dialects are supported?", "a": "This formatter handles standard SQL syntax including SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, JOIN, GROUP BY, ORDER BY, HAVING, UNION, and subqueries. It works with MySQL, PostgreSQL, SQLite, and SQL Server syntax."},
+      {"q": "Does it handle complex queries?", "a": "Yes. The formatter handles JOINs (INNER, LEFT, RIGHT, FULL), subqueries, CTEs (WITH clauses), CASE statements, and complex WHERE conditions with AND/OR. Nested subqueries are properly indented."},
+      {"q": "Can I minify SQL as well?", "a": "Yes. Toggle between format and minify mode. Minifying removes all unnecessary whitespace and line breaks, producing a compact single-line SQL string useful for query strings, logs, and API parameters."}
+    ],
+    "related": ["css-formatter", "json-formatter", "json-to-yaml"]
+  },
+  {
+    "slug": "css-formatter",
+    "title": "CSS Formatter & Minifier Online | Free Tool",
+    "h1": "CSS Formatter & Minifier",
+    "description": "Format CSS with proper indentation or minify CSS for production. Free online CSS formatter and minifier. Runs entirely in your browser with no server requests.",
+    "keyword": "css formatter minifier",
+    "component": "formatter",
+    "config": {"language": "css"},
+    "faq": [
+      {"q": "How does CSS formatting work?", "a": "This tool parses your CSS and applies consistent formatting: one property per line, proper indentation inside rule blocks, consistent spacing around colons and semicolons, and blank lines between rule blocks. The result is clean, readable CSS."},
+      {"q": "How much does CSS minification save?", "a": "CSS minification typically reduces file size by 20-40% by removing whitespace, comments, and unnecessary semicolons. For production websites, this translates to faster page loads and lower bandwidth usage."},
+      {"q": "Does it handle media queries?", "a": "Yes. Media queries (@media), keyframes (@keyframes), and other at-rules are properly formatted with correct indentation. Nested rules inside media queries are indented one level deeper than the at-rule."},
+      {"q": "Can I use this for SCSS or LESS?", "a": "This tool handles standard CSS syntax. SCSS and LESS have additional syntax (variables, nesting, mixins) that may not format perfectly. For best results, compile SCSS/LESS to CSS first, then format the output."}
+    ],
+    "related": ["sql-formatter", "json-formatter", "hex-to-rgb"]
+  },
+  {
+    "slug": "json-to-yaml",
+    "title": "JSON to YAML Converter Online | Free Tool",
+    "h1": "JSON to YAML Converter",
+    "description": "Convert JSON to YAML format instantly. Free online JSON to YAML converter with proper indentation. Perfect for Kubernetes configs, CI/CD pipelines, and more.",
+    "keyword": "json to yaml converter",
+    "component": "formatter",
+    "config": {"language": "json-to-yaml"},
+    "faq": [
+      {"q": "How does JSON to YAML conversion work?", "a": "This tool parses your JSON input and converts it to YAML format, replacing braces and brackets with indentation-based structure, removing quotes from keys, and using YAML syntax for arrays (- prefix). The output is clean, readable YAML."},
+      {"q": "When should I use YAML over JSON?", "a": "YAML is preferred for configuration files (Kubernetes, Docker Compose, GitHub Actions, Ansible) because it is more human-readable, supports comments, and uses less syntax overhead. JSON is better for data exchange and APIs due to its strict parsing rules."},
+      {"q": "Does it handle nested structures?", "a": "Yes. Nested objects and arrays are converted with proper YAML indentation (2 spaces per level). Complex structures including arrays of objects, nested arrays, and deeply nested objects are all handled correctly."},
+      {"q": "Can I convert YAML back to JSON?", "a": "This tool focuses on JSON to YAML conversion. For YAML to JSON, paste your YAML in the input field and use the reverse mode. The tool handles the most common YAML features used in configuration files."}
+    ],
+    "related": ["json-formatter", "json-minifier", "sql-formatter"]
+  }
+]
