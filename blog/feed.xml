@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>KappaKit — Developer Toolkit Blog</title>
+  <link href="https://kappakit.com/blog/" rel="alternate"/>
+  <link href="https://kappakit.com/blog/feed.xml" rel="self"/>
+  <id>https://kappakit.com/blog/</id>
+  <updated>2026-04-06T00:00:00Z</updated>
+  <author><name>KappaKit — Developer Toolkit</name></author>
+  <entry>
+    <title>Every Developer Tool You Need in One Bookmark — KappaKit</title>
+    <link href="https://kappakit.com/blog/post-1.html" rel="alternate"/>
+    <id>https://kappakit.com/blog/post-1.html</id>
+    <updated>2026-04-06T00:00:00Z</updated>
+    <summary>A practical guide to the essential encoding, hashing, and conversion tools every developer reaches for daily, and why a unified toolkit saves hours per week.</summary>
+  </entry>
+  <entry>
+    <title>JWT Tokens Demystified: Structure, Security, and Common Mistakes — KappaKit</title>
+    <link href="https://kappakit.com/blog/post-2.html" rel="alternate"/>
+    <id>https://kappakit.com/blog/post-2.html</id>
+    <updated>2026-04-06T00:00:00Z</updated>
+    <summary>A deep dive into JSON Web Tokens: how JWTs work, their three-part structure, security best practices, and the most common mistakes developers make.</summary>
+  </entry>
+</feed>
