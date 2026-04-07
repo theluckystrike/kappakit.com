@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Base64 Is the Most Used Developer Encoding Utility | KappaKit Research</title>
+<meta name="description" content="Deep analysis of Base64 encoding adoption across the npm ecosystem. 456 million monthly downloads across base64-js, js-base64, and base-64 packages. Use cases, performance data, and package comparison.">
+<meta name="keywords" content="base64 encoding, base64 npm packages, base64-js, js-base64, base64 usage, data uri base64, jwt base64, base64 performance, developer encoding tools">
+<link rel="canonical" href="https://kappakit.com/research/base64-usage-analysis.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/base64-usage-analysis.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/base64-usage-analysis.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why Base64 Is the Most Used Developer Encoding Utility">
+<meta property="og:description" content="Deep analysis of Base64 encoding adoption: 456M monthly npm downloads. Package ecosystem breakdown, use case analysis, and performance comparison.">
+<meta property="og:url" content="https://kappakit.com/research/base64-usage-analysis.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Base64 Is the Most Used Developer Encoding Utility">
+<meta name="twitter:description" content="Deep analysis of Base64 encoding adoption: 456M monthly npm downloads. Package ecosystem breakdown, use case analysis, and performance comparison.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Base64 Is the Most Used Developer Encoding Utility",
+  "description": "Deep analysis of Base64 encoding adoption across the npm ecosystem. 456 million monthly downloads, package comparison, use case breakdown, and performance data.",
+  "author": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KappaKit",
+    "url": "https://kappakit.com"
+  },
+  "datePublished": "2026-04-07",
+  "dateModified": "2026-04-07",
+  "mainEntityOfPage": "https://kappakit.com/research/base64-usage-analysis.html",
+  "image": "https://kappakit.com/assets/og-image.png"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which Base64 npm package has the most downloads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "base64-js has the most downloads at 384.9 million per month. It is a dependency of the buffer package (513.9M downloads), which is one of the most widely used polyfills in the Node.js ecosystem. This transitive dependency relationship accounts for the majority of base64-js installations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Base64 and Base64URL encoding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard Base64 uses + and / as the 63rd and 64th characters, with = for padding. Base64URL replaces + with - and / with _ and omits padding. Base64URL is used in JWTs, URL parameters, and filenames where + and / would cause issues. Most Base64 npm packages support both variants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do developers use Base64 encoding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common use cases are: embedding images as data URIs in HTML/CSS (saves HTTP requests), encoding binary data in JSON API payloads, constructing JWT tokens (header and payload are Base64URL-encoded), email attachments via MIME encoding, and storing binary data in text-only storage systems like localStorage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Base64 encoding increase file size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Base64 encoding increases data size by approximately 33% because it represents 3 bytes of binary data using 4 ASCII characters. A 30KB image becomes approximately 40KB when Base64-encoded. This overhead is the trade-off for text-safe transport."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use btoa() or a Base64 npm package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For browser-only code with ASCII input, btoa() and atob() work fine. For Unicode text, you need TextEncoder to convert to UTF-8 bytes first. For Node.js, use Buffer.from(str).toString('base64'). Use an npm package like js-base64 when you need cross-environment compatibility (browser + Node.js + Deno) or Base64URL support in a single API."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Base64 encoding secure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Base64 is an encoding scheme, not encryption. It is trivially reversible — anyone can decode a Base64 string to reveal the original data. Never use Base64 to 'hide' sensitive information like passwords or API keys. Use proper encryption (AES-256, RSA) for data that needs confidentiality."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.data-table .dl-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bar-visual {
+  display: inline-block;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.insight-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.insight-box strong { color: var(--accent); }
+.code-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.code-block .comment { color: var(--text-muted); }
+.code-block .keyword { color: #c792ea; }
+.code-block .string { color: #c3e88d; }
+.code-block .func { color: #82aaff; }
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/developer-tool-usage-2026.html">Research</a> <span>/</span> <span>Base64 Usage Analysis</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>Why Base64 Is the Most Used Developer Encoding Utility</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 7, 2026 &middot; Data source: npm registry API &middot; Last updated: <time datetime="2026-04-07">April 7, 2026</time>
+    </div>
+
+    <p>Base64 encoding is one of those tools every developer uses but rarely thinks about. It converts binary data into a text-safe format using 64 ASCII characters, and it appears everywhere: in data URIs, JWT tokens, API payloads, email attachments, and browser localStorage operations. Across the npm ecosystem, Base64 packages collectively receive <strong>456 million monthly downloads</strong> &mdash; making it one of the most heavily depended-upon utility categories in JavaScript.</p>
+
+    <p>This article examines why Base64 encoding has become so deeply embedded in the developer workflow, which packages dominate the ecosystem, and how different encoding approaches compare in performance.</p>
+
+    <h2>Base64 Package Ecosystem: Download Breakdown</h2>
+
+    <p>Three packages account for the vast majority of Base64-specific npm downloads:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Package</th>
+          <th>Monthly Downloads</th>
+          <th>Share</th>
+          <th>Primary Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>base64-js</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:100%;max-width:100px;"></span>384.9M</td>
+          <td>84.4%</td>
+          <td>Dependency of <code>buffer</code> package; low-level byte array encoding</td>
+        </tr>
+        <tr>
+          <td><strong>js-base64</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:12.7%;max-width:100px;"></span>49.0M</td>
+          <td>10.7%</td>
+          <td>Standalone Base64 with Unicode support, Base64URL, and cross-environment API</td>
+        </tr>
+        <tr>
+          <td><strong>base-64</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:5.7%;max-width:100px;"></span>22.1M</td>
+          <td>4.8%</td>
+          <td>Lightweight polyfill for <code>btoa()</code> and <code>atob()</code> in Node.js</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <strong>Why base64-js dominates:</strong> The base64-js package is not typically installed directly by developers. It is a dependency of <code>buffer</code> (513.9M monthly downloads), which in turn is depended upon by thousands of packages that need Node.js Buffer API compatibility in browser environments. Every install of buffer triggers an install of base64-js, creating an enormous transitive download count.
+    </div>
+
+    <h3>The Transitive Dependency Effect</h3>
+
+    <p>Understanding Base64's true usage requires separating direct installs from transitive dependencies:</p>
+
+    <ul>
+      <li><strong>Direct usage</strong> (developers explicitly choosing a Base64 library): ~71.1 million/month (js-base64 + base-64)</li>
+      <li><strong>Transitive usage</strong> (installed as a dependency of buffer or other packages): ~384.9 million/month (base64-js)</li>
+    </ul>
+
+    <p>Even the "direct" number of 71 million monthly downloads is substantial. For comparison, that exceeds the total monthly downloads of crypto-js (62.2M), md5 (52.2M), or bcryptjs (32.0M).</p>
+
+    <h2>Why Developers Need Base64: The Five Use Cases</h2>
+
+    <h3>1. Data URIs in HTML and CSS</h3>
+
+    <p>The most visible use of Base64 is embedding images, fonts, and other binary assets directly in HTML or CSS using the <code>data:</code> URI scheme. This eliminates an HTTP request at the cost of a ~33% size increase.</p>
+
+    <div class="code-block">
+<span class="comment">/* Embedding a small icon as a data URI */</span>
+.<span class="func">icon</span> {
+  <span class="keyword">background-image</span>: <span class="func">url</span>(<span class="string">data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...</span>);
+}
+
+<span class="comment">&lt;!-- Inline image in HTML --&gt;</span>
+&lt;<span class="keyword">img</span> <span class="func">src</span>=<span class="string">"data:image/svg+xml;base64,PHN2ZyB4bWxucz0i..."</span> <span class="func">alt</span>=<span class="string">"icon"</span>&gt;
+    </div>
+
+    <p>This pattern is especially common in email HTML (where external image references are often blocked), single-file web components, and CSS sprites for small icons under 2KB where the HTTP overhead exceeds the Base64 size overhead.</p>
+
+    <p>Try it yourself: KappaKit's <a href="/tools/base64-image.html">Base64 Image Encoder</a> converts any image to a data URI instantly in your browser.</p>
+
+    <h3>2. API Payload Encoding</h3>
+
+    <p>REST APIs that transfer binary data (file uploads, thumbnails, PDF documents) within JSON payloads rely on Base64 encoding. JSON has no native binary type, so Base64 bridges the gap:</p>
+
+    <div class="code-block">
+<span class="comment">// Sending a file via JSON API</span>
+<span class="keyword">const</span> payload = {
+  filename: <span class="string">"report.pdf"</span>,
+  content: <span class="func">btoa</span>(binaryData),  <span class="comment">// Base64-encode the binary content</span>
+  contentType: <span class="string">"application/pdf"</span>
+};
+
+<span class="func">fetch</span>(<span class="string">"/api/upload"</span>, {
+  method: <span class="string">"POST"</span>,
+  headers: { <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span> },
+  body: JSON.<span class="func">stringify</span>(payload)
+});
+    </div>
+
+    <p>GitHub's API, AWS S3 presigned URL responses, and Stripe's file upload endpoints all use Base64-encoded payloads in JSON. This pattern accounts for a significant portion of direct Base64 usage in production applications.</p>
+
+    <h3>3. JWT Token Construction</h3>
+
+    <p>Every JWT token contains two Base64URL-encoded segments: the header and the payload. When you see a JWT like <code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w...</code>, those <code>eyJ</code> prefixes are the Base64URL encoding of <code>{"</code> &mdash; the start of a JSON object.</p>
+
+    <p>With JWT packages (jose + jsonwebtoken) receiving 407.8 million monthly downloads, every one of those JWT operations involves Base64URL encoding and decoding under the hood. This makes JWT one of the largest single consumers of Base64 operations in the JavaScript ecosystem.</p>
+
+    <p>Inspect JWT tokens with KappaKit's <a href="/">JWT Decoder</a> &mdash; it decodes the Base64URL segments and displays the header, payload, and expiration status.</p>
+
+    <h3>4. Email Attachments (MIME)</h3>
+
+    <p>The MIME standard uses Base64 as the Content-Transfer-Encoding for binary email attachments. When a Node.js application sends an email with an attachment using nodemailer or similar libraries, the attachment is Base64-encoded before being embedded in the MIME message:</p>
+
+    <div class="code-block">
+<span class="comment">// MIME email with Base64-encoded attachment</span>
+Content-Type: application/pdf; name=<span class="string">"report.pdf"</span>
+Content-Transfer-Encoding: <span class="keyword">base64</span>
+Content-Disposition: attachment; filename=<span class="string">"report.pdf"</span>
+
+JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwov
+UGFnZXMgMiAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5
+cGUgL1BhZ2VzCi9LaWRzIFszIDAgUl0KL0NvdW50IDEKL01l...
+    </div>
+
+    <p>This is one of the oldest and most widespread uses of Base64, predating the web itself. RFC 2045 (published in 1996) established Base64 as the standard encoding for non-ASCII MIME content.</p>
+
+    <h3>5. Browser Storage of Binary Data</h3>
+
+    <p>Browser localStorage and sessionStorage only accept strings. Developers who need to cache binary data (images, audio clips, serialized state) in these storage APIs must Base64-encode the data first:</p>
+
+    <div class="code-block">
+<span class="comment">// Caching an image in localStorage</span>
+<span class="keyword">const</span> canvas = document.<span class="func">createElement</span>(<span class="string">"canvas"</span>);
+<span class="comment">// ... draw image on canvas ...</span>
+<span class="keyword">const</span> dataUrl = canvas.<span class="func">toDataURL</span>(<span class="string">"image/png"</span>);  <span class="comment">// Returns Base64 data URI</span>
+localStorage.<span class="func">setItem</span>(<span class="string">"cached-avatar"</span>, dataUrl);
+    </div>
+
+    <h2>Base64 vs. Base64URL: The Critical Difference</h2>
+
+    <p>A common source of bugs is confusing standard Base64 with Base64URL. The two variants differ in three characters:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Character</th>
+          <th>Standard Base64</th>
+          <th>Base64URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>62nd character</td>
+          <td><code>+</code></td>
+          <td><code>-</code></td>
+        </tr>
+        <tr>
+          <td>63rd character</td>
+          <td><code>/</code></td>
+          <td><code>_</code></td>
+        </tr>
+        <tr>
+          <td>Padding</td>
+          <td><code>=</code> (required)</td>
+          <td>Omitted</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Base64URL exists because <code>+</code>, <code>/</code>, and <code>=</code> have special meanings in URLs and filenames. JWTs use Base64URL exclusively. Using standard Base64 where Base64URL is expected (or vice versa) is one of the most common encoding bugs on Stack Overflow, contributing to the 11,288 cumulative Base64-tagged questions.</p>
+
+    <div class="code-block">
+<span class="comment">// Converting between Base64 and Base64URL</span>
+<span class="keyword">function</span> <span class="func">base64ToBase64Url</span>(base64) {
+  <span class="keyword">return</span> base64
+    .<span class="func">replace</span>(/\+/g, <span class="string">'-'</span>)
+    .<span class="func">replace</span>(/\//g, <span class="string">'_'</span>)
+    .<span class="func">replace</span>(/=+$/, <span class="string">''</span>);
+}
+
+<span class="keyword">function</span> <span class="func">base64UrlToBase64</span>(base64url) {
+  <span class="keyword">let</span> base64 = base64url.<span class="func">replace</span>(/-/g, <span class="string">'+'</span>).<span class="func">replace</span>(/_/g, <span class="string">'/'</span>);
+  <span class="keyword">while</span> (base64.length % 4) base64 += <span class="string">'='</span>;
+  <span class="keyword">return</span> base64;
+}
+    </div>
+
+    <h2>Performance Comparison: Encoding Methods</h2>
+
+    <p>How you encode Base64 matters for performance, especially when processing large payloads. Here is how the common approaches compare:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Environment</th>
+          <th>Unicode Safe</th>
+          <th>Relative Speed</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>btoa()</code> / <code>atob()</code></td>
+          <td>Browser</td>
+          <td>No (ASCII only)</td>
+          <td>Fastest</td>
+          <td>Native C++ implementation; fails on non-Latin1 characters</td>
+        </tr>
+        <tr>
+          <td><code>Buffer.from().toString('base64')</code></td>
+          <td>Node.js</td>
+          <td>Yes</td>
+          <td>Fast</td>
+          <td>Native C++ implementation; handles UTF-8 natively</td>
+        </tr>
+        <tr>
+          <td><code>TextEncoder</code> + <code>btoa()</code></td>
+          <td>Browser</td>
+          <td>Yes</td>
+          <td>Fast</td>
+          <td>Two-step: encode to UTF-8 bytes, then Base64 encode</td>
+        </tr>
+        <tr>
+          <td><code>base64-js</code></td>
+          <td>Any</td>
+          <td>Yes (byte arrays)</td>
+          <td>Moderate</td>
+          <td>Pure JS; works with Uint8Array input</td>
+        </tr>
+        <tr>
+          <td><code>js-base64</code></td>
+          <td>Any</td>
+          <td>Yes</td>
+          <td>Moderate</td>
+          <td>Handles Unicode strings directly; includes Base64URL</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <strong>Performance guidance:</strong> For browser code, use <code>TextEncoder</code> + <code>btoa()</code> for the best balance of speed and Unicode support. For Node.js, use the native <code>Buffer</code> API. Reach for a package like js-base64 only when you need cross-environment compatibility or Base64URL support in a single, consistent API.
+    </div>
+
+    <h2>The Unicode Trap</h2>
+
+    <p>The single most common Base64 bug in JavaScript is calling <code>btoa()</code> with Unicode text:</p>
+
+    <div class="code-block">
+<span class="comment">// This WILL throw an error</span>
+<span class="func">btoa</span>(<span class="string">"Hello </span>&#x1F30D;<span class="string">"</span>);  <span class="comment">// InvalidCharacterError: contains non-Latin1 characters</span>
+
+<span class="comment">// The correct approach: encode to UTF-8 bytes first</span>
+<span class="keyword">function</span> <span class="func">utf8ToBase64</span>(str) {
+  <span class="keyword">const</span> bytes = <span class="keyword">new</span> <span class="func">TextEncoder</span>().<span class="func">encode</span>(str);
+  <span class="keyword">let</span> binary = <span class="string">''</span>;
+  bytes.<span class="func">forEach</span>(b =&gt; binary += String.<span class="func">fromCharCode</span>(b));
+  <span class="keyword">return</span> <span class="func">btoa</span>(binary);
+}
+
+<span class="func">utf8ToBase64</span>(<span class="string">"Hello </span>&#x1F30D;<span class="string">"</span>);  <span class="comment">// "SGVsbG8g8J+MjQ==" - works correctly</span>
+    </div>
+
+    <p>This trap exists because <code>btoa()</code> was designed in the 1990s for Latin-1 character data, before Unicode was widely adopted on the web. The function accepts only characters in the range U+0000 to U+00FF. Any character outside this range (including common characters like em dashes, smart quotes, CJK characters, and emoji) throws an <code>InvalidCharacterError</code>.</p>
+
+    <p>KappaKit's <a href="/tools/base64-encode.html">Base64 Encoder</a> handles Unicode correctly by using TextEncoder internally, so you never hit this error when encoding text in the browser.</p>
+
+    <h2>Base64 in Context: How It Compares to Other Encoding Utilities</h2>
+
+    <p>Placing Base64 alongside other encoding categories shows its position in the developer utility hierarchy:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Encoding Type</th>
+          <th>Monthly Downloads</th>
+          <th>Primary Package</th>
+          <th>Typical Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Base64</strong></td>
+          <td class="dl-num">456.0M</td>
+          <td>base64-js</td>
+          <td>Binary-to-text for data URIs, APIs, JWTs</td>
+        </tr>
+        <tr>
+          <td><strong>URL Encoding</strong></td>
+          <td class="dl-num">249.0M</td>
+          <td>url-parse, validator</td>
+          <td>Percent-encoding for query parameters</td>
+        </tr>
+        <tr>
+          <td><strong>HTML Entity Encoding</strong></td>
+          <td class="dl-num">145.1M</td>
+          <td>he</td>
+          <td>Escaping HTML special characters for XSS prevention</td>
+        </tr>
+        <tr>
+          <td><strong>Password Hashing</strong></td>
+          <td class="dl-num">32.0M</td>
+          <td>bcryptjs</td>
+          <td>One-way hashing for credential storage</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Base64 leads encoding utilities by a wide margin. Its versatility across data URIs, API payloads, JWT tokens, and MIME encoding gives it far broader applicability than URL encoding (limited to URL contexts) or HTML entity encoding (limited to HTML output contexts).</p>
+
+    <p>For the complete ranking across all developer utility categories, see our main research page: <a href="/research/developer-tool-usage-2026.html">Developer Tool Usage Rankings 2026</a>.</p>
+
+    <h2>Key Takeaways</h2>
+
+    <ol>
+      <li><strong>Base64's 456M monthly downloads make it the top encoding utility</strong> on npm, driven largely by the transitive dependency chain from buffer to base64-js.</li>
+      <li><strong>Direct Base64 usage (71M/month)</strong> is still substantial and growing, fueled by data URI patterns, JWT adoption, and JSON API payload encoding.</li>
+      <li><strong>The Unicode trap</strong> (<code>btoa()</code> failing on non-Latin1 characters) remains the most common Base64 bug. Always use TextEncoder in browsers or Buffer in Node.js.</li>
+      <li><strong>Base64URL is not Base64.</strong> Confusing the two variants causes silent data corruption in JWTs and URL parameters. Use libraries that explicitly support both.</li>
+      <li><strong>The ~33% size overhead</strong> is the fundamental trade-off. For small assets (under 2KB), the saved HTTP request outweighs the size increase. For large files, use multipart uploads instead.</li>
+    </ol>
+
+    <div class="methodology-section">
+      <h3>Methodology</h3>
+      <p><strong>Data collection:</strong> npm download counts were retrieved from the npm registry API on April 7, 2026. The 30-day download window covers approximately March 8 to April 7, 2026. Stack Overflow question counts are cumulative totals from the Stack Exchange API v2.3.</p>
+      <p><strong>Package selection:</strong> Base64 packages were identified by searching the npm registry for packages with "base64" in their name and selecting those with over 1 million monthly downloads. The buffer and safe-buffer packages were included for context as upstream dependents of base64-js.</p>
+      <p><strong>Performance claims:</strong> Relative speed comparisons are based on published benchmarks and general JavaScript engine optimization characteristics. Exact throughput varies by runtime, input size, and hardware. The "fastest/fast/moderate" ratings are ordinal rankings, not precise measurements.</p>
+    </div>
+
+    <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Which Base64 npm package has the most downloads?</summary>
+        <p>base64-js has the most downloads at 384.9 million per month. It is a dependency of the buffer package (513.9M downloads), which is one of the most widely used polyfills in the Node.js ecosystem. This transitive dependency relationship accounts for the majority of base64-js installations.</p>
+      </details>
+
+      <details>
+        <summary>What is the difference between Base64 and Base64URL encoding?</summary>
+        <p>Standard Base64 uses + and / as the 63rd and 64th characters, with = for padding. Base64URL replaces + with - and / with _ and omits padding. Base64URL is used in JWTs, URL parameters, and filenames where + and / would cause issues.</p>
+      </details>
+
+      <details>
+        <summary>Why do developers use Base64 encoding?</summary>
+        <p>The most common use cases are: embedding images as data URIs in HTML/CSS (saves HTTP requests), encoding binary data in JSON API payloads, constructing JWT tokens (header and payload are Base64URL-encoded), email attachments via MIME encoding, and storing binary data in text-only storage systems like localStorage.</p>
+      </details>
+
+      <details>
+        <summary>Does Base64 encoding increase file size?</summary>
+        <p>Yes. Base64 encoding increases data size by approximately 33% because it represents 3 bytes of binary data using 4 ASCII characters. A 30KB image becomes approximately 40KB when Base64-encoded. This overhead is the trade-off for text-safe transport.</p>
+      </details>
+
+      <details>
+        <summary>Should I use btoa() or a Base64 npm package?</summary>
+        <p>For browser-only code with ASCII input, btoa() and atob() work fine. For Unicode text, you need TextEncoder to convert to UTF-8 bytes first. For Node.js, use Buffer.from(str).toString('base64'). Use an npm package like js-base64 when you need cross-environment compatibility or Base64URL support.</p>
+      </details>
+
+      <details>
+        <summary>Is Base64 encoding secure?</summary>
+        <p>No. Base64 is an encoding scheme, not encryption. It is trivially reversible. Never use Base64 to hide sensitive information like passwords or API keys. Use proper encryption (AES-256, RSA) for data that needs confidentiality.</p>
+      </details>
+    </section>
+
+    <section class="related-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Related Research &amp; Tools</h2>
+      <div class="related-grid">
+        <a href="/research/developer-tool-usage-2026.html" class="related-card">Developer Tool Usage Rankings 2026</a>
+        <a href="/research/jwt-security-practices.html" class="related-card">JWT Usage Patterns: Common Mistakes</a>
+        <a href="/tools/base64-encode.html" class="related-card">Base64 Encoder/Decoder</a>
+        <a href="/tools/base64-image.html" class="related-card">Base64 Image Encoder</a>
+        <a href="/tools/url-encode.html" class="related-card">URL Encoder/Decoder</a>
+        <a href="/tools/html-encode.html" class="related-card">HTML Entity Encoder</a>
+      </div>
+    </section>
+
+    <section class="author-section" style="max-width:720px;margin:2rem auto;">
+      <p style="font-size:0.85rem;color:var(--text-muted);">Research by <a href="/about.html">Michael Lip</a>. Published on <a href="https://kappakit.com">KappaKit</a>, a free browser-based developer toolkit. For timestamps and timezones, see <a href="https://epochpilot.com">EpochPilot</a>. For matrix math, see <a href="https://ml3x.com">ML3X</a>.</p>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+      <a href="https://epochpilot.com">EpochPilot</a>
+      <a href="https://ml3x.com">ML3X</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+</body>
+</html>

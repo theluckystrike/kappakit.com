@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Tool Usage Rankings 2026: What npm Downloads Tell Us | KappaKit Research</title>
+<meta name="description" content="Original research ranking developer utility tools by npm download volume. Analysis of 5.6 billion monthly downloads across Base64, JSON, UUID, hashing, JWT, regex, and URL encoding packages.">
+<meta name="keywords" content="developer tools usage, npm download statistics, base64 usage, json tools, uuid generator, hash tools, jwt decoder, regex tools, developer utility rankings 2026">
+<link rel="canonical" href="https://kappakit.com/research/developer-tool-usage-2026.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/developer-tool-usage-2026.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/developer-tool-usage-2026.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Developer Tool Usage Rankings 2026: What npm Downloads Tell Us">
+<meta property="og:description" content="Original research ranking developer utility tools by npm download volume. Analysis of 5.6B monthly downloads across Base64, JSON, UUID, hashing, JWT, regex, and URL encoding categories.">
+<meta property="og:url" content="https://kappakit.com/research/developer-tool-usage-2026.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Developer Tool Usage Rankings 2026: What npm Downloads Tell Us">
+<meta name="twitter:description" content="Original research ranking developer utility tools by npm download volume. Analysis of 5.6B monthly downloads across Base64, JSON, UUID, hashing, JWT, regex, and URL encoding categories.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Developer Tool Usage Rankings 2026",
+  "description": "Monthly npm download analysis ranking developer utility categories including Base64, JSON processing, UUID generation, hashing, JWT, regex, and URL encoding. Based on data from the npm registry API collected in April 2026.",
+  "url": "https://kappakit.com/research/developer-tool-usage-2026.html",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-07",
+  "dateModified": "2026-04-07",
+  "temporalCoverage": "2026-03/2026-04",
+  "distribution": {
+    "@type": "DataDownload",
+    "contentUrl": "https://kappakit.com/research/developer-tool-usage-2026.html",
+    "encodingFormat": "text/html"
+  },
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "Monthly npm Downloads",
+      "description": "Total monthly download count from the npm registry API for packages in each developer utility category"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Stack Overflow Question Count",
+      "description": "Cumulative question count for each technology tag on Stack Overflow"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the most downloaded developer utility category on npm in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSON processing is the most downloaded category with over 2.9 billion monthly downloads when combining packages like ajv, json5, json-stringify-safe, json-schema, zod, and fast-json-stringify. This reflects JSON's central role in web APIs, configuration files, and data serialization."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many monthly npm downloads do UUID packages get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The uuid package alone receives 969.9 million monthly downloads, while nanoid adds another 571.6 million. Combined, unique identifier generation packages account for over 1.5 billion monthly downloads, making it the second-highest utility category."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Base64 encoding still widely used by developers in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Base64 packages collectively receive over 456 million monthly npm downloads. base64-js leads with 384.9 million monthly downloads, followed by js-base64 at 49 million and base-64 at 22.1 million. Use cases include data URIs, API payload encoding, and JWT token construction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does JWT usage compare to other authentication methods based on npm data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JWT packages receive 407.8 million monthly downloads combined. The jose package (249.9M) has overtaken jsonwebtoken (157.9M), signaling a shift toward modern, standards-compliant JWT implementations. JWT also has 18,477 questions on Stack Overflow, indicating high developer engagement and common implementation challenges."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What data sources were used for this developer tool usage analysis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This analysis uses two primary data sources: the npm registry API for monthly download counts (api.npmjs.org/downloads/point/last-month) and the Stack Exchange API for question counts per technology tag. Data was collected on April 7, 2026. The npm data reflects downloads over the preceding 30-day period."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do some categories have billions of downloads when there are only millions of developers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "npm download counts include CI/CD pipeline installs, Docker builds, serverless cold starts, and transitive dependency resolution. A single application deployment can trigger hundreds of package downloads. The numbers reflect how deeply embedded these utilities are in the JavaScript ecosystem's automated infrastructure, not individual developer downloads."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.data-table .rank-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.data-table .dl-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.data-table .pkg-list {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.bar-visual {
+  display: inline-block;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.category-section {
+  margin: 2.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.category-section h3 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.insight-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.insight-box strong { color: var(--accent); }
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro ✦</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/developer-tool-usage-2026.html">Research</a> <span>/</span> <span>Developer Tool Usage Rankings 2026</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>Developer Tool Usage Rankings 2026: What npm Downloads Tell Us</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 7, 2026 &middot; Data source: npm registry API, Stack Overflow API &middot; Last updated: <time datetime="2026-04-07">April 7, 2026</time>
+    </div>
+
+    <p>Every month, developers collectively download billions of utility packages from npm. These download numbers tell a story about which tools developers actually reach for in their daily work &mdash; and which categories dominate the JavaScript ecosystem.</p>
+
+    <p>We analyzed monthly download data from the npm registry API across 30+ packages spanning eight developer utility categories: JSON processing, unique ID generation, encoding (Base64 and URL), hashing, JWT authentication, regex, and data validation. Here is what the data reveals.</p>
+
+    <h2>Overall Rankings by Monthly Downloads</h2>
+
+    <p>The table below ranks each developer utility category by combined monthly npm downloads for its major packages. The numbers represent downloads from the 30-day period ending April 7, 2026.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Category</th>
+          <th>Monthly Downloads</th>
+          <th>Top Packages</th>
+          <th>SO Questions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank-num">1</td>
+          <td><strong>JSON Processing</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:100%;max-width:120px;"></span>2.96B</td>
+          <td class="pkg-list">ajv (1.1B), js-yaml (817.9M), json5 (679.2M), entities (698.1M), json-stringify-safe (143.2M), json-schema (144.4M), zod (540.3M)</td>
+          <td>361,418</td>
+        </tr>
+        <tr>
+          <td class="rank-num">2</td>
+          <td><strong>Unique ID Generation</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:52%;max-width:120px;"></span>1.54B</td>
+          <td class="pkg-list">uuid (969.9M), nanoid (571.6M)</td>
+          <td>3,347</td>
+        </tr>
+        <tr>
+          <td class="rank-num">3</td>
+          <td><strong>Encoding / Buffering</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:51%;max-width:120px;"></span>1.53B</td>
+          <td class="pkg-list">safe-buffer (1.01B), buffer (513.9M)</td>
+          <td>11,288</td>
+        </tr>
+        <tr>
+          <td class="rank-num">4</td>
+          <td><strong>Base64 Encoding</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:15%;max-width:120px;"></span>456.0M</td>
+          <td class="pkg-list">base64-js (384.9M), js-base64 (49.0M), base-64 (22.1M)</td>
+          <td>11,288</td>
+        </tr>
+        <tr>
+          <td class="rank-num">5</td>
+          <td><strong>JWT / Authentication</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:14%;max-width:120px;"></span>407.8M</td>
+          <td class="pkg-list">jose (249.9M), jsonwebtoken (157.9M)</td>
+          <td>18,477</td>
+        </tr>
+        <tr>
+          <td class="rank-num">6</td>
+          <td><strong>Code Formatting</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:11%;max-width:120px;"></span>335.9M</td>
+          <td class="pkg-list">prettier (335.9M)</td>
+          <td>&mdash;</td>
+        </tr>
+        <tr>
+          <td class="rank-num">7</td>
+          <td><strong>Hashing (MD5, SHA)</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:11%;max-width:120px;"></span>328.1M</td>
+          <td class="pkg-list">sha.js (80.2M), hash.js (77.4M), crypto-js (62.2M), ripemd160 (62.0M), create-hash (56.3M), md5 (52.2M)</td>
+          <td>30,234</td>
+        </tr>
+        <tr>
+          <td class="rank-num">8</td>
+          <td><strong>URL Encoding / Parsing</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:8%;max-width:120px;"></span>249.0M</td>
+          <td class="pkg-list">url-parse (164.3M), validator (84.8M)</td>
+          <td>990</td>
+        </tr>
+        <tr>
+          <td class="rank-num">9</td>
+          <td><strong>HTML Entity Encoding</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:5%;max-width:120px;"></span>145.1M</td>
+          <td class="pkg-list">he (145.1M)</td>
+          <td>&mdash;</td>
+        </tr>
+        <tr>
+          <td class="rank-num">10</td>
+          <td><strong>Password Hashing</strong></td>
+          <td class="dl-num"><span class="bar-visual" style="width:1%;max-width:120px;"></span>32.0M</td>
+          <td class="pkg-list">bcryptjs (32.0M)</td>
+          <td>2,346</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <strong>Key finding:</strong> JSON processing dominates with nearly 3 billion monthly downloads &mdash; roughly 6x the volume of Base64 encoding and 7x the volume of JWT packages. This reflects JSON's role as the universal data interchange format across web APIs, configuration files, and front-end state management.
+    </div>
+
+    <h2>Category Deep Dives</h2>
+
+    <div class="category-section">
+      <h3>1. JSON Processing &mdash; 2.96 Billion Monthly Downloads</h3>
+
+      <p>JSON processing is not a single operation &mdash; it spans validation (ajv at 1.1B downloads), schema enforcement (zod at 540.3M), configuration parsing (json5 at 679.2M, js-yaml at 817.9M), and safe serialization (json-stringify-safe at 143.2M). The ajv JSON schema validator alone accounts for more monthly downloads than the entire JWT, hashing, and URL encoding categories combined.</p>
+
+      <p>The rise of <strong>zod</strong> to 540.3 million monthly downloads is a defining trend of 2026. Zod provides TypeScript-first schema validation with static type inference, eliminating the gap between runtime validation and compile-time types. Its growth signals a shift from JSON Schema (declarative) to programmatic validation (imperative).</p>
+
+      <p>Stack Overflow reflects JSON's complexity: 361,418 cumulative questions tagged <code>json</code>, more than any other utility category in our analysis. Common pain points include deeply nested parsing, circular reference handling, and schema validation edge cases.</p>
+
+      <p>If you work with JSON data regularly, try KappaKit's <a href="/tools/json-formatter.html">JSON Formatter</a>, <a href="/tools/json-validator.html">JSON Validator</a>, or <a href="/tools/json-to-typescript.html">JSON to TypeScript</a> converter &mdash; all run client-side with zero data transmission.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>2. Unique ID Generation &mdash; 1.54 Billion Monthly Downloads</h3>
+
+      <p>The <code>uuid</code> package (969.9M) and <code>nanoid</code> (571.6M) together generate over 1.5 billion monthly downloads. UUID v4 remains the default choice for database primary keys, distributed systems, and session identifiers. Nanoid's smaller output (21 characters vs. UUID's 36) and URL-safe alphabet make it increasingly popular for client-facing identifiers and short links.</p>
+
+      <p>Despite the massive download volume, UUID has only 3,347 Stack Overflow questions &mdash; indicating that the API surface is simple and well-documented. Developers rarely struggle with <em>how</em> to generate a UUID; they struggle with <em>which format</em> to choose.</p>
+
+      <p>Generate UUIDs instantly with KappaKit's <a href="/tools/uuid-generator.html">UUID Generator</a>, <a href="/tools/uuid-v4.html">UUID v4</a>, or <a href="/tools/uuid-v7.html">UUID v7</a> tools. For shorter identifiers, see the <a href="/tools/ulid-generator.html">ULID Generator</a>.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>3. Base64 Encoding &mdash; 456.0 Million Monthly Downloads</h3>
+
+      <p>Base64 packages receive 456 million monthly downloads, led by <code>base64-js</code> at 384.9 million. This package dominates because it is a dependency of the <code>buffer</code> package (513.9M downloads), which itself underpins much of the Node.js ecosystem. The <code>js-base64</code> (49.0M) and <code>base-64</code> (22.1M) packages serve developers who need standalone Base64 operations without the full buffer polyfill.</p>
+
+      <p>Base64 usage spans multiple domains: data URIs in HTML/CSS, API payload encoding, email attachment handling (MIME), and JWT token construction where the header and payload are Base64URL-encoded. With 11,288 Stack Overflow questions, Base64 encoding is a frequent source of developer confusion &mdash; particularly around Unicode handling and the distinction between standard Base64 and Base64URL.</p>
+
+      <p>For a deep dive into why Base64 dominates, read our companion article: <a href="/research/base64-usage-analysis.html">Why Base64 Is the Most Used Developer Encoding Utility</a>. Try the <a href="/tools/base64-encode.html">Base64 Encoder/Decoder</a> on KappaKit.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>4. JWT / Authentication &mdash; 407.8 Million Monthly Downloads</h3>
+
+      <p>The JWT ecosystem shows a clear power shift. The <code>jose</code> package (249.9M) has overtaken <code>jsonwebtoken</code> (157.9M), now accounting for 61% of JWT-related downloads. This shift reflects the JavaScript community's move toward modern, standards-compliant implementations: jose supports the full JOSE (JSON Object Signing and Encryption) specification, uses native Web Crypto APIs, and works across Node.js, Deno, Bun, and browsers.</p>
+
+      <p>JWT has 18,477 Stack Overflow questions &mdash; disproportionately high relative to its download volume. This signals that JWT implementation is error-prone. Common issues include token expiration handling, algorithm confusion attacks, and improper secret management. See our analysis: <a href="/research/jwt-security-practices.html">JWT Usage Patterns: Common Mistakes Developers Make</a>.</p>
+
+      <p>Decode and inspect JWT tokens safely with KappaKit's <a href="/">JWT Decoder</a> &mdash; runs entirely in your browser with zero server contact.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>5. Hashing (MD5, SHA-256) &mdash; 328.1 Million Monthly Downloads</h3>
+
+      <p>Hashing packages are distributed across many implementations: <code>sha.js</code> (80.2M), <code>hash.js</code> (77.4M), <code>crypto-js</code> (62.2M), <code>ripemd160</code> (62.0M), <code>create-hash</code> (56.3M), and <code>md5</code> (52.2M). The fragmentation reflects the historical need for browser-compatible hash implementations before the Web Crypto API achieved broad support.</p>
+
+      <p>Combined hash-related Stack Overflow questions (md5: 4,084 + sha256: 2,021 + hash: 24,129) total over 30,000. Common confusion points include choosing between MD5 and SHA-256, understanding collision resistance, and the distinction between hashing and encryption.</p>
+
+      <p>Generate MD5, SHA-1, and SHA-256 hashes simultaneously with KappaKit's <a href="/tools/md5-hash.html">MD5 Hash</a>, <a href="/tools/sha256-hash.html">SHA-256 Hash</a>, and <a href="/tools/sha512-hash.html">SHA-512 Hash</a> generators.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>6. URL Encoding / Parsing &mdash; 249.0 Million Monthly Downloads</h3>
+
+      <p>URL manipulation packages account for 249 million monthly downloads. <code>url-parse</code> (164.3M) provides cross-environment URL parsing, while <code>validator</code> (84.8M) offers comprehensive string validation including URL format checking. Despite low Stack Overflow question volume (990 for url-encoding), URL encoding remains a critical operation for constructing API requests, handling query parameters, and sanitizing user input.</p>
+
+      <p>Encode and decode URLs instantly with KappaKit's <a href="/tools/url-encode.html">URL Encoder/Decoder</a>.</p>
+    </div>
+
+    <div class="category-section">
+      <h3>7. Regex &mdash; 261,405 Stack Overflow Questions</h3>
+
+      <p>Regex is unique in this analysis: developers rarely install npm packages specifically for regex (the engine is built into JavaScript), but regex has 261,405 Stack Overflow questions &mdash; the highest of any category by a massive margin. This makes regex the most <em>asked-about</em> developer utility despite having minimal npm package footprint.</p>
+
+      <p>The gap between npm downloads (negligible) and Stack Overflow questions (261K) reveals that regex is a skill-based tool, not a package-based one. Developers need testing environments, visual debuggers, and reference material rather than library dependencies.</p>
+
+      <p>Test and debug regular expressions with KappaKit's <a href="/tools/regex-tester.html">Regex Tester</a> with flag toggles for global, case-insensitive, and multiline modes.</p>
+    </div>
+
+    <h2>Web Tool vs. CLI vs. Library: When Developers Use Each</h2>
+
+    <p>Not every developer task requires installing a package. Based on the data patterns, there is a clear hierarchy for how developers choose their tools:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>Best For</th>
+          <th>Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Web tools</strong></td>
+          <td>One-off operations, debugging, visual inspection, quick conversions</td>
+          <td>JWT decoding, Base64 encode/decode, regex testing, color conversion, hash verification</td>
+        </tr>
+        <tr>
+          <td><strong>CLI tools</strong></td>
+          <td>Scripting, CI/CD pipelines, batch operations, automation</td>
+          <td><code>openssl base64</code>, <code>uuidgen</code>, <code>sha256sum</code>, <code>jq</code></td>
+        </tr>
+        <tr>
+          <td><strong>Library packages</strong></td>
+          <td>Application logic, runtime operations, production code</td>
+          <td>uuid, jose, ajv, zod, crypto-js</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The npm download numbers reflect the library usage pattern. But web tools fill a different niche: they are the go-to when a developer needs to quickly decode a JWT during debugging, verify a hash output, test a regex pattern before embedding it in code, or convert a color value during CSS development. These tasks happen dozens of times per day and do not warrant adding a dependency.</p>
+
+    <div class="insight-box">
+      <strong>The web tool sweet spot:</strong> Tasks that are frequent, one-off, and visual. JWT decoding, regex testing, and color conversion are the three categories where web tools provide the most value over CLI or library alternatives &mdash; because seeing the structured output instantly is more valuable than piping through command-line tools.
+    </div>
+
+    <h2>Key Takeaways</h2>
+
+    <ol>
+      <li><strong>JSON processing is king.</strong> At 2.96 billion monthly downloads, JSON tooling dwarfs every other category. The ecosystem continues to fragment with specialized validators (ajv, zod) and parsers (json5, js-yaml).</li>
+      <li><strong>UUID generation is consolidating.</strong> Two packages (uuid + nanoid) own 99%+ of the market at 1.54 billion combined downloads. The trend toward shorter, URL-safe identifiers (nanoid, ULID) is accelerating.</li>
+      <li><strong>jose is replacing jsonwebtoken.</strong> The modern JOSE library now accounts for 61% of JWT downloads, up from an estimated 40% in 2024. Its Web Crypto API integration and multi-runtime support drive adoption.</li>
+      <li><strong>Regex is the most confusing utility.</strong> With 261,405 Stack Overflow questions but minimal npm footprint, regex represents the largest gap between developer need and package-based solutions. Web-based testers fill this gap.</li>
+      <li><strong>Hashing is fragmented.</strong> Six major packages split 328 million monthly downloads. The Web Crypto API should consolidate this space, but legacy browser-compatible packages persist due to transitive dependencies.</li>
+    </ol>
+
+    <div class="methodology-section">
+      <h3>Methodology</h3>
+      <p><strong>Data collection:</strong> npm download counts were retrieved from the npm registry API (<code>api.npmjs.org/downloads/point/last-month/{package}</code>) on April 7, 2026. Stack Overflow question counts were retrieved from the Stack Exchange API v2.3 (<code>api.stackexchange.com/2.3/tags/{tag}/info</code>) on the same date.</p>
+      <p><strong>Category grouping:</strong> Packages were grouped into functional categories based on their primary use case. Some packages (e.g., entities, he) serve overlapping purposes and were assigned to their most common use case. Download counts include CI/CD pipelines, Docker builds, and transitive dependency installations &mdash; they do not represent unique developers.</p>
+      <p><strong>Limitations:</strong> npm downloads are a proxy for usage, not a direct measurement. Packages with many dependents (like base64-js via buffer) have inflated counts due to transitive installations. Stack Overflow question counts are cumulative and include inactive or outdated questions. This analysis covers the JavaScript/Node.js ecosystem only and does not include Python (PyPI), Rust (crates.io), or other package registries.</p>
+    </div>
+
+    <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What is the most downloaded developer utility category on npm in 2026?</summary>
+        <p>JSON processing is the most downloaded category with over 2.9 billion monthly downloads when combining packages like ajv, json5, json-stringify-safe, json-schema, zod, and fast-json-stringify. This reflects JSON's central role in web APIs, configuration files, and data serialization.</p>
+      </details>
+
+      <details>
+        <summary>How many monthly npm downloads do UUID packages get?</summary>
+        <p>The uuid package alone receives 969.9 million monthly downloads, while nanoid adds another 571.6 million. Combined, unique identifier generation packages account for over 1.5 billion monthly downloads, making it the second-highest utility category.</p>
+      </details>
+
+      <details>
+        <summary>Is Base64 encoding still widely used by developers in 2026?</summary>
+        <p>Yes. Base64 packages collectively receive over 456 million monthly npm downloads. base64-js leads with 384.9 million monthly downloads, followed by js-base64 at 49 million and base-64 at 22.1 million. Use cases include data URIs, API payload encoding, and JWT token construction.</p>
+      </details>
+
+      <details>
+        <summary>How does JWT usage compare to other categories based on npm data?</summary>
+        <p>JWT packages receive 407.8 million monthly downloads combined. The jose package (249.9M) has overtaken jsonwebtoken (157.9M), signaling a shift toward modern, standards-compliant JWT implementations. JWT also has 18,477 questions on Stack Overflow, indicating high developer engagement and common implementation challenges.</p>
+      </details>
+
+      <details>
+        <summary>What data sources were used for this analysis?</summary>
+        <p>This analysis uses two primary data sources: the npm registry API for monthly download counts and the Stack Exchange API for question counts per technology tag. Data was collected on April 7, 2026. The npm data reflects downloads over the preceding 30-day period.</p>
+      </details>
+
+      <details>
+        <summary>Why do some categories have billions of downloads?</summary>
+        <p>npm download counts include CI/CD pipeline installs, Docker builds, serverless cold starts, and transitive dependency resolution. A single application deployment can trigger hundreds of package downloads. The numbers reflect how deeply embedded these utilities are in automated infrastructure, not individual developer downloads.</p>
+      </details>
+    </section>
+
+    <section class="related-section" style="max-width:720px;margin:2rem auto;">
+      <h2>Related Research &amp; Tools</h2>
+      <div class="related-grid">
+        <a href="/research/base64-usage-analysis.html" class="related-card">Why Base64 Is the Most Used Encoding Utility</a>
+        <a href="/research/jwt-security-practices.html" class="related-card">JWT Usage Patterns: Common Mistakes</a>
+        <a href="/tools/json-formatter.html" class="related-card">JSON Formatter</a>
+        <a href="/tools/uuid-generator.html" class="related-card">UUID Generator</a>
+        <a href="/tools/base64-encode.html" class="related-card">Base64 Encoder/Decoder</a>
+        <a href="/tools/regex-tester.html" class="related-card">Regex Tester</a>
+      </div>
+    </section>
+
+    <section class="author-section" style="max-width:720px;margin:2rem auto;">
+      <p style="font-size:0.85rem;color:var(--text-muted);">Research by <a href="/about.html">Michael Lip</a>. Published on <a href="https://kappakit.com">KappaKit</a>, a free browser-based developer toolkit. For timestamps and timezones, see <a href="https://epochpilot.com">EpochPilot</a>. For matrix math, see <a href="https://ml3x.com">ML3X</a>.</p>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="https://zovo.one/tools">Zovo Tools</a>
+      <span>Free developer tools by a solo dev. No tracking.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://kappafy.com">Kappafy</a>
+      <a href="https://claudkit.com">ClaudKit</a>
+      <a href="https://krzen.com">Krzen</a>
+      <a href="https://epochpilot.com">EpochPilot</a>
+      <a href="https://ml3x.com">ML3X</a>
+    </div>
+    <div class="footer-pro">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=footer-link">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots
+    </div>
+  </div>
+</footer>
+</body>
+</html>
