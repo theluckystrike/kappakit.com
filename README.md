@@ -1,36 +1,81 @@
-# Developer Toolkit — Base64, JWT, Hash, UUID, Regex, URL & Color Tools in One Place
+# KappaKit -- Developer Toolkit (Base64, JWT, Hash, UUID, Regex & More)
 
-**[Open Toolkit →](https://kappakit.com)** | [About](https://kappakit.com/about.html) | [Blog](https://kappakit.com/blog/)
+**[-> Use KappaKit (live tool)](https://kappakit.com/)**
 
-Developer Toolkit bundles 7 essential developer utilities into a single fast interface. Encode/decode Base64, inspect JWT tokens, generate hashes (MD5, SHA-1, SHA-256), create UUIDs, test regex patterns, encode/decode URLs, and convert color formats. No installs, no signups — every tool runs entirely in your browser.
+KappaKit is a free all-in-one developer toolkit with seven essential encoding, decoding, and conversion tools in a single page. Base64, JWT decoding, hash generation, UUID generation, regex testing, URL encoding, and color conversion -- all running entirely in your browser using native Web APIs.
 
 ## Features
 
-- **Base64 encoder/decoder** — encode and decode strings and files instantly
-- **JWT token inspector** — decode and validate JSON Web Tokens with claim highlighting
-- **Hash generator** — MD5, SHA-1, SHA-256, SHA-512 with copy-to-clipboard
-- **UUID generator** — v4 random UUIDs, bulk generation, click-to-copy
-- **Regex tester** — live pattern matching with capture group highlighting
-- **URL encoder/decoder** — encode special characters for safe URL construction
-- **Color converter** — HEX, RGB, HSL conversion with live preview swatch
+- Base64 encoder/decoder with full Unicode support
+- JWT token decoder with header, payload, and expiration parsing
+- SHA-256, SHA-1, and MD5 hash generator (simultaneous output)
+- UUID v4 generator with bulk generation up to 100 at once
+- Regex tester with global, case-insensitive, and multiline flag toggles
+- URL encoder/decoder for percent-encoding
+- HEX/RGB/HSL color converter with live preview swatch
+- 100% client-side -- your data never leaves your browser
+- Open source -- inspect the code yourself
 
-## How It Works
+## Tools
 
-Select any tool from the sidebar or top navigation. Each tool loads instantly with a focused interface — input field, controls, and output. Paste your data, click the action button, and get results immediately. Switch between tools without losing your inputs. Everything is computed client-side using the Web Crypto API and standard browser APIs. No data is ever transmitted to a server.
+### Encoding & Decoding
+- [Base64 Encoder](https://kappakit.com/tools/base64-encode.html) -- Encode and decode Base64 strings
+- [Base64 Image Encoder](https://kappakit.com/tools/base64-image.html) -- Convert images to Base64 data URIs
+- [URL Encoder](https://kappakit.com/tools/url-encode.html) -- URL percent-encoding and decoding
+- [HTML Encoder](https://kappakit.com/tools/html-encode.html) -- HTML entity encoding and decoding
 
-## Built With
+### Hash Generators
+- [MD5 Hash Generator](https://kappakit.com/tools/md5-hash.html) -- Generate MD5 hashes
+- [SHA-1 Hash Generator](https://kappakit.com/tools/sha1-hash.html) -- Generate SHA-1 hashes
+- [SHA-256 Hash Generator](https://kappakit.com/tools/sha256-hash.html) -- Generate SHA-256 hashes
+- [SHA-512 Hash Generator](https://kappakit.com/tools/sha512-hash.html) -- Generate SHA-512 hashes
+- [Bcrypt Generator](https://kappakit.com/tools/bcrypt-generator.html) -- Generate bcrypt password hashes
 
-- Vanilla JavaScript (no frameworks, no dependencies)
-- Client-side only — your data never leaves your browser
+### UUID & ID Generators
+- [UUID Generator](https://kappakit.com/tools/uuid-generator.html) -- Generate UUID v4 identifiers
+- [UUID v4 Generator](https://kappakit.com/tools/uuid-v4.html) -- Dedicated UUID v4 tool
+- [UUID v7 Generator](https://kappakit.com/tools/uuid-v7.html) -- Generate time-sortable UUID v7
+- [ULID Generator](https://kappakit.com/tools/ulid-generator.html) -- Generate ULIDs
 
+### JSON Tools
+- [JSON Formatter](https://kappakit.com/tools/json-formatter.html) -- Pretty-print JSON with indentation
+- [JSON Validator](https://kappakit.com/tools/json-validator.html) -- Validate JSON syntax
+- [JSON Minifier](https://kappakit.com/tools/json-minifier.html) -- Minify JSON by removing whitespace
+- [JSON Diff](https://kappakit.com/tools/json-diff.html) -- Compare two JSON documents
+- [JSON to YAML](https://kappakit.com/tools/json-to-yaml.html) -- Convert JSON to YAML format
+- [JSON to TypeScript](https://kappakit.com/tools/json-to-typescript.html) -- Generate TypeScript interfaces from JSON
 
-- [Epoch & Time Converter](https://epochpilot.com) — convert timestamps and parse cron expressions
-- [Image Compressor](https://krzen.com) — compress and convert images before uploading
-- [Color Palette Generator](https://gen8x.com) — generate full palettes from your color values
+### Text & Code Tools
+- [Regex Tester](https://kappakit.com/tools/regex-tester.html) -- Test regular expressions with flags
+- [Regex Generator](https://kappakit.com/tools/regex-generator.html) -- Generate regex patterns from examples
+- [Case Converter](https://kappakit.com/tools/case-converter.html) -- Convert between camelCase, snake_case, etc.
+- [Character Counter](https://kappakit.com/tools/character-counter.html) -- Count characters, words, and lines
+- [Word Counter](https://kappakit.com/tools/word-counter.html) -- Count words and reading time
+- [Text Diff](https://kappakit.com/tools/text-diff.html) -- Compare two text blocks
+- [CSS Formatter](https://kappakit.com/tools/css-formatter.html) -- Format and beautify CSS
+- [SQL Formatter](https://kappakit.com/tools/sql-formatter.html) -- Format and beautify SQL queries
 
-## Contributing
+### Number Converters
+- [Hex to RGB](https://kappakit.com/tools/hex-to-rgb.html) -- Convert hex colors to RGB values
+- [Hex to Decimal](https://kappakit.com/tools/hex-to-decimal.html) -- Hexadecimal to decimal conversion
+- [Binary to Decimal](https://kappakit.com/tools/binary-to-decimal.html) -- Binary to decimal conversion
 
-Found a bug or have a feature request? [Open an issue](https://github.com/theluckystrike/kappakit.com/issues).
+## Tech Stack
+
+- Vanilla JavaScript (no frameworks, no build step)
+- Static HTML hosted on GitHub Pages
+- Cloudflare DNS + SSL
+- Zero dependencies, zero tracking, zero cookies
+
+## Part of Zovo Tools
+
+KappaKit is part of [Zovo Tools](https://zovo.one/tools) -- a collection of free developer tools.
+
+**Other tools in the network:**
+- [EpochPilot](https://epochpilot.com) -- 30+ timestamp and timezone tools
+- [HeyTensor](https://heytensor.com) -- PyTorch tensor shape calculator
+- [LochBot](https://lochbot.com) -- Prompt injection vulnerability checker
+- [ABWex](https://abwex.com) -- A/B test significance calculator
 
 ## License
 
