@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWT Decoder Online | Token Inspector | KappaKit</title>
+<meta name="description" content="Decode and inspect JSON Web Tokens (JWT). View header, payload, and signature. Verify expiration and claims. Free JWT decoder, 100% client-side.">
+<meta name="keywords" content="jwt decoder, jwt inspector, decode jwt, json web token decoder">
+<link rel="canonical" href="https://kappakit.com/tools/jwt-decoder.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/jwt-decoder.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/jwt-decoder.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JWT Decoder Online | Token Inspector | KappaKit">
+<meta property="og:description" content="Decode and inspect JSON Web Tokens (JWT). View header, payload, and signature. Verify expiration and claims. Free JWT decoder, 100% client-side.">
+<meta property="og:url" content="https://kappakit.com/tools/jwt-decoder.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JWT Decoder Online | Token Inspector | KappaKit">
+<meta name="twitter:description" content="Decode and inspect JSON Web Tokens (JWT). View header, payload, and signature. Verify expiration and claims. Free JWT decoder, 100% client-side.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"JWT Decoder","url":"https://kappakit.com/tools/jwt-decoder.html","description":"Decode and inspect JSON Web Tokens (JWT). View header, payload, and signature. Verify expiration and claims. Free JWT decoder, 100% client-side.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Michael Lip","url":"https://zovo.one"},"datePublished":"2026-04-10","dateModified":"2026-04-10"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a JSON Web Token (JWT)?","acceptedAnswer":{"@type":"Answer","text":"A JWT is a compact, URL-safe token format defined by RFC 7519. It consists of three Base64URL-encoded parts separated by dots: a header that specifies the signing algorithm, a payload containing claims (key-value data), and a cryptographic signature that verifies the token has not been tampered with."}},{"@type":"Question","name":"How do I read the payload of a JWT?","acceptedAnswer":{"@type":"Answer","text":"The payload is the second segment of the token (between the two dots). It is Base64URL-encoded, not encrypted. Paste the full token into this decoder and the payload JSON is displayed instantly, including standard claims like iss (issuer), sub (subject), exp (expiration), and any custom claims."}},{"@type":"Question","name":"Is it safe to decode a JWT in the browser?","acceptedAnswer":{"@type":"Answer","text":"Yes. Decoding only reads the Base64URL-encoded header and payload, which are not encrypted to begin with. This tool runs entirely in your browser and never transmits the token to a server. However, never share tokens publicly, as they may grant access to protected resources until they expire."}},{"@type":"Question","name":"What does the exp claim in a JWT mean?","acceptedAnswer":{"@type":"Answer","text":"The exp claim is a Unix timestamp indicating when the token expires. After this time, servers should reject the token. This decoder automatically converts the exp value to a human-readable date and shows whether the token is currently valid or expired."}}]}
+</script>
+</head>
+<body>
+<header class="site-header"><a href="/" class="site-logo">KappaKit</a><nav class="site-nav"><a href="/">Home</a><a href="/tools/">Tools</a><a href="/blog/">Blog</a><a href="/about.html">About</a><div class="nav-right"><a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a><a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a></div></nav></header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>JWT Decoder</span></nav>
+    <h1>JWT Decoder</h1>
+    <p>Decode and inspect JSON Web Tokens (JWT). View header, payload, and signature. Verify expiration and claims. Free JWT decoder, 100% client-side.</p>
+  </div>
+  <div class="tool-container" data-component="encoder-decoder" data-config='{"type":"jwt"}'><div class="tool-card" id="tool-mount"><div class="tool-loading">Loading tool...</div></div></div>
+  <div class="last-updated"><time datetime="2026-04-10">Last updated: 2026-04-10</time></div>
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>What is a JSON Web Token (JWT)?</summary><p>A JWT is a compact, URL-safe token format defined by RFC 7519. It consists of three Base64URL-encoded parts separated by dots: a header that specifies the signing algorithm, a payload containing claims (key-value data), and a cryptographic signature that verifies the token has not been tampered with.</p></details>
+    <details><summary>How do I read the payload of a JWT?</summary><p>The payload is the second segment of the token (between the two dots). It is Base64URL-encoded, not encrypted. Paste the full token into this decoder and the payload JSON is displayed instantly, including standard claims like iss (issuer), sub (subject), exp (expiration), and any custom claims.</p></details>
+    <details><summary>Is it safe to decode a JWT in the browser?</summary><p>Yes. Decoding only reads the Base64URL-encoded header and payload, which are not encrypted to begin with. This tool runs entirely in your browser and never transmits the token to a server. However, never share tokens publicly, as they may grant access to protected resources until they expire.</p></details>
+    <details><summary>What does the exp claim in a JWT mean?</summary><p>The exp claim is a Unix timestamp indicating when the token expires. After this time, servers should reject the token. This decoder automatically converts the exp value to a human-readable date and shows whether the token is currently valid or expired.</p></details>
+  </section>
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid"><a href="/tools/base64-encode.html">Base64 Encode</a><a href="/tools/json-formatter.html">JSON Formatter</a><a href="/tools/url-decode.html">URL Decode</a></div>
+  </section>
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+<div class="research-callout" style="max-width:900px;margin:2rem auto;padding:1rem 1.5rem;background:rgba(139,233,253,0.05);border-left:3px solid #8be9fd;border-radius:0 8px 8px 0;">
+  <span style="font-size:0.85rem;color:#8b949e;">Usage data from our <a href="/research/jwt-security-practices.html" style="color:#58a6ff;">JWT Security Practices</a></span>
+</div>
+<footer class="site-footer"><div class="footer-inner"><div class="footer-brand">Zovo Tools</div><div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div><a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever →</a><div class="footer-copy">© 2026 <a href="https://zovo.one">Zovo</a> · 47/500 founding spots</div></div></footer>
+<nav class="zovo-network" aria-label="Zovo Tools Network"><div class="zovo-network-inner"><h3 class="zovo-network-title">Explore More Tools</h3><div class="zovo-network-links"><a href="https://abwex.com">ABWex — A/B Testing</a><a href="https://claudflow.com">ClaudFlow — Workflows</a><a href="https://claudhq.com">ClaudHQ — Prompts</a><a href="https://claudkit.com">ClaudKit — API</a><a href="https://enhio.com">Enhio — Text Tools</a><a href="https://epochpilot.com">EpochPilot — Timestamps</a><a href="https://gen8x.com">Gen8X — Color Tools</a><a href="https://gpt0x.com">GPT0X — AI Models</a><a href="https://heytensor.com">HeyTensor — ML Tools</a><a href="https://invokebot.com">InvokeBot — Webhooks</a><a href="https://kappafy.com">Kappafy — JSON</a><a href="https://kickllm.com">KickLLM — LLM Costs</a><a href="https://krzen.com">Krzen — Image Tools</a><a href="https://lochbot.com">LochBot — Security</a><a href="https://lockml.com">LockML — ML Compare</a><a href="https://ml3x.com">ML3X — Matrix Math</a></div></div></nav>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NanoID Generator Online | Compact IDs | KappaKit</title>
+<meta name="description" content="Generate NanoID identifiers. Compact, URL-safe, cryptographically secure IDs. Smaller than UUID with configurable alphabet and length. Free, client-side.">
+<meta name="keywords" content="nanoid generator, nanoid online, compact id, url-safe id generator">
+<link rel="canonical" href="https://kappakit.com/tools/nanoid-generator.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/nanoid-generator.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/nanoid-generator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NanoID Generator Online | Compact IDs | KappaKit">
+<meta property="og:description" content="Generate NanoID identifiers. Compact, URL-safe, cryptographically secure IDs. Smaller than UUID with configurable alphabet and length. Free, client-side.">
+<meta property="og:url" content="https://kappakit.com/tools/nanoid-generator.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NanoID Generator Online | Compact IDs | KappaKit">
+<meta name="twitter:description" content="Generate NanoID identifiers. Compact, URL-safe, cryptographically secure IDs. Smaller than UUID with configurable alphabet and length. Free, client-side.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"NanoID Generator","url":"https://kappakit.com/tools/nanoid-generator.html","description":"Generate NanoID identifiers. Compact, URL-safe, cryptographically secure IDs. Smaller than UUID with configurable alphabet and length. Free, client-side.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Michael Lip","url":"https://zovo.one"},"datePublished":"2026-04-10","dateModified":"2026-04-10"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is NanoID?","acceptedAnswer":{"@type":"Answer","text":"NanoID is a compact, URL-safe, cryptographically secure unique identifier generator. The default output is 21 characters using an alphabet of A-Za-z0-9_- (64 characters), providing 126 bits of entropy. It uses the crypto.getRandomValues() API for secure randomness and is widely adopted in JavaScript, Python, Go, and other ecosystems."}},{"@type":"Question","name":"How does NanoID compare to UUID?","acceptedAnswer":{"@type":"Answer","text":"A UUID v4 is 36 characters (with hyphens) and provides 122 bits of randomness. A default NanoID is only 21 characters while providing 126 bits of randomness. NanoID is 40% shorter, uses a URL-safe alphabet by default, and has no fixed format, making it more efficient for URLs, database keys, and file names."}},{"@type":"Question","name":"What is the collision probability of NanoID?","acceptedAnswer":{"@type":"Answer","text":"With the default 21-character length and 64-character alphabet, NanoID provides 126 bits of entropy. You would need to generate approximately 1 billion IDs per second for 4 million years to have a 1% probability of a collision. For most applications, this is effectively zero. You can increase the length for even lower collision probability."}},{"@type":"Question","name":"Can I use a custom alphabet with NanoID?","acceptedAnswer":{"@type":"Answer","text":"Yes. NanoID supports custom alphabets, allowing you to restrict output to specific character sets such as lowercase only, digits only, or hex characters. When using a smaller alphabet, increase the ID length to maintain sufficient entropy. For example, a hex-only alphabet (16 characters) needs 32 characters to match the entropy of the default 21-character output."}}]}
+</script>
+</head>
+<body>
+<header class="site-header"><a href="/" class="site-logo">KappaKit</a><nav class="site-nav"><a href="/">Home</a><a href="/tools/">Tools</a><a href="/blog/">Blog</a><a href="/about.html">About</a><div class="nav-right"><a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a><a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a></div></nav></header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>NanoID Generator</span></nav>
+    <h1>NanoID Generator</h1>
+    <p>Generate NanoID identifiers. Compact, URL-safe, cryptographically secure IDs. Smaller than UUID with configurable alphabet and length. Free, client-side.</p>
+  </div>
+  <div class="tool-container" data-component="uuid-generator" data-config='{"type":"nanoid"}'><div class="tool-card" id="tool-mount"><div class="tool-loading">Loading tool...</div></div></div>
+  <div class="last-updated"><time datetime="2026-04-10">Last updated: 2026-04-10</time></div>
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>What is NanoID?</summary><p>NanoID is a compact, URL-safe, cryptographically secure unique identifier generator. The default output is 21 characters using an alphabet of A-Za-z0-9_- (64 characters), providing 126 bits of entropy. It uses the crypto.getRandomValues() API for secure randomness and is widely adopted in JavaScript, Python, Go, and other ecosystems.</p></details>
+    <details><summary>How does NanoID compare to UUID?</summary><p>A UUID v4 is 36 characters (with hyphens) and provides 122 bits of randomness. A default NanoID is only 21 characters while providing 126 bits of randomness. NanoID is 40% shorter, uses a URL-safe alphabet by default, and has no fixed format, making it more efficient for URLs, database keys, and file names.</p></details>
+    <details><summary>What is the collision probability of NanoID?</summary><p>With the default 21-character length and 64-character alphabet, NanoID provides 126 bits of entropy. You would need to generate approximately 1 billion IDs per second for 4 million years to have a 1% probability of a collision. For most applications, this is effectively zero. You can increase the length for even lower collision probability.</p></details>
+    <details><summary>Can I use a custom alphabet with NanoID?</summary><p>Yes. NanoID supports custom alphabets, allowing you to restrict output to specific character sets such as lowercase only, digits only, or hex characters. When using a smaller alphabet, increase the ID length to maintain sufficient entropy. For example, a hex-only alphabet (16 characters) needs 32 characters to match the entropy of the default 21-character output.</p></details>
+  </section>
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid"><a href="/tools/uuid-generator.html">UUID Generator</a><a href="/tools/uuid-v4.html">UUID v4 Generator</a><a href="/tools/ulid-generator.html">ULID Generator</a></div>
+  </section>
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+<div class="research-callout" style="max-width:900px;margin:2rem auto;padding:1rem 1.5rem;background:rgba(139,233,253,0.05);border-left:3px solid #8be9fd;border-radius:0 8px 8px 0;">
+  <span style="font-size:0.85rem;color:#8b949e;">Usage data from our <a href="/research/developer-tool-usage-2026.html" style="color:#58a6ff;">Developer Tool Usage Report 2026</a></span>
+</div>
+<footer class="site-footer"><div class="footer-inner"><div class="footer-brand">Zovo Tools</div><div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div><a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever →</a><div class="footer-copy">© 2026 <a href="https://zovo.one">Zovo</a> · 47/500 founding spots</div></div></footer>
+<nav class="zovo-network" aria-label="Zovo Tools Network"><div class="zovo-network-inner"><h3 class="zovo-network-title">Explore More Tools</h3><div class="zovo-network-links"><a href="https://abwex.com">ABWex — A/B Testing</a><a href="https://claudflow.com">ClaudFlow — Workflows</a><a href="https://claudhq.com">ClaudHQ — Prompts</a><a href="https://claudkit.com">ClaudKit — API</a><a href="https://enhio.com">Enhio — Text Tools</a><a href="https://epochpilot.com">EpochPilot — Timestamps</a><a href="https://gen8x.com">Gen8X — Color Tools</a><a href="https://gpt0x.com">GPT0X — AI Models</a><a href="https://heytensor.com">HeyTensor — ML Tools</a><a href="https://invokebot.com">InvokeBot — Webhooks</a><a href="https://kappafy.com">Kappafy — JSON</a><a href="https://kickllm.com">KickLLM — LLM Costs</a><a href="https://krzen.com">Krzen — Image Tools</a><a href="https://lochbot.com">LochBot — Security</a><a href="https://lockml.com">LockML — ML Compare</a><a href="https://ml3x.com">ML3X — Matrix Math</a></div></div></nav>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>

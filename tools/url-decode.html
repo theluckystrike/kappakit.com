@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Decode Online | Free URL Decoder | KappaKit</title>
+<meta name="description" content="Decode URL-encoded strings instantly. Convert percent-encoded characters (%20, %3D, %26) back to readable text. Free online URL decoder, 100% client-side.">
+<meta name="keywords" content="url decode, url decoder, percent decode, urldecode online">
+<link rel="canonical" href="https://kappakit.com/tools/url-decode.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/tools/url-decode.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/tools/url-decode.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="URL Decode Online | Free URL Decoder | KappaKit">
+<meta property="og:description" content="Decode URL-encoded strings instantly. Convert percent-encoded characters back to readable text.">
+<meta property="og:url" content="https://kappakit.com/tools/url-decode.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="URL Decode Online | KappaKit">
+<meta name="twitter:description" content="Decode URL-encoded strings instantly. Free online URL decoder.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"URL Decoder","url":"https://kappakit.com/tools/url-decode.html","description":"Decode URL-encoded strings instantly.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Michael Lip","url":"https://zovo.one"},"datePublished":"2026-04-10","dateModified":"2026-04-10"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is URL decoding?","acceptedAnswer":{"@type":"Answer","text":"URL decoding (percent decoding) converts percent-encoded characters back to their original form. %20 becomes a space, %3D becomes =, %26 becomes &. URLs encode special characters to be safely transmitted in HTTP requests."}},{"@type":"Question","name":"What is the difference between decodeURI and decodeURIComponent?","acceptedAnswer":{"@type":"Answer","text":"decodeURI decodes a full URI but preserves characters that have special meaning in URLs (like &, =, #). decodeURIComponent decodes everything including those special characters. Use decodeURIComponent for query parameter values."}},{"@type":"Question","name":"What does %20 mean in a URL?","acceptedAnswer":{"@type":"Answer","text":"%20 is the percent-encoded representation of a space character. In URLs, spaces can also appear as + in query strings (application/x-www-form-urlencoded). Both %20 and + decode to a space."}},{"@type":"Question","name":"How does this tool decode URLs?","acceptedAnswer":{"@type":"Answer","text":"This tool uses JavaScript's built-in decodeURIComponent() function, which handles all standard percent-encoding including multi-byte UTF-8 sequences. All processing happens in your browser — no data is sent to any server."}}]}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> <span>/</span> <a href="/tools/">Tools</a> <span>/</span> <span>URL Decoder</span></nav>
+    <h1>URL Decoder</h1>
+    <p>Decode URL-encoded strings instantly. Convert percent-encoded characters (%20, %3D, %26) back to readable text. Free online URL decoder, 100% client-side.</p>
+  </div>
+
+  <div class="tool-container" data-component="encoder-decoder" data-config='{"type":"url-decode"}'>
+    <div class="tool-card" id="tool-mount"><div class="tool-loading">Loading tool...</div></div>
+  </div>
+
+  <div class="last-updated"><time datetime="2026-04-10">Last updated: 2026-04-10</time></div>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details><summary>What is URL decoding?</summary><p>URL decoding converts percent-encoded characters back to their original form. %20 becomes a space, %3D becomes =, %26 becomes &.</p></details>
+    <details><summary>decodeURI vs decodeURIComponent?</summary><p><code>decodeURI</code> preserves URL-special characters (&, =, #). <code>decodeURIComponent</code> decodes everything. Use decodeURIComponent for query parameter values.</p></details>
+    <details><summary>What does %20 mean?</summary><p>%20 is a percent-encoded space. In query strings, + also represents a space (application/x-www-form-urlencoded).</p></details>
+    <details><summary>How does this tool work?</summary><p>Uses JavaScript's <code>decodeURIComponent()</code>. All processing happens in your browser.</p></details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Tools</h2>
+    <div class="related-grid">
+      <a href="/tools/url-encode.html" class="related-card">URL Encoder</a>
+      <a href="/tools/base64-encode.html" class="related-card">Base64 Encoder</a>
+      <a href="/tools/html-decode.html" class="related-card">HTML Decoder</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<div class="research-callout" style="max-width:900px;margin:2rem auto;padding:1rem 1.5rem;background:rgba(139,233,253,0.05);border-left:3px solid #8be9fd;border-radius:0 8px 8px 0;">
+  <span style="font-size:0.85rem;color:#8b949e;">Usage data from our <a href="/research/developer-tool-usage-2026.html" style="color:#58a6ff;">Developer Tool Usage Report 2026</a></span>
+</div>
+
+<footer class="site-footer"><div class="footer-inner"><div class="footer-brand">Zovo Tools</div><div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div><a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever →</a><div class="footer-copy">© 2026 <a href="https://zovo.one">Zovo</a> · 47/500 founding spots</div></div></footer>
+<nav class="zovo-network" aria-label="Zovo Tools Network"><div class="zovo-network-inner"><h3 class="zovo-network-title">Explore More Tools</h3><div class="zovo-network-links"><a href="https://abwex.com">ABWex — A/B Testing</a><a href="https://claudflow.com">ClaudFlow — Workflows</a><a href="https://claudhq.com">ClaudHQ — Prompts</a><a href="https://claudkit.com">ClaudKit — API</a><a href="https://enhio.com">Enhio — Text Tools</a><a href="https://epochpilot.com">EpochPilot — Timestamps</a><a href="https://gen8x.com">Gen8X — Color Tools</a><a href="https://gpt0x.com">GPT0X — AI Models</a><a href="https://heytensor.com">HeyTensor — ML Tools</a><a href="https://invokebot.com">InvokeBot — Webhooks</a><a href="https://kappafy.com">Kappafy — JSON</a><a href="https://kickllm.com">KickLLM — LLM Costs</a><a href="https://krzen.com">Krzen — Image Tools</a><a href="https://lochbot.com">LochBot — Security</a><a href="https://lockml.com">LockML — ML Compare</a><a href="https://ml3x.com">ML3X — Matrix Math</a></div></div></nav>
+
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>
