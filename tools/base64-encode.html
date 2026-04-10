@@ -80,6 +80,14 @@
         "@type": "Answer",
         "text": "No. Base64 is an encoding scheme, not encryption. Anyone can decode a Base64 string back to the original data. It provides no security or confidentiality. Use actual encryption (AES, RSA) if you need to protect data."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All KappaKit tools are free, run in your browser, and require no signup or account."
+      }
     }
   ]
 }
@@ -117,6 +125,45 @@
 
   <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
 
+  <!-- Code Examples -->
+  <section class="code-examples" style="max-width:720px;margin:2rem auto;">
+    <h2>Base64 Encoding in Code</h2>
+    <p>Most languages include Base64 support in their standard library. Here are common examples:</p>
+
+    <h3>JavaScript (Browser &amp; Node.js)</h3>
+    <pre><code>// Encode
+const encoded = btoa('Hello, World!');
+// "SGVsbG8sIFdvcmxkIQ=="
+
+// Decode
+const decoded = atob(encoded);
+// "Hello, World!"
+
+// Handle Unicode (UTF-8)
+const utf8Encode = btoa(unescape(encodeURIComponent('Caf\u00e9')));
+const utf8Decode = decodeURIComponent(escape(atob(utf8Encode)));</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import base64
+
+# Encode
+encoded = base64.b64encode(b'Hello, World!').decode()
+# 'SGVsbG8sIFdvcmxkIQ=='
+
+# Decode
+decoded = base64.b64decode(encoded).decode()
+# 'Hello, World!'</code></pre>
+
+    <h3>Bash</h3>
+    <pre><code># Encode
+echo -n 'Hello, World!' | base64
+# SGVsbG8sIFdvcmxkIQ==
+
+# Decode
+echo 'SGVsbG8sIFdvcmxkIQ==' | base64 --decode
+# Hello, World!</code></pre>
+  </section>
+
   <!-- FAQ Section -->
   <section class="faq-section" style="max-width:720px;margin:2rem auto;">
     <h2>Frequently Asked Questions</h2>
@@ -139,6 +186,8 @@
       <summary>Is Base64 encryption?</summary>
       <p>No. Base64 is an encoding scheme, not encryption. Anyone can decode a Base64 string back to the original data. It provides no security or confidentiality. Use actual encryption (AES, RSA) if you need to protect data.</p>
     </details>
+  
+    <details><summary>Is this tool free?</summary><p>Yes. All KappaKit tools are free, run in your browser, and require no signup or account.</p></details>
   </section>
 
   <!-- Related Tools -->

@@ -80,6 +80,14 @@
         "@type": "Answer",
         "text": "Yes. This tool uses JavaScript's native RegExp engine, so your patterns will work identically in any JavaScript environment (Node.js, browsers, Deno). The syntax and behavior match exactly what you would get in your code."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All KappaKit tools are free, run in your browser, and require no signup or account."
+      }
     }
   ]
 }
@@ -117,6 +125,42 @@
 
   <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
 
+  <!-- Code Examples -->
+  <section class="code-examples" style="max-width:720px;margin:2rem auto;">
+    <h2>Regex Examples in Code</h2>
+    <p>Regular expressions work similarly across languages. Here are common patterns:</p>
+
+    <h3>JavaScript</h3>
+    <pre><code>// Test if a string matches
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+emailRegex.test('user@example.com'); // true
+
+// Extract matches
+const text = 'Call 555-1234 or 555-5678';
+const phones = text.match(/\d{3}-\d{4}/g);
+// ["555-1234", "555-5678"]
+
+// Replace with regex
+const cleaned = '  hello   world  '.replace(/\s+/g, ' ').trim();
+// "hello world"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import re
+
+# Test if a string matches
+if re.match(r'^[^\s@]+@[^\s@]+\.[^\s@]+$', 'user@example.com'):
+    print('Valid email')
+
+# Find all matches
+phones = re.findall(r'\d{3}-\d{4}', 'Call 555-1234 or 555-5678')
+# ['555-1234', '555-5678']
+
+# Named groups
+m = re.search(r'(?P&lt;year&gt;\d{4})-(?P&lt;month&gt;\d{2})', '2026-04-10')
+print(m.group('year'))   # '2026'
+print(m.group('month'))  # '04'</code></pre>
+  </section>
+
   <!-- FAQ Section -->
   <section class="faq-section" style="max-width:720px;margin:2rem auto;">
     <h2>Frequently Asked Questions</h2>
@@ -139,6 +183,8 @@
       <summary>Is this regex tester JavaScript-compatible?</summary>
       <p>Yes. This tool uses JavaScript's native RegExp engine, so your patterns will work identically in any JavaScript environment (Node.js, browsers, Deno). The syntax and behavior match exactly what you would get in your code.</p>
     </details>
+  
+    <details><summary>Is this tool free?</summary><p>Yes. All KappaKit tools are free, run in your browser, and require no signup or account.</p></details>
   </section>
 
   <!-- Related Tools -->

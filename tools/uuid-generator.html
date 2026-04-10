@@ -80,6 +80,14 @@
         "@type": "Answer",
         "text": "This tool supports bulk generation of 1, 5, 10, or 50 UUIDs at once. All UUIDs are generated using crypto.getRandomValues() for cryptographic security. You can copy individual UUIDs or all of them at once."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All KappaKit tools are free, run in your browser, and require no signup or account."
+      }
     }
   ]
 }
@@ -117,6 +125,45 @@
 
   <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
 
+  <!-- Code Examples -->
+  <section class="code-examples" style="max-width:720px;margin:2rem auto;">
+    <h2>Generate UUIDs in Code</h2>
+    <p>All major languages provide UUID generation in their standard library or popular packages:</p>
+
+    <h3>JavaScript (Browser &amp; Node.js)</h3>
+    <pre><code>// UUID v4 (random) — built-in since Node 19+ and all modern browsers
+const id = crypto.randomUUID();
+// "3b241101-e2bb-4d7a-8613-e3f58acd405e"
+
+// UUID v4 with the uuid package (npm)
+import { v4 as uuidv4 } from 'uuid';
+const id2 = uuidv4();</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import uuid
+
+# UUID v4 (random)
+id = uuid.uuid4()
+print(id)  # e.g. 7c9e6679-7425-40de-944b-e07fc1f90ae7
+
+# UUID v1 (timestamp + MAC)
+id1 = uuid.uuid1()
+
+# Convert to string
+id_str = str(uuid.uuid4())</code></pre>
+
+    <h3>Go</h3>
+    <pre><code>import "github.com/google/uuid"
+
+// UUID v4
+id := uuid.New()
+fmt.Println(id.String())
+
+// UUID v7 (timestamp-sortable)
+id7, _ := uuid.NewV7()
+fmt.Println(id7.String())</code></pre>
+  </section>
+
   <!-- FAQ Section -->
   <section class="faq-section" style="max-width:720px;margin:2rem auto;">
     <h2>Frequently Asked Questions</h2>
@@ -139,6 +186,8 @@
       <summary>How many UUIDs can I generate at once?</summary>
       <p>This tool supports bulk generation of 1, 5, 10, or 50 UUIDs at once. All UUIDs are generated using crypto.getRandomValues() for cryptographic security. You can copy individual UUIDs or all of them at once.</p>
     </details>
+  
+    <details><summary>Is this tool free?</summary><p>Yes. All KappaKit tools are free, run in your browser, and require no signup or account.</p></details>
   </section>
 
   <!-- Related Tools -->

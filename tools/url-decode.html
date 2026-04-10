@@ -25,7 +25,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"URL Decoder","url":"https://kappakit.com/tools/url-decode.html","description":"Decode URL-encoded strings instantly.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Michael Lip","url":"https://zovo.one"},"datePublished":"2026-04-10","dateModified":"2026-04-10"}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is URL decoding?","acceptedAnswer":{"@type":"Answer","text":"URL decoding (percent decoding) converts percent-encoded characters back to their original form. %20 becomes a space, %3D becomes =, %26 becomes &. URLs encode special characters to be safely transmitted in HTTP requests."}},{"@type":"Question","name":"What is the difference between decodeURI and decodeURIComponent?","acceptedAnswer":{"@type":"Answer","text":"decodeURI decodes a full URI but preserves characters that have special meaning in URLs (like &, =, #). decodeURIComponent decodes everything including those special characters. Use decodeURIComponent for query parameter values."}},{"@type":"Question","name":"What does %20 mean in a URL?","acceptedAnswer":{"@type":"Answer","text":"%20 is the percent-encoded representation of a space character. In URLs, spaces can also appear as + in query strings (application/x-www-form-urlencoded). Both %20 and + decode to a space."}},{"@type":"Question","name":"How does this tool decode URLs?","acceptedAnswer":{"@type":"Answer","text":"This tool uses JavaScript's built-in decodeURIComponent() function, which handles all standard percent-encoding including multi-byte UTF-8 sequences. All processing happens in your browser — no data is sent to any server."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is URL decoding?","acceptedAnswer":{"@type":"Answer","text":"URL decoding (percent decoding) converts percent-encoded characters back to their original form. %20 becomes a space, %3D becomes =, %26 becomes &. URLs encode special characters to be safely transmitted in HTTP requests."}},{"@type":"Question","name":"What is the difference between decodeURI and decodeURIComponent?","acceptedAnswer":{"@type":"Answer","text":"decodeURI decodes a full URI but preserves characters that have special meaning in URLs (like &, =, #). decodeURIComponent decodes everything including those special characters. Use decodeURIComponent for query parameter values."}},{"@type":"Question","name":"What does %20 mean in a URL?","acceptedAnswer":{"@type":"Answer","text":"%20 is the percent-encoded representation of a space character. In URLs, spaces can also appear as + in query strings (application/x-www-form-urlencoded). Both %20 and + decode to a space."}},{"@type":"Question","name":"How does this tool decode URLs?","acceptedAnswer":{"@type":"Answer","text":"This tool uses JavaScript's built-in decodeURIComponent() function, which handles all standard percent-encoding including multi-byte UTF-8 sequences. All processing happens in your browser — no data is sent to any server."}},{"@type":"Question","name":"Is this tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. All KappaKit tools are free, run in your browser, and require no signup or account."}}]}
 </script>
 </head>
 <body>
@@ -56,12 +56,26 @@
 
   <div class="last-updated"><time datetime="2026-04-10">Last updated: 2026-04-10</time></div>
 
+  <!-- How It Works -->
+  <section class="how-it-works" style="max-width:720px;margin:2rem auto;">
+    <h2>How URL Decoding Works</h2>
+    <p>URL decoding (percent decoding) is the reverse of the encoding process defined in <a href="https://www.rfc-editor.org/rfc/rfc3986" rel="nofollow">RFC 3986</a> (Uniform Resource Identifier: Generic Syntax). When special characters appear in a URL, they are encoded as a percent sign followed by two hexadecimal digits representing the byte value. Decoding converts these percent-encoded sequences back to their original characters.</p>
+    <h3>The Percent-Encoding Standard</h3>
+    <p>RFC 3986 defines a set of unreserved characters that do not need encoding: <code>A-Z a-z 0-9 - _ . ~</code>. All other characters, including spaces, ampersands, equals signs, and non-ASCII Unicode characters, must be percent-encoded when used in URI components. For example, a space becomes <code>%20</code>, an ampersand becomes <code>%26</code>, and a Japanese character like a multi-byte UTF-8 sequence becomes multiple percent-encoded bytes (e.g., <code>%E6%97%A5</code>).</p>
+    <h3>decodeURI vs decodeURIComponent</h3>
+    <p>JavaScript provides two decoding functions. <code>decodeURI()</code> decodes a complete URI but preserves characters that have structural meaning in URLs: <code>; / ? : @ & = + $ , #</code>. <code>decodeURIComponent()</code> decodes everything, including those reserved characters. Use <code>decodeURIComponent()</code> for query parameter values and path segments, and <code>decodeURI()</code> for full URIs where you want to keep the URL structure intact.</p>
+    <h3>Common Use Cases</h3>
+    <p>URL decoding is used when reading query parameters from analytics tools, processing redirect URLs in email campaigns, debugging encoded API request parameters, and extracting human-readable text from web server logs. This tool uses <code>decodeURIComponent()</code> for maximum compatibility with all percent-encoded content, including multi-byte UTF-8 sequences.</p>
+  </section>
+
   <section class="faq-section" style="max-width:720px;margin:2rem auto;">
     <h2>Frequently Asked Questions</h2>
     <details><summary>What is URL decoding?</summary><p>URL decoding converts percent-encoded characters back to their original form. %20 becomes a space, %3D becomes =, %26 becomes &.</p></details>
     <details><summary>decodeURI vs decodeURIComponent?</summary><p><code>decodeURI</code> preserves URL-special characters (&, =, #). <code>decodeURIComponent</code> decodes everything. Use decodeURIComponent for query parameter values.</p></details>
     <details><summary>What does %20 mean?</summary><p>%20 is a percent-encoded space. In query strings, + also represents a space (application/x-www-form-urlencoded).</p></details>
     <details><summary>How does this tool work?</summary><p>Uses JavaScript's <code>decodeURIComponent()</code>. All processing happens in your browser.</p></details>
+  
+    <details><summary>Is this tool free?</summary><p>Yes. All KappaKit tools are free, run in your browser, and require no signup or account.</p></details>
   </section>
 
   <section class="related-section" style="max-width:720px;margin:2rem auto;">

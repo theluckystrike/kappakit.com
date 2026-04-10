@@ -80,6 +80,14 @@
         "@type": "Answer",
         "text": "The default indentation is 2 spaces, which is the most common convention for JSON. The formatted output uses consistent indentation throughout the entire document."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All KappaKit tools are free, run in your browser, and require no signup or account."
+      }
     }
   ]
 }
@@ -117,6 +125,44 @@
 
   <div class="last-updated"><time datetime="2026-04-06">Last updated: 2026-04-06</time></div>
 
+  <!-- Code Examples -->
+  <section class="code-examples" style="max-width:720px;margin:2rem auto;">
+    <h2>Format JSON in Code</h2>
+    <p>You can format JSON programmatically in most languages and CLI tools:</p>
+
+    <h3>jq (Command Line)</h3>
+    <pre><code># Pretty-print a JSON file
+cat data.json | jq .
+
+# Pretty-print with 4-space indent
+cat data.json | jq --indent 4 .
+
+# Format inline JSON
+echo '{"name":"Alice","age":30}' | jq .</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import json
+
+minified = '{"name":"Alice","age":30,"scores":[95,87,92]}'
+parsed = json.loads(minified)
+formatted = json.dumps(parsed, indent=2)
+print(formatted)
+# {
+#   "name": "Alice",
+#   "age": 30,
+#   "scores": [95, 87, 92]
+# }</code></pre>
+
+    <h3>Node.js</h3>
+    <pre><code>const obj = JSON.parse('{"name":"Alice","age":30}');
+const pretty = JSON.stringify(obj, null, 2);
+console.log(pretty);
+// {
+//   "name": "Alice",
+//   "age": 30
+// }</code></pre>
+  </section>
+
   <!-- FAQ Section -->
   <section class="faq-section" style="max-width:720px;margin:2rem auto;">
     <h2>Frequently Asked Questions</h2>
@@ -139,6 +185,8 @@
       <summary>Can I customize the indentation level?</summary>
       <p>The default indentation is 2 spaces, which is the most common convention for JSON. The formatted output uses consistent indentation throughout the entire document.</p>
     </details>
+  
+    <details><summary>Is this tool free?</summary><p>Yes. All KappaKit tools are free, run in your browser, and require no signup or account.</p></details>
   </section>
 
   <!-- Related Tools -->
