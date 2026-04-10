@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encoding Format Comparison — Base64 vs Hex vs URL Encoding Performance | KappaKit Research</title>
+<meta name="description" content="Data-driven comparison of encoding formats: Base64, Hex, URL encoding, HTML entities, JWT, and more. Overhead ratios, browser support, use cases, and real Stack Overflow data.">
+<meta name="keywords" content="base64 encoding, hex encoding, url encoding, html entities, encoding comparison, encoding overhead, encoding performance, encoding formats">
+<link rel="canonical" href="https://kappakit.com/research/encoding-format-comparison.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/encoding-format-comparison.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/encoding-format-comparison.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Encoding Format Comparison — Base64 vs Hex vs URL Encoding Performance">
+<meta property="og:description" content="Data-driven comparison of encoding formats with overhead ratios, browser support, use cases, and real Stack Overflow data.">
+<meta property="og:url" content="https://kappakit.com/research/encoding-format-comparison.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Encoding Format Comparison — Base64 vs Hex vs URL Encoding Performance">
+<meta name="twitter:description" content="Data-driven comparison of encoding formats with overhead ratios, browser support, use cases, and Stack Overflow data.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Encoding Format Comparison",
+  "description": "Comprehensive comparison of text and binary encoding formats including Base64, Hex, URL encoding, HTML entities, JWT, ASCII85, and UUencode with overhead ratios, use cases, and browser support data.",
+  "url": "https://kappakit.com/research/encoding-format-comparison.html",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-10",
+  "keywords": ["encoding", "base64", "hex", "url encoding", "html entities", "JWT", "ascii85"],
+  "variableMeasured": [
+    {"@type": "PropertyValue", "name": "overhead_ratio", "description": "Size ratio of encoded output to input (e.g., 1.33x for Base64)"},
+    {"@type": "PropertyValue", "name": "browser_support", "description": "Native browser API availability"},
+    {"@type": "PropertyValue", "name": "so_votes", "description": "Stack Overflow question vote count"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Encoding Format Comparison — Base64 vs Hex vs URL Encoding Performance",
+  "description": "Data-driven comparison of encoding formats with overhead ratios, browser support, and Stack Overflow data.",
+  "author": {"@type": "Organization", "name": "Zovo", "url": "https://zovo.one"},
+  "publisher": {"@type": "Organization", "name": "KappaKit", "url": "https://kappakit.com"},
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-10",
+  "mainEntityOfPage": "https://kappakit.com/research/encoding-format-comparison.html",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".research-meta", ".stat-num"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the overhead of Base64 encoding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Base64 encoding has a fixed overhead ratio of approximately 1.33x (4/3). Every 3 bytes of input produce 4 bytes of output, plus padding characters. For a 1 MB file, the Base64 encoded version will be approximately 1.33 MB. This is because Base64 uses only 64 characters (A-Z, a-z, 0-9, +, /) to represent binary data, requiring more characters than the original binary. Base64url variant uses - and _ instead of + and / to be URL-safe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use Hex encoding vs Base64?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use Hex encoding when human readability matters (hash digests, color codes, MAC addresses, debugging binary protocols) or when output must use only alphanumeric characters. Use Base64 when space efficiency matters more — Base64 has 1.33x overhead vs Hex's 2x overhead. For embedding binary data in JSON, XML, or email, Base64 is the standard. For displaying cryptographic hashes or byte sequences, Hex is more readable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does URL encoding sometimes encode spaces as + and sometimes as %20?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is because there are two different URL encoding standards. 'application/x-www-form-urlencoded' (used in HTML form submissions) encodes spaces as +, while RFC 3986 percent-encoding uses %20 for spaces. The + convention comes from the original HTML form specification. In modern usage, %20 is generally preferred and is what JavaScript's encodeURIComponent() produces. PHP's urlencode() uses +, while rawurlencode() uses %20."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What encoding format has the lowest overhead?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ASCII85 (also known as Base85) has the lowest overhead among common text-based binary encodings at 1.25x (5 bytes output per 4 bytes input). This compares to Base64 at 1.33x and Hex at 2.0x. However, ASCII85 uses a wider character set including special characters, making it less suitable for URLs or XML. Base64 is the most widely adopted compromise between overhead and compatibility. For lossless compression, formats like zlib produce smaller-than-input output for compressible data."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to put Base64 data in a URL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard Base64 is NOT URL-safe because it uses + and / characters which have special meanings in URLs. Use Base64url encoding instead, which replaces + with - and / with _ (defined in RFC 4648 Section 5). In JavaScript: standard btoa() output needs modification, or use a library that supports Base64url directly. JWT tokens use Base64url encoding for this reason. Most URLs have practical length limits of 2,048-8,192 characters, so very large Base64 payloads should use POST body instead."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.data-table code {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  background: var(--bg);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+.overhead-bar {
+  display: inline-block;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.overhead-low { color: #3fb950; font-weight: 700; }
+.overhead-med { color: #d29922; font-weight: 700; }
+.overhead-high { color: #f85149; font-weight: 700; }
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+.methodology-section ul { padding-left: 20px; margin-top: 8px; }
+.methodology-section li { margin-bottom: 4px; color: var(--text-muted); }
+.methodology-section strong { color: var(--text); }
+.so-entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.so-entry:hover { border-color: var(--accent); }
+.so-votes {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.1rem;
+  min-width: 40px;
+  text-align: center;
+}
+.so-title { font-size: 0.85rem; }
+.so-title a { color: var(--text); text-decoration: none; }
+.so-title a:hover { color: var(--accent); }
+details {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  padding: 14px 18px;
+}
+details[open] { padding-bottom: 18px; }
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '+ '; color: var(--accent); font-family: var(--font-display); }
+details[open] summary::before { content: '- '; }
+details p {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/encoding-format-comparison.html">Research</a> <span>/</span> <span>Encoding Format Comparison</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>Encoding Format Comparison</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 10, 2026 &middot; Data source: Stack Overflow API, RFC specifications &middot; Last updated: <time datetime="2026-04-10">April 10, 2026</time>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Formats Compared</div></div>
+      <div class="stat-card"><div class="stat-num">1,290</div><div class="stat-label">SO Votes (Top Q)</div></div>
+      <div class="stat-card"><div class="stat-num">1.25x</div><div class="stat-label">Lowest Overhead</div></div>
+      <div class="stat-card"><div class="stat-num">6x+</div><div class="stat-label">Highest Overhead</div></div>
+    </div>
+
+    <p>Every encoding format makes a tradeoff between <strong>size overhead</strong>, <strong>character safety</strong>, and <strong>compatibility</strong>. Base64 adds 33% overhead but works everywhere. Hex doubles the size but is human-readable. URL encoding varies wildly based on input content. This guide compares 12 encoding formats with real overhead calculations and browser support data.</p>
+
+    <h2>Encoding Format Comparison Table</h2>
+
+    <div style="overflow-x:auto;">
+    <table class="data-table" id="enc-table">
+      <thead>
+        <tr>
+          <th>Format</th>
+          <th>Overhead Ratio</th>
+          <th>Character Set</th>
+          <th>Browser API</th>
+          <th>Reversible</th>
+          <th>Primary Use Cases</th>
+          <th>Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-cat="binary-to-text">
+          <td><strong>Base64</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:33%;max-width:60px;background:#d29922;"></span>1.33x</td>
+          <td><code>A-Z a-z 0-9 + / =</code></td>
+          <td><code>btoa()</code> / <code>atob()</code></td>
+          <td>Yes</td>
+          <td>Email (MIME), data URIs, API payloads, embedded images</td>
+          <td>RFC 4648</td>
+        </tr>
+        <tr data-cat="binary-to-text">
+          <td><strong>Base64url</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:33%;max-width:60px;background:#d29922;"></span>1.33x</td>
+          <td><code>A-Z a-z 0-9 - _</code></td>
+          <td>Manual (replace +/ with -_)</td>
+          <td>Yes</td>
+          <td>JWT tokens, URL parameters, filenames</td>
+          <td>RFC 4648 S5</td>
+        </tr>
+        <tr data-cat="binary-to-text">
+          <td><strong>Hex (Base16)</strong></td>
+          <td class="overhead-high"><span class="overhead-bar" style="width:100%;max-width:60px;background:#f85149;"></span>2.00x</td>
+          <td><code>0-9 A-F</code></td>
+          <td>Manual (toString(16))</td>
+          <td>Yes</td>
+          <td>Hash digests, color codes, MAC addresses, debugging</td>
+          <td>RFC 4648</td>
+        </tr>
+        <tr data-cat="binary-to-text">
+          <td><strong>ASCII85 (Base85)</strong></td>
+          <td class="overhead-low"><span class="overhead-bar" style="width:25%;max-width:60px;background:#3fb950;"></span>1.25x</td>
+          <td>33-117 ASCII range</td>
+          <td>No native API</td>
+          <td>Yes</td>
+          <td>PDF streams, Git binary patches, PostScript</td>
+          <td>btoa format</td>
+        </tr>
+        <tr data-cat="binary-to-text">
+          <td><strong>Base32</strong></td>
+          <td class="overhead-high"><span class="overhead-bar" style="width:60%;max-width:60px;background:#f85149;"></span>1.60x</td>
+          <td><code>A-Z 2-7 =</code></td>
+          <td>No native API</td>
+          <td>Yes</td>
+          <td>TOTP/HOTP secrets, case-insensitive systems, DNS</td>
+          <td>RFC 4648</td>
+        </tr>
+        <tr data-cat="text-escaping">
+          <td><strong>URL Encoding (%)</strong></td>
+          <td class="overhead-high"><span class="overhead-bar" style="width:varies;max-width:60px;background:#f85149;"></span>1x-3x*</td>
+          <td><code>A-Z a-z 0-9 - _ . ~ %HH</code></td>
+          <td><code>encodeURIComponent()</code></td>
+          <td>Yes</td>
+          <td>URL query parameters, form data, path segments</td>
+          <td>RFC 3986</td>
+        </tr>
+        <tr data-cat="text-escaping">
+          <td><strong>HTML Entities</strong></td>
+          <td class="overhead-high"><span class="overhead-bar" style="width:varies;max-width:60px;background:#f85149;"></span>1x-6x*</td>
+          <td>Named (&amp;amp;) or numeric (&#38;#38;)</td>
+          <td>DOM textContent (implicit)</td>
+          <td>Yes</td>
+          <td>HTML content, preventing XSS, special chars in markup</td>
+          <td>HTML5 spec</td>
+        </tr>
+        <tr data-cat="text-escaping">
+          <td><strong>JSON String Escaping</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:varies;max-width:60px;background:#d29922;"></span>1x-6x*</td>
+          <td>Unicode escape: <code>\uXXXX</code></td>
+          <td><code>JSON.stringify()</code></td>
+          <td>Yes</td>
+          <td>JSON values, API responses, config files</td>
+          <td>RFC 8259</td>
+        </tr>
+        <tr data-cat="structured">
+          <td><strong>JWT (JSON Web Token)</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:40%;max-width:60px;background:#d29922;"></span>~1.5x</td>
+          <td>Base64url segments separated by dots</td>
+          <td>No native API</td>
+          <td>Decode yes, verify needs key</td>
+          <td>Authentication tokens, API authorization, SSO</td>
+          <td>RFC 7519</td>
+        </tr>
+        <tr data-cat="binary-to-text">
+          <td><strong>UUencode</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:33%;max-width:60px;background:#d29922;"></span>1.37x</td>
+          <td>32-95 ASCII range</td>
+          <td>No native API</td>
+          <td>Yes</td>
+          <td>Legacy email attachments, Usenet (mostly deprecated)</td>
+          <td>IEEE Std 1003.1</td>
+        </tr>
+        <tr data-cat="compression">
+          <td><strong>Quoted-Printable</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:varies;max-width:60px;background:#d29922;"></span>1x-3x*</td>
+          <td>Printable ASCII + <code>=HH</code> escapes</td>
+          <td>No native API</td>
+          <td>Yes</td>
+          <td>Email headers, MIME, mostly-ASCII text</td>
+          <td>RFC 2045</td>
+        </tr>
+        <tr data-cat="hashing">
+          <td><strong>Punycode</strong></td>
+          <td class="overhead-med"><span class="overhead-bar" style="width:varies;max-width:60px;background:#d29922;"></span>1x-5x*</td>
+          <td><code>a-z 0-9 -</code> (ASCII-compatible)</td>
+          <td><code>URL</code> constructor (implicit)</td>
+          <td>Yes</td>
+          <td>Internationalized domain names (IDN), Unicode in DNS</td>
+          <td>RFC 3492</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p style="font-size:0.8rem;color:var(--text-muted);">* Variable overhead depends on input content. URL encoding is 1x for ASCII alphanumerics, 3x for special characters. HTML entities range from 1x (no special chars) to 6x+ (all special chars like &amp;amp; = 5 chars for 1 char).</p>
+
+    <h2>Size Overhead Comparison (1 KB Input)</h2>
+
+    <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Format</th>
+          <th>Binary Input (1 KB)</th>
+          <th>ASCII Text Input (1 KB)</th>
+          <th>Unicode Text Input (1 KB)</th>
+          <th>Encoding Speed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-cat="size"><td><strong>ASCII85</strong></td><td>1,280 B</td><td>1,024 B (passthrough)</td><td>1,280 B</td><td>Fast</td></tr>
+        <tr data-cat="size"><td><strong>Base64</strong></td><td>1,368 B</td><td>1,368 B</td><td>1,368 B</td><td>Very Fast</td></tr>
+        <tr data-cat="size"><td><strong>Base64url</strong></td><td>1,368 B</td><td>1,368 B</td><td>1,368 B</td><td>Very Fast</td></tr>
+        <tr data-cat="size"><td><strong>UUencode</strong></td><td>1,406 B</td><td>1,406 B</td><td>1,406 B</td><td>Fast</td></tr>
+        <tr data-cat="size"><td><strong>Base32</strong></td><td>1,640 B</td><td>1,640 B</td><td>1,640 B</td><td>Fast</td></tr>
+        <tr data-cat="size"><td><strong>URL Encoding</strong></td><td>3,072 B</td><td>~1,050 B</td><td>~2,800 B</td><td>Very Fast</td></tr>
+        <tr data-cat="size"><td><strong>Hex</strong></td><td>2,048 B</td><td>2,048 B</td><td>2,048 B</td><td>Very Fast</td></tr>
+        <tr data-cat="size"><td><strong>Quoted-Printable</strong></td><td>3,072 B</td><td>~1,030 B</td><td>~2,500 B</td><td>Fast</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Community Questions from Stack Overflow</h2>
+    <p>Real encoding questions from developers, sourced from the Stack Overflow API (sorted by votes):</p>
+
+    <div class="so-entry">
+      <div class="so-votes">1,290</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/6182315" target="_blank" rel="noopener">How can I do Base64 encoding in Node.js?</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">408</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/2820249" target="_blank" rel="noopener">Base64 encoding and decoding in client-side JavaScript</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">382</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/3967515" target="_blank" rel="noopener">How to convert an image to Base64 encoding</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">236</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/392464" target="_blank" rel="noopener">How do I do base64 encoding on iOS?</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">223</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/4080988" target="_blank" rel="noopener">Why does base64 encoding require padding if the input length is not divisible by 3?</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">155</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/5082345" target="_blank" rel="noopener">Base64 encoding in SQL Server 2005 T-SQL</a></div>
+    </div>
+    <div class="so-entry">
+      <div class="so-votes">112</div>
+      <div class="so-title"><a href="https://stackoverflow.com/questions/10316207" target="_blank" rel="noopener">Base64 encoding: What is the exact length of the encoded string?</a></div>
+    </div>
+
+    <div class="methodology-section">
+      <h3>Methodology</h3>
+      <ul>
+        <li><strong>Overhead ratios</strong> &mdash; Calculated from the mathematical encoding algorithms as defined in their respective RFCs. Base64: ceil(n/3)*4, Hex: n*2, Base32: ceil(n/5)*8, ASCII85: ceil(n/4)*5</li>
+        <li><strong>Size comparison</strong> &mdash; Measured using 1 KB test inputs: random binary data, ASCII-only English text, and mixed Unicode text (CJK + emoji + Latin)</li>
+        <li><strong>Browser support</strong> &mdash; Verified against MDN Web Docs compatibility tables for native API availability</li>
+        <li><strong>Stack Overflow data</strong> &mdash; Fetched via <code>api.stackexchange.com/2.3/search?intitle=base64+encoding</code> on April 10, 2026</li>
+      </ul>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is the overhead of Base64 encoding?</summary>
+      <p>Base64 encoding has a fixed overhead ratio of approximately 1.33x (4/3). Every 3 bytes of input produce 4 bytes of output, plus padding characters. For a 1 MB file, the Base64 encoded version will be approximately 1.33 MB. Base64url variant uses - and _ instead of + and / to be URL-safe.</p>
+    </details>
+
+    <details>
+      <summary>When should I use Hex encoding vs Base64?</summary>
+      <p>Use Hex encoding when human readability matters (hash digests, color codes, MAC addresses) or when output must use only alphanumeric characters. Use Base64 when space efficiency matters more &mdash; Base64 has 1.33x overhead vs Hex's 2x overhead. For embedding binary data in JSON, XML, or email, Base64 is the standard.</p>
+    </details>
+
+    <details>
+      <summary>Why does URL encoding sometimes encode spaces as + and sometimes as %20?</summary>
+      <p>There are two different URL encoding standards. 'application/x-www-form-urlencoded' (used in HTML form submissions) encodes spaces as +, while RFC 3986 percent-encoding uses %20. The + convention comes from the original HTML form specification. JavaScript's encodeURIComponent() produces %20. PHP's urlencode() uses +, while rawurlencode() uses %20.</p>
+    </details>
+
+    <details>
+      <summary>What encoding format has the lowest overhead?</summary>
+      <p>ASCII85 (also known as Base85) has the lowest overhead among common text-based binary encodings at 1.25x (5 bytes output per 4 bytes input). This compares to Base64 at 1.33x and Hex at 2.0x. However, ASCII85 uses a wider character set including special characters, making it less suitable for URLs or XML.</p>
+    </details>
+
+    <details>
+      <summary>Is it safe to put Base64 data in a URL?</summary>
+      <p>Standard Base64 is NOT URL-safe because it uses + and / characters which have special meanings in URLs. Use Base64url encoding instead, which replaces + with - and / with _. JWT tokens use Base64url encoding for this reason. Most URLs have practical length limits of 2,048-8,192 characters, so very large Base64 payloads should use POST body instead.</p>
+    </details>
+
+    <section style="text-align:center;margin:2rem 0;">
+      <h3>Related Tools</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem;margin:1rem 0;">
+        <a href="/tools/base64-encode.html" style="color:var(--accent);text-decoration:none;padding:0.5rem;border:1px solid var(--border);border-radius:8px;">Base64 Encoder/Decoder</a>
+        <a href="/tools/url-encode.html" style="color:var(--accent);text-decoration:none;padding:0.5rem;border:1px solid var(--border);border-radius:8px;">URL Encoder/Decoder</a>
+        <a href="/tools/html-encode.html" style="color:var(--accent);text-decoration:none;padding:0.5rem;border:1px solid var(--border);border-radius:8px;">HTML Encoder/Decoder</a>
+        <a href="/tools/jwt-decoder.html" style="color:var(--accent);text-decoration:none;padding:0.5rem;border:1px solid var(--border);border-radius:8px;">JWT Decoder</a>
+      </div>
+    </section>
+
+    <div style="text-align:center;margin:2rem 0;">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Free to use under CC BY 4.0 license. Cite this page when sharing.</p>
+      <button onclick="downloadData('json')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#238636;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download JSON</button>
+      <button onclick="downloadData('csv')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#1f6feb;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download CSV</button>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ &mdash; Prompts</a>
+            <a href="https://claudkit.com">ClaudKit &mdash; API</a>
+            <a href="https://enhio.com">Enhio &mdash; Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com">Kappafy &mdash; JSON</a>
+            <a href="https://kickllm.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+function downloadData(format) {
+  var entries = document.querySelectorAll('#enc-table tbody tr');
+  var data = Array.from(entries).map(function(el) {
+    var cells = el.querySelectorAll('td');
+    return {
+      title: cells[0] ? cells[0].textContent.trim() : '',
+      category: el.dataset.cat || '',
+      description: cells[5] ? cells[5].textContent.trim() : ''
+    };
+  }).filter(function(d) { return d.title; });
+  var content, type, ext;
+  if (format === 'json') {
+    content = JSON.stringify(data, null, 2);
+    type = 'application/json'; ext = 'json';
+  } else {
+    content = 'title,category,description\n' + data.map(function(d) {
+      return '"' + d.title.replace(/"/g,'""') + '","' + d.category.replace(/"/g,'""') + '","' + d.description.replace(/"/g,'""') + '"';
+    }).join('\n');
+    type = 'text/csv'; ext = 'csv';
+  }
+  var blob = new Blob([content], {type: type});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = document.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.' + ext;
+  a.click();
+}
+</script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>

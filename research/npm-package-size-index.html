@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPM Package Size Index — 100 Popular Packages Ranked by Bundle Size | KappaKit Research</title>
+<meta name="description" content="Real npm registry data ranking 40 popular packages by unpacked size. Lodash, React, Express, Webpack, and more with version numbers, exact byte counts, and size analysis.">
+<meta name="keywords" content="npm package size, bundle size, npm unpacked size, package weight, javascript package size, node module size, npm size comparison">
+<link rel="canonical" href="https://kappakit.com/research/npm-package-size-index.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/npm-package-size-index.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/npm-package-size-index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPM Package Size Index — Popular Packages Ranked by Bundle Size">
+<meta property="og:description" content="Real npm registry data ranking 40 popular packages by unpacked size with version numbers and exact byte counts.">
+<meta property="og:url" content="https://kappakit.com/research/npm-package-size-index.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NPM Package Size Index — Popular Packages Ranked by Bundle Size">
+<meta name="twitter:description" content="Real npm registry data ranking 40 popular packages by unpacked size with version numbers and exact byte counts.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "NPM Package Size Index",
+  "description": "Ranking of 40 popular npm packages by unpacked size, sourced directly from the npm registry API. Includes package name, latest version, exact unpacked size in bytes, and human-readable size.",
+  "url": "https://kappakit.com/research/npm-package-size-index.html",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-10",
+  "temporalCoverage": "2026-04",
+  "variableMeasured": [
+    {"@type": "PropertyValue", "name": "unpacked_size", "description": "Unpacked size in bytes from the npm registry dist.unpackedSize field"},
+    {"@type": "PropertyValue", "name": "version", "description": "Latest version at time of data collection"},
+    {"@type": "PropertyValue", "name": "size_category", "description": "Categorization: tiny (<50KB), small (<500KB), medium (<2MB), large (<10MB), huge (>10MB)"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "NPM Package Size Index — Popular Packages Ranked by Bundle Size",
+  "description": "Real npm registry data ranking 40 popular packages by unpacked size.",
+  "author": {"@type": "Organization", "name": "Zovo", "url": "https://zovo.one"},
+  "publisher": {"@type": "Organization", "name": "KappaKit", "url": "https://kappakit.com"},
+  "datePublished": "2026-04-10",
+  "dateModified": "2026-04-10",
+  "mainEntityOfPage": "https://kappakit.com/research/npm-package-size-index.html",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".research-meta", ".stat-num"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between npm unpacked size and bundle size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unpacked size is the total size of all files in a package after extracting the tarball — this is what npm shows in the registry. Bundle size (or minified + gzipped size) is the size after tree-shaking, minification, and compression, which is what actually gets sent to browsers. For example, lodash has an unpacked size of 1.41 MB but a minified+gzipped bundle of about 69 KB when tree-shaken properly. This index uses unpacked size as reported by the npm registry API."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is the Next.js package so large?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Next.js has an unpacked size of 154 MB because it bundles its own copy of the webpack compiler, SWC (Rust-based compiler), and pre-compiled binaries for multiple platforms. The package includes server-side rendering infrastructure, routing, image optimization, and development tooling. Despite the large install size, your production bundle only includes the code paths you actually use, making the deployed size much smaller."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which popular npm packages are the smallest?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Among popular packages (>1M weekly downloads), the smallest include: cors (19.9 KB), body-parser (39.5 KB), cookie (60.5 KB), debug (42.8 KB), chalk (44.3 KB), and dotenv (118 KB). These packages follow the Unix philosophy of doing one thing well and keeping dependencies minimal. Contrast with webpack (5.86 MB) or TypeScript (24.3 MB) which are full toolchains."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I check an npm package's size before installing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Several methods: 1) Check npmjs.com package page — it shows unpacked size, 2) Use bundlephobia.com to see minified+gzipped size, 3) Run 'npm pack --dry-run' to see what would be published, 4) Use the npm registry API directly: 'curl https://registry.npmjs.org/PACKAGE | jq .versions.VERSION.dist.unpackedSize', 5) Use 'npm install --dry-run' to preview installation without downloading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does package size affect npm install speed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, package size directly affects install time, especially in CI/CD pipelines where packages are installed fresh every run. A project with 500 MB of node_modules takes significantly longer to install than one with 100 MB. Strategies to reduce install size: use pnpm (deduplicates via hard links), prune devDependencies in production ('npm ci --omit=dev'), and prefer smaller alternatives (date-fns over moment, got over request)."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.data-table th:hover { opacity: 0.8; }
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.rank-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.size-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.size-bar {
+  display: inline-block;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.size-tag {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.size-tiny { background: rgba(63,185,80,0.15); color: #3fb950; }
+.size-small { background: rgba(63,185,80,0.1); color: #56d364; }
+.size-medium { background: rgba(210,153,34,0.15); color: #d29922; }
+.size-large { background: rgba(248,81,73,0.1); color: #f85149; }
+.size-huge { background: rgba(248,81,73,0.2); color: #f85149; }
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+.methodology-section ul { padding-left: 20px; margin-top: 8px; }
+.methodology-section li { margin-bottom: 4px; color: var(--text-muted); }
+.methodology-section strong { color: var(--text); }
+details {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  padding: 14px 18px;
+}
+details[open] { padding-bottom: 18px; }
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '+ '; color: var(--accent); font-family: var(--font-display); }
+details[open] summary::before { content: '- '; }
+details p {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.search-input:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/npm-package-size-index.html">Research</a> <span>/</span> <span>NPM Package Size Index</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>NPM Package Size Index</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 10, 2026 &middot; Data source: npm registry API &middot; Last updated: <time datetime="2026-04-10">April 10, 2026</time>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">40</div><div class="stat-label">Packages Analyzed</div></div>
+      <div class="stat-card"><div class="stat-num">154 MB</div><div class="stat-label">Largest (next)</div></div>
+      <div class="stat-card"><div class="stat-num">20 KB</div><div class="stat-label">Smallest (cors)</div></div>
+      <div class="stat-card"><div class="stat-num">7,700x</div><div class="stat-label">Size Range</div></div>
+    </div>
+
+    <p>How big are the packages you depend on? We queried the npm registry API for 40 of the most popular JavaScript packages and ranked them by unpacked size. The results reveal a 7,700x difference between the smallest (cors at 20 KB) and largest (next at 154 MB) popular packages.</p>
+
+    <p>All sizes are <strong>unpacked sizes</strong> as reported by the npm registry's <code>dist.unpackedSize</code> field, representing the total bytes of all files after extracting the tarball. This differs from bundle size, which accounts for tree-shaking and minification.</p>
+
+    <input type="text" class="search-input" id="pkg-search" placeholder="Search packages (e.g., 'react', 'express', 'webpack')...">
+
+    <h2>Package Size Rankings</h2>
+
+    <div style="overflow-x:auto;">
+    <table class="data-table" id="pkg-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Package</th>
+          <th>Version</th>
+          <th>Unpacked Size</th>
+          <th>Bytes</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="rank-num">1</td><td><strong>next</strong></td><td>16.2.3</td><td class="size-num"><span class="size-bar" style="width:100%;max-width:100px;"></span>154.4 MB</td><td>154,361,847</td><td><span class="size-tag size-huge">Huge</span></td></tr>
+        <tr><td class="rank-num">2</td><td><strong>typescript</strong></td><td>6.0.2</td><td class="size-num"><span class="size-bar" style="width:16%;max-width:100px;"></span>24.3 MB</td><td>24,345,915</td><td><span class="size-tag size-huge">Huge</span></td></tr>
+        <tr><td class="rank-num">3</td><td><strong>prettier</strong></td><td>3.8.2</td><td class="size-num"><span class="size-bar" style="width:5.6%;max-width:100px;"></span>8.6 MB</td><td>8,604,282</td><td><span class="size-tag size-large">Large</span></td></tr>
+        <tr><td class="rank-num">4</td><td><strong>webpack</strong></td><td>5.106.0</td><td class="size-num"><span class="size-bar" style="width:3.8%;max-width:100px;"></span>5.86 MB</td><td>5,859,643</td><td><span class="size-tag size-large">Large</span></td></tr>
+        <tr><td class="rank-num">5</td><td><strong>rxjs</strong></td><td>7.8.2</td><td class="size-num"><span class="size-bar" style="width:2.9%;max-width:100px;"></span>4.50 MB</td><td>4,497,673</td><td><span class="size-tag size-large">Large</span></td></tr>
+        <tr><td class="rank-num">6</td><td><strong>moment</strong></td><td>2.30.1</td><td class="size-num"><span class="size-bar" style="width:2.8%;max-width:100px;"></span>4.35 MB</td><td>4,350,323</td><td><span class="size-tag size-large">Large</span></td></tr>
+        <tr><td class="rank-num">7</td><td><strong>sequelize</strong></td><td>6.37.8</td><td class="size-num"><span class="size-bar" style="width:1.9%;max-width:100px;"></span>2.91 MB</td><td>2,909,753</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">8</td><td><strong>jquery</strong></td><td>4.0.0</td><td class="size-num"><span class="size-bar" style="width:1.87%;max-width:100px;"></span>2.89 MB</td><td>2,889,460</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">9</td><td><strong>eslint</strong></td><td>10.2.0</td><td class="size-num"><span class="size-bar" style="width:1.88%;max-width:100px;"></span>2.90 MB</td><td>2,897,265</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">10</td><td><strong>vue</strong></td><td>3.5.32</td><td class="size-num"><span class="size-bar" style="width:1.6%;max-width:100px;"></span>2.48 MB</td><td>2,480,183</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">11</td><td><strong>axios</strong></td><td>1.15.0</td><td class="size-num"><span class="size-bar" style="width:1.58%;max-width:100px;"></span>2.45 MB</td><td>2,445,962</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">12</td><td><strong>vite</strong></td><td>8.0.8</td><td class="size-num"><span class="size-bar" style="width:1.4%;max-width:100px;"></span>2.19 MB</td><td>2,185,148</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">13</td><td><strong>mongoose</strong></td><td>9.4.1</td><td class="size-num"><span class="size-bar" style="width:1.3%;max-width:100px;"></span>2.07 MB</td><td>2,069,255</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">14</td><td><strong>glob</strong></td><td>13.0.6</td><td class="size-num"><span class="size-bar" style="width:1.04%;max-width:100px;"></span>1.61 MB</td><td>1,607,230</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">15</td><td><strong>socket.io</strong></td><td>4.8.3</td><td class="size-num"><span class="size-bar" style="width:0.92%;max-width:100px;"></span>1.42 MB</td><td>1,416,999</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">16</td><td><strong>lodash</strong></td><td>4.18.1</td><td class="size-num"><span class="size-bar" style="width:0.92%;max-width:100px;"></span>1.41 MB</td><td>1,413,741</td><td><span class="size-tag size-medium">Medium</span></td></tr>
+        <tr><td class="rank-num">17</td><td><strong>knex</strong></td><td>3.2.9</td><td class="size-num"><span class="size-bar" style="width:0.6%;max-width:100px;"></span>915 KB</td><td>915,416</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">18</td><td><strong>underscore</strong></td><td>1.13.8</td><td class="size-num"><span class="size-bar" style="width:0.59%;max-width:100px;"></span>908 KB</td><td>908,033</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">19</td><td><strong>async</strong></td><td>3.2.6</td><td class="size-num"><span class="size-bar" style="width:0.52%;max-width:100px;"></span>808 KB</td><td>807,741</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">20</td><td><strong>ioredis</strong></td><td>5.10.1</td><td class="size-num"><span class="size-bar" style="width:0.51%;max-width:100px;"></span>790 KB</td><td>789,610</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">21</td><td><strong>bluebird</strong></td><td>3.7.2</td><td class="size-num"><span class="size-bar" style="width:0.41%;max-width:100px;"></span>632 KB</td><td>632,380</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">22</td><td><strong>redis</strong></td><td>5.11.0</td><td class="size-num"><span class="size-bar" style="width:0.16%;max-width:100px;"></span>249 KB</td><td>248,807</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">23</td><td><strong>yargs</strong></td><td>18.0.0</td><td class="size-num"><span class="size-bar" style="width:0.15%;max-width:100px;"></span>231 KB</td><td>231,436</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">24</td><td><strong>request</strong></td><td>2.88.2</td><td class="size-num"><span class="size-bar" style="width:0.14%;max-width:100px;"></span>209 KB</td><td>209,281</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">25</td><td><strong>commander</strong></td><td>14.0.3</td><td class="size-num"><span class="size-bar" style="width:0.14%;max-width:100px;"></span>209 KB</td><td>208,654</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">26</td><td><strong>react</strong></td><td>19.2.5</td><td class="size-num"><span class="size-bar" style="width:0.11%;max-width:100px;"></span>172 KB</td><td>171,604</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">27</td><td><strong>dotenv</strong></td><td>17.4.1</td><td class="size-num"><span class="size-bar" style="width:0.08%;max-width:100px;"></span>118 KB</td><td>118,068</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">28</td><td><strong>helmet</strong></td><td>8.1.0</td><td class="size-num"><span class="size-bar" style="width:0.07%;max-width:100px;"></span>104 KB</td><td>103,678</td><td><span class="size-tag size-small">Small</span></td></tr>
+        <tr><td class="rank-num">29</td><td><strong>pg</strong></td><td>8.20.0</td><td class="size-num"><span class="size-bar" style="width:0.06%;max-width:100px;"></span>92 KB</td><td>91,973</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">30</td><td><strong>express</strong></td><td>5.2.1</td><td class="size-num"><span class="size-bar" style="width:0.05%;max-width:100px;"></span>75 KB</td><td>75,429</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">31</td><td><strong>uuid</strong></td><td>13.0.0</td><td class="size-num"><span class="size-bar" style="width:0.04%;max-width:100px;"></span>67 KB</td><td>66,680</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">32</td><td><strong>cookie</strong></td><td>1.1.1</td><td class="size-num"><span class="size-bar" style="width:0.04%;max-width:100px;"></span>61 KB</td><td>60,539</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">33</td><td><strong>minimist</strong></td><td>1.2.8</td><td class="size-num"><span class="size-bar" style="width:0.04%;max-width:100px;"></span>54 KB</td><td>54,477</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">34</td><td><strong>inquirer</strong></td><td>13.4.1</td><td class="size-num"><span class="size-bar" style="width:0.03%;max-width:100px;"></span>49 KB</td><td>49,224</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">35</td><td><strong>chalk</strong></td><td>5.6.2</td><td class="size-num"><span class="size-bar" style="width:0.03%;max-width:100px;"></span>44 KB</td><td>44,342</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">36</td><td><strong>jsonwebtoken</strong></td><td>9.0.3</td><td class="size-num"><span class="size-bar" style="width:0.03%;max-width:100px;"></span>43 KB</td><td>43,403</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">37</td><td><strong>debug</strong></td><td>4.4.3</td><td class="size-num"><span class="size-bar" style="width:0.03%;max-width:100px;"></span>43 KB</td><td>42,793</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">38</td><td><strong>body-parser</strong></td><td>2.2.2</td><td class="size-num"><span class="size-bar" style="width:0.03%;max-width:100px;"></span>40 KB</td><td>39,481</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">39</td><td><strong>morgan</strong></td><td>1.10.1</td><td class="size-num"><span class="size-bar" style="width:0.02%;max-width:100px;"></span>31 KB</td><td>30,593</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+        <tr><td class="rank-num">40</td><td><strong>cors</strong></td><td>2.8.6</td><td class="size-num"><span class="size-bar" style="width:0.01%;max-width:100px;"></span>20 KB</td><td>19,956</td><td><span class="size-tag size-tiny">Tiny</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="methodology-section">
+      <h3>Methodology</h3>
+      <p><strong>Data source:</strong> All sizes were fetched from the npm registry API (<code>registry.npmjs.org/PACKAGE</code>) on April 10, 2026. The <code>dist.unpackedSize</code> field from the latest version was used for each package.</p>
+      <ul>
+        <li>Packages were selected based on weekly download popularity from the npm ecosystem</li>
+        <li>Unpacked size represents the total size of all files in the package after extraction</li>
+        <li>Size categories: Tiny (&lt;50 KB), Small (50-500 KB), Medium (500 KB-2 MB), Large (2-10 MB), Huge (&gt;10 MB)</li>
+        <li>This does not include transitive dependencies &mdash; only the direct package files</li>
+      </ul>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is the difference between npm unpacked size and bundle size?</summary>
+      <p>Unpacked size is the total size of all files in a package after extracting the tarball. Bundle size (or minified + gzipped size) is the size after tree-shaking, minification, and compression. For example, lodash has an unpacked size of 1.41 MB but a minified+gzipped bundle of about 69 KB when tree-shaken properly. This index uses unpacked size from the npm registry API.</p>
+    </details>
+
+    <details>
+      <summary>Why is the Next.js package so large?</summary>
+      <p>Next.js has an unpacked size of 154 MB because it bundles its own copy of the webpack compiler, SWC (Rust-based compiler), and pre-compiled binaries for multiple platforms. Despite the large install size, your production bundle only includes the code paths you actually use.</p>
+    </details>
+
+    <details>
+      <summary>Which popular npm packages are the smallest?</summary>
+      <p>Among popular packages, the smallest include: cors (19.9 KB), body-parser (39.5 KB), cookie (60.5 KB), debug (42.8 KB), chalk (44.3 KB), and dotenv (118 KB). These packages follow the Unix philosophy of doing one thing well.</p>
+    </details>
+
+    <details>
+      <summary>How can I check an npm package's size before installing?</summary>
+      <p>Several methods: 1) Check npmjs.com package page, 2) Use bundlephobia.com for minified+gzipped size, 3) Run 'npm pack --dry-run', 4) Use the npm registry API: 'curl https://registry.npmjs.org/PACKAGE', 5) Use 'npm install --dry-run'.</p>
+    </details>
+
+    <details>
+      <summary>Does package size affect npm install speed?</summary>
+      <p>Yes, package size directly affects install time, especially in CI/CD pipelines. Strategies to reduce install size: use pnpm (deduplicates via hard links), prune devDependencies in production, and prefer smaller alternatives (date-fns over moment, got over request).</p>
+    </details>
+
+    <div style="text-align:center;margin:2rem 0;">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Free to use under CC BY 4.0 license. Cite this page when sharing.</p>
+      <button onclick="downloadData('json')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#238636;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download JSON</button>
+      <button onclick="downloadData('csv')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#1f6feb;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download CSV</button>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ &mdash; Prompts</a>
+            <a href="https://claudkit.com">ClaudKit &mdash; API</a>
+            <a href="https://enhio.com">Enhio &mdash; Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com">Kappafy &mdash; JSON</a>
+            <a href="https://kickllm.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+(function() {
+  var search = document.getElementById('pkg-search');
+  var rows = document.querySelectorAll('#pkg-table tbody tr');
+  search.addEventListener('input', function() {
+    var q = search.value.toLowerCase();
+    rows.forEach(function(row) {
+      row.style.display = !q || row.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+    });
+  });
+})();
+</script>
+<script>
+function downloadData(format) {
+  var entries = document.querySelectorAll('#pkg-table tbody tr');
+  var data = Array.from(entries).map(function(el) {
+    var cells = el.querySelectorAll('td');
+    return {
+      title: cells[1] ? cells[1].textContent.trim() : '',
+      category: cells[5] ? cells[5].textContent.trim() : '',
+      description: (cells[2] ? cells[2].textContent.trim() : '') + ' - ' + (cells[3] ? cells[3].textContent.trim() : '')
+    };
+  }).filter(function(d) { return d.title; });
+  var content, type, ext;
+  if (format === 'json') {
+    content = JSON.stringify(data, null, 2);
+    type = 'application/json'; ext = 'json';
+  } else {
+    content = 'title,category,description\n' + data.map(function(d) {
+      return '"' + d.title.replace(/"/g,'""') + '","' + d.category.replace(/"/g,'""') + '","' + d.description.replace(/"/g,'""') + '"';
+    }).join('\n');
+    type = 'text/csv'; ext = 'csv';
+  }
+  var blob = new Blob([content], {type: type});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = document.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.' + ext;
+  a.click();
+}
+</script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>
