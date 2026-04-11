@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPM Download Trends — Weekly Downloads for 50 Popular Developer Packages | KappaKit Research</title>
+<meta name="description" content="Real npm API data showing weekly download counts for 50 popular JavaScript packages. Chalk leads with 379M weekly downloads. Sortable table with package categories and descriptions.">
+<meta name="keywords" content="npm downloads, npm weekly downloads, npm package popularity, npm trends, JavaScript package downloads, npm stats">
+<link rel="canonical" href="https://kappakit.com/research/npm-download-trends.html">
+<link rel="alternate" hreflang="en" href="https://kappakit.com/research/npm-download-trends.html">
+<link rel="alternate" hreflang="x-default" href="https://kappakit.com/research/npm-download-trends.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPM Download Trends — Weekly Downloads for 50 Popular Developer Packages">
+<meta property="og:description" content="Real npm API data showing weekly download counts for 50 popular JavaScript packages.">
+<meta property="og:url" content="https://kappakit.com/research/npm-download-trends.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NPM Download Trends — Weekly Downloads for 50 Popular Developer Packages">
+<meta name="twitter:description" content="Real npm API data showing weekly download counts for 50 popular JavaScript packages.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "NPM Download Trends — Weekly Downloads for 50 Packages",
+  "description": "Weekly download statistics for 50 popular npm packages sourced from the npm registry downloads API. Includes package names, download counts, categories, and descriptions.",
+  "url": "https://kappakit.com/research/npm-download-trends.html",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "Michael Lip",
+    "url": "https://zovo.one"
+  },
+  "datePublished": "2026-04-11",
+  "dateModified": "2026-04-11",
+  "temporalCoverage": "2026-04",
+  "keywords": ["npm", "downloads", "JavaScript", "Node.js", "package popularity", "npm trends"],
+  "variableMeasured": [
+    {"@type": "PropertyValue", "name": "weekly_downloads", "description": "Number of downloads in the last 7 days from npm registry"},
+    {"@type": "PropertyValue", "name": "category", "description": "Functional category of the package"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "NPM Download Trends — Weekly Downloads for 50 Popular Developer Packages",
+  "description": "Real npm API data showing weekly download counts for 50 popular JavaScript packages.",
+  "author": {"@type": "Organization", "name": "Zovo", "url": "https://zovo.one"},
+  "publisher": {"@type": "Organization", "name": "KappaKit", "url": "https://kappakit.com"},
+  "datePublished": "2026-04-11",
+  "dateModified": "2026-04-11",
+  "mainEntityOfPage": "https://kappakit.com/research/npm-download-trends.html",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".research-meta", ".stat-num"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the most downloaded npm package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As of April 2026, chalk is the most downloaded npm package with 379 million weekly downloads. Chalk is a terminal string styling library used by nearly every CLI tool. Commander (321M) and ajv (236M) round out the top 3. These utility packages are pulled in as transitive dependencies by thousands of other packages, which inflates their download counts well beyond direct usage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does chalk have more downloads than React or Express?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chalk has 379M weekly downloads versus React's 104M because chalk is a transitive dependency of thousands of packages. Every CLI tool that colors terminal output likely depends on chalk (eslint, prettier, webpack, jest, etc.). React is only installed by frontend projects that explicitly use it. Transitive dependencies are counted each time they're installed, so utility packages at the base of the dependency tree always have the highest download counts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I check the weekly downloads for any npm package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three methods: 1) Visit npmjs.com/package/PACKAGE_NAME and check the sidebar, 2) Use the npm downloads API directly: curl 'https://api.npmjs.org/downloads/point/last-week/PACKAGE', 3) Use npm-stat.com for historical trend charts. The npm API also supports bulk queries: separate package names with commas to get multiple results in one request. Weekly download counts update daily."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which web framework has the most npm downloads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Express leads with 84M weekly downloads, followed by Next.js (35M), Hono (33M), Fastify (5.5M), and Koa (6M). Express's dominance comes from its massive existing codebase and the fact that many packages list it as a peer dependency. Hono is the fastest-growing framework, having risen from near-zero to 33M weekly downloads in just two years. Fastify is growing but remains niche."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are npm download counts accurate measures of package popularity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, npm download counts have significant caveats: 1) CI/CD pipelines install packages on every build, inflating counts, 2) Transitive dependencies get counted even when developers don't choose them directly, 3) Mirrors and registries may double-count, 4) npm does not deduplicate downloads by user or project. Better popularity indicators include GitHub stars, npm dependents count (how many packages depend on it), and community survey data like the State of JS survey."
+      }
+    }
+  ]
+}
+</script>
+<style>
+.research-badge {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.research-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.research-meta a { color: var(--text-muted); }
+.research-meta a:hover { color: var(--accent); }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--accent);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.data-table th:hover { opacity: 0.8; }
+.data-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: var(--bg-hover); }
+.rank-num { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: 0.9rem; }
+.dl-num { font-family: var(--font-display); font-weight: 600; white-space: nowrap; }
+.dl-bar {
+  display: inline-block;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.cat-tag {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(20,184,166,0.1);
+  color: var(--accent);
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  text-align: center;
+}
+.stat-num { font-family: var(--font-display); font-size: 1.8rem; color: var(--accent); font-weight: 700; }
+.stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; }
+.methodology-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.methodology-section h3 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+.methodology-section ul { padding-left: 20px; margin-top: 8px; }
+.methodology-section li { margin-bottom: 4px; color: var(--text-muted); }
+.methodology-section strong { color: var(--text); }
+details {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  padding: 14px 18px;
+}
+details[open] { padding-bottom: 18px; }
+summary { cursor: pointer; font-weight: 600; font-size: 0.92rem; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '+ '; color: var(--accent); font-family: var(--font-display); }
+details[open] summary::before { content: '- '; }
+details p { margin-top: 10px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.search-input:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <article class="article-content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/research/npm-download-trends.html">Research</a> <span>/</span> <span>NPM Download Trends</span>
+    </nav>
+
+    <div class="research-badge">Original Research</div>
+    <h1>NPM Download Trends</h1>
+    <div class="research-meta">
+      By <a href="/about.html">Michael Lip</a> &middot; Published April 11, 2026 &middot; Data source: npm registry API &middot; Last updated: <time datetime="2026-04-11">April 11, 2026</time>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">52</div><div class="stat-label">Packages Tracked</div></div>
+      <div class="stat-card"><div class="stat-num">379M</div><div class="stat-label">Top Weekly DLs</div></div>
+      <div class="stat-card"><div class="stat-num">274x</div><div class="stat-label">Download Range</div></div>
+      <div class="stat-card"><div class="stat-num">10</div><div class="stat-label">Categories</div></div>
+    </div>
+
+    <p>Which npm packages are developers installing the most? We queried the <strong>npm downloads API</strong> for 52 popular packages and found that utility libraries dominate: <code>chalk</code> leads with 379M weekly downloads, followed by <code>commander</code> (321M) and <code>ajv</code> (236M). Framework choices reveal interesting trends: <strong>Hono</strong> (33M) has overtaken Fastify (5.5M) and Koa (6M), while Express (84M) remains the undisputed leader.</p>
+
+    <input type="text" class="search-input" id="npm-search" placeholder="Search packages (e.g., 'react', 'express', 'database')...">
+
+    <h2>Weekly Download Rankings</h2>
+
+    <div style="overflow-x:auto;">
+    <table class="data-table" id="npm-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Package</th>
+          <th>Weekly Downloads</th>
+          <th>Category</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="rank-num">1</td><td><strong>chalk</strong></td><td class="dl-num"><span class="dl-bar" style="width:100px;"></span>379,842,768</td><td><span class="cat-tag">CLI</span></td><td>Terminal string styling</td></tr>
+        <tr><td class="rank-num">2</td><td><strong>commander</strong></td><td class="dl-num"><span class="dl-bar" style="width:85px;"></span>321,759,345</td><td><span class="cat-tag">CLI</span></td><td>CLI argument parsing</td></tr>
+        <tr><td class="rank-num">3</td><td><strong>ajv</strong></td><td class="dl-num"><span class="dl-bar" style="width:62px;"></span>236,415,047</td><td><span class="cat-tag">Validation</span></td><td>JSON Schema validator</td></tr>
+        <tr><td class="rank-num">4</td><td><strong>uuid</strong></td><td class="dl-num"><span class="dl-bar" style="width:58px;"></span>220,409,793</td><td><span class="cat-tag">Utility</span></td><td>UUID generation (v1, v4, v7)</td></tr>
+        <tr><td class="rank-num">5</td><td><strong>typescript</strong></td><td class="dl-num"><span class="dl-bar" style="width:40px;"></span>153,650,048</td><td><span class="cat-tag">Language</span></td><td>TypeScript compiler</td></tr>
+        <tr><td class="rank-num">6</td><td><strong>zod</strong></td><td class="dl-num"><span class="dl-bar" style="width:35px;"></span>133,003,378</td><td><span class="cat-tag">Validation</span></td><td>TypeScript-first schema validation</td></tr>
+        <tr><td class="rank-num">7</td><td><strong>nanoid</strong></td><td class="dl-num"><span class="dl-bar" style="width:35px;"></span>131,153,197</td><td><span class="cat-tag">Utility</span></td><td>Tiny unique ID generator</td></tr>
+        <tr><td class="rank-num">8</td><td><strong>lodash</strong></td><td class="dl-num"><span class="dl-bar" style="width:33px;"></span>125,235,251</td><td><span class="cat-tag">Utility</span></td><td>Utility library</td></tr>
+        <tr><td class="rank-num">9</td><td><strong>dotenv</strong></td><td class="dl-num"><span class="dl-bar" style="width:29px;"></span>109,293,563</td><td><span class="cat-tag">Config</span></td><td>Environment variable loader</td></tr>
+        <tr><td class="rank-num">10</td><td><strong>eslint</strong></td><td class="dl-num"><span class="dl-bar" style="width:28px;"></span>107,002,958</td><td><span class="cat-tag">Linting</span></td><td>JavaScript linter</td></tr>
+        <tr><td class="rank-num">11</td><td><strong>react</strong></td><td class="dl-num"><span class="dl-bar" style="width:28px;"></span>104,877,716</td><td><span class="cat-tag">Framework</span></td><td>UI component library</td></tr>
+        <tr><td class="rank-num">12</td><td><strong>axios</strong></td><td class="dl-num"><span class="dl-bar" style="width:25px;"></span>93,115,906</td><td><span class="cat-tag">HTTP</span></td><td>Promise-based HTTP client</td></tr>
+        <tr><td class="rank-num">13</td><td><strong>vite</strong></td><td class="dl-num"><span class="dl-bar" style="width:22px;"></span>85,308,336</td><td><span class="cat-tag">Build</span></td><td>Next-gen frontend build tool</td></tr>
+        <tr><td class="rank-num">14</td><td><strong>express</strong></td><td class="dl-num"><span class="dl-bar" style="width:22px;"></span>84,716,349</td><td><span class="cat-tag">Framework</span></td><td>Web application framework</td></tr>
+        <tr><td class="rank-num">15</td><td><strong>prettier</strong></td><td class="dl-num"><span class="dl-bar" style="width:20px;"></span>76,466,385</td><td><span class="cat-tag">Formatting</span></td><td>Code formatter</td></tr>
+        <tr><td class="rank-num">16</td><td><strong>ora</strong></td><td class="dl-num"><span class="dl-bar" style="width:15px;"></span>58,481,350</td><td><span class="cat-tag">CLI</span></td><td>Terminal spinner</td></tr>
+        <tr><td class="rank-num">17</td><td><strong>sharp</strong></td><td class="dl-num"><span class="dl-bar" style="width:13px;"></span>51,162,749</td><td><span class="cat-tag">Image</span></td><td>High-perf image processing</td></tr>
+        <tr><td class="rank-num">18</td><td><strong>playwright</strong></td><td class="dl-num"><span class="dl-bar" style="width:12px;"></span>45,721,776</td><td><span class="cat-tag">Testing</span></td><td>Browser automation</td></tr>
+        <tr><td class="rank-num">19</td><td><strong>cors</strong></td><td class="dl-num"><span class="dl-bar" style="width:12px;"></span>44,940,839</td><td><span class="cat-tag">Middleware</span></td><td>CORS middleware for Express</td></tr>
+        <tr><td class="rank-num">20</td><td><strong>webpack</strong></td><td class="dl-num"><span class="dl-bar" style="width:11px;"></span>41,177,475</td><td><span class="cat-tag">Build</span></td><td>Module bundler</td></tr>
+        <tr><td class="rank-num">21</td><td><strong>dayjs</strong></td><td class="dl-num"><span class="dl-bar" style="width:11px;"></span>40,509,151</td><td><span class="cat-tag">Date</span></td><td>Lightweight date library</td></tr>
+        <tr><td class="rank-num">22</td><td><strong>vitest</strong></td><td class="dl-num"><span class="dl-bar" style="width:11px;"></span>40,245,758</td><td><span class="cat-tag">Testing</span></td><td>Vite-native test framework</td></tr>
+        <tr><td class="rank-num">23</td><td><strong>jest</strong></td><td class="dl-num"><span class="dl-bar" style="width:11px;"></span>40,068,301</td><td><span class="cat-tag">Testing</span></td><td>JavaScript testing framework</td></tr>
+        <tr><td class="rank-num">24</td><td><strong>jsonwebtoken</strong></td><td class="dl-num"><span class="dl-bar" style="width:10px;"></span>36,416,534</td><td><span class="cat-tag">Auth</span></td><td>JWT implementation</td></tr>
+        <tr><td class="rank-num">25</td><td><strong>next</strong></td><td class="dl-num"><span class="dl-bar" style="width:9px;"></span>35,532,787</td><td><span class="cat-tag">Framework</span></td><td>React framework</td></tr>
+        <tr><td class="rank-num">26</td><td><strong>marked</strong></td><td class="dl-num"><span class="dl-bar" style="width:9px;"></span>33,205,748</td><td><span class="cat-tag">Parsing</span></td><td>Markdown parser</td></tr>
+        <tr><td class="rank-num">27</td><td><strong>hono</strong></td><td class="dl-num"><span class="dl-bar" style="width:9px;"></span>33,135,919</td><td><span class="cat-tag">Framework</span></td><td>Ultrafast web framework</td></tr>
+        <tr><td class="rank-num">28</td><td><strong>pino</strong></td><td class="dl-num"><span class="dl-bar" style="width:6px;"></span>24,584,543</td><td><span class="cat-tag">Logging</span></td><td>Low-overhead JSON logger</td></tr>
+        <tr><td class="rank-num">29</td><td><strong>pg</strong></td><td class="dl-num"><span class="dl-bar" style="width:6px;"></span>21,240,921</td><td><span class="cat-tag">Database</span></td><td>PostgreSQL client</td></tr>
+        <tr><td class="rank-num">30</td><td><strong>winston</strong></td><td class="dl-num"><span class="dl-bar" style="width:5px;"></span>20,013,568</td><td><span class="cat-tag">Logging</span></td><td>Multi-transport logger</td></tr>
+        <tr><td class="rank-num">31</td><td><strong>highlight.js</strong></td><td class="dl-num"><span class="dl-bar" style="width:5px;"></span>18,576,900</td><td><span class="cat-tag">Syntax</span></td><td>Syntax highlighter</td></tr>
+        <tr><td class="rank-num">32</td><td><strong>cheerio</strong></td><td class="dl-num"><span class="dl-bar" style="width:5px;"></span>17,758,187</td><td><span class="cat-tag">Parsing</span></td><td>HTML parser (jQuery-like)</td></tr>
+        <tr><td class="rank-num">33</td><td><strong>joi</strong></td><td class="dl-num"><span class="dl-bar" style="width:4px;"></span>16,795,369</td><td><span class="cat-tag">Validation</span></td><td>Object schema validation</td></tr>
+        <tr><td class="rank-num">34</td><td><strong>ioredis</strong></td><td class="dl-num"><span class="dl-bar" style="width:4px;"></span>15,017,107</td><td><span class="cat-tag">Database</span></td><td>Redis client</td></tr>
+        <tr><td class="rank-num">35</td><td><strong>mocha</strong></td><td class="dl-num"><span class="dl-bar" style="width:3px;"></span>13,222,090</td><td><span class="cat-tag">Testing</span></td><td>Test framework</td></tr>
+        <tr><td class="rank-num">36</td><td><strong>socket.io</strong></td><td class="dl-num"><span class="dl-bar" style="width:3px;"></span>11,692,195</td><td><span class="cat-tag">Realtime</span></td><td>WebSocket library</td></tr>
+        <tr><td class="rank-num">37</td><td><strong>prisma</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>9,310,094</td><td><span class="cat-tag">ORM</span></td><td>Next-gen TypeScript ORM</td></tr>
+        <tr><td class="rank-num">38</td><td><strong>morgan</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>9,272,746</td><td><span class="cat-tag">Middleware</span></td><td>HTTP request logger</td></tr>
+        <tr><td class="rank-num">39</td><td><strong>helmet</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>8,467,797</td><td><span class="cat-tag">Security</span></td><td>Security headers middleware</td></tr>
+        <tr><td class="rank-num">40</td><td><strong>puppeteer</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>8,332,723</td><td><span class="cat-tag">Testing</span></td><td>Chrome headless browser</td></tr>
+        <tr><td class="rank-num">41</td><td><strong>mysql2</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>8,135,037</td><td><span class="cat-tag">Database</span></td><td>MySQL client</td></tr>
+        <tr><td class="rank-num">42</td><td><strong>redis</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>7,920,051</td><td><span class="cat-tag">Database</span></td><td>Redis client (official)</td></tr>
+        <tr><td class="rank-num">43</td><td><strong>bcryptjs</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>7,663,393</td><td><span class="cat-tag">Auth</span></td><td>Bcrypt password hashing</td></tr>
+        <tr><td class="rank-num">44</td><td><strong>drizzle-orm</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>6,846,670</td><td><span class="cat-tag">ORM</span></td><td>TypeScript ORM</td></tr>
+        <tr><td class="rank-num">45</td><td><strong>cypress</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>6,595,917</td><td><span class="cat-tag">Testing</span></td><td>E2E testing framework</td></tr>
+        <tr><td class="rank-num">46</td><td><strong>koa</strong></td><td class="dl-num"><span class="dl-bar" style="width:2px;"></span>6,079,729</td><td><span class="cat-tag">Framework</span></td><td>Next-gen web framework</td></tr>
+        <tr><td class="rank-num">47</td><td><strong>fastify</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>5,558,382</td><td><span class="cat-tag">Framework</span></td><td>Fast web framework</td></tr>
+        <tr><td class="rank-num">48</td><td><strong>mongoose</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>4,456,168</td><td><span class="cat-tag">ORM</span></td><td>MongoDB ODM</td></tr>
+        <tr><td class="rank-num">49</td><td><strong>bullmq</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>3,971,935</td><td><span class="cat-tag">Queue</span></td><td>Redis-based job queue</td></tr>
+        <tr><td class="rank-num">50</td><td><strong>knex</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>3,542,516</td><td><span class="cat-tag">Database</span></td><td>SQL query builder</td></tr>
+        <tr><td class="rank-num">51</td><td><strong>sequelize</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>2,522,389</td><td><span class="cat-tag">ORM</span></td><td>Multi-dialect SQL ORM</td></tr>
+        <tr><td class="rank-num">52</td><td><strong>bull</strong></td><td class="dl-num"><span class="dl-bar" style="width:1px;"></span>1,387,153</td><td><span class="cat-tag">Queue</span></td><td>Redis-based job queue (legacy)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="methodology-section">
+      <h3>Methodology</h3>
+      <p><strong>Data source:</strong> All download counts were fetched from the npm registry downloads API (<code>api.npmjs.org/downloads/point/last-week/PACKAGE</code>) on April 11, 2026.</p>
+      <ul>
+        <li>52 packages were selected based on ecosystem importance across frameworks, utilities, databases, testing, and tooling</li>
+        <li>Download counts represent the last 7-day period as reported by the npm CDN</li>
+        <li>Counts include CI/CD pipeline installs, transitive dependencies, and mirror downloads</li>
+        <li>Categories are manually assigned based on primary package function</li>
+      </ul>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is the most downloaded npm package?</summary>
+      <p>As of April 2026, chalk is the most downloaded npm package with 379 million weekly downloads. It is a terminal string styling library used as a transitive dependency by nearly every CLI tool. Commander (321M) and ajv (236M) round out the top 3.</p>
+    </details>
+
+    <details>
+      <summary>Why does chalk have more downloads than React or Express?</summary>
+      <p>Chalk has 379M weekly downloads versus React's 104M because chalk is a transitive dependency of thousands of packages. Every CLI tool that colors terminal output likely depends on chalk. React is only installed by projects that explicitly use it. Transitive dependencies are counted each time they are installed.</p>
+    </details>
+
+    <details>
+      <summary>How can I check the weekly downloads for any npm package?</summary>
+      <p>Three methods: 1) Visit npmjs.com/package/PACKAGE_NAME, 2) Use the npm API: curl 'https://api.npmjs.org/downloads/point/last-week/PACKAGE', 3) Use npm-stat.com for historical charts. The npm API supports bulk queries with comma-separated package names.</p>
+    </details>
+
+    <details>
+      <summary>Which web framework has the most npm downloads?</summary>
+      <p>Express leads with 84M weekly downloads, followed by Next.js (35M), Hono (33M), Koa (6M), and Fastify (5.5M). Hono is the fastest-growing framework, having risen from near-zero to 33M weekly downloads in two years.</p>
+    </details>
+
+    <details>
+      <summary>Are npm download counts accurate measures of package popularity?</summary>
+      <p>No. CI/CD pipelines inflate counts, transitive dependencies get counted even when not directly chosen, mirrors may double-count, and npm does not deduplicate by user. Better indicators include GitHub stars, npm dependents count, and community survey data like the State of JS.</p>
+    </details>
+
+    <div style="text-align:center;margin:2rem 0;">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Free to use under CC BY 4.0 license. Cite this page when sharing.</p>
+      <button onclick="downloadData('json')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#238636;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download JSON</button>
+      <button onclick="downloadData('csv')" style="padding:0.5rem 1.5rem;margin:0 0.5rem;background:#1f6feb;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;">Download CSV</button>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime &mdash; $99 once, free forever &rarr;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a> &middot; 47/500 founding spots</div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex &mdash; A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow &mdash; Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ &mdash; Prompts</a>
+            <a href="https://claudkit.com">ClaudKit &mdash; API</a>
+            <a href="https://enhio.com">Enhio &mdash; Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot &mdash; Timestamps</a>
+            <a href="https://gen8x.com">Gen8X &mdash; Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X &mdash; AI Models</a>
+            <a href="https://heytensor.com">HeyTensor &mdash; ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot &mdash; Webhooks</a>
+            <a href="https://kappafy.com">Kappafy &mdash; JSON</a>
+            <a href="https://kickllm.com">KickLLM &mdash; LLM Costs</a>
+            <a href="https://krzen.com">Krzen &mdash; Image Tools</a>
+            <a href="https://lochbot.com">LochBot &mdash; Security</a>
+            <a href="https://lockml.com">LockML &mdash; ML Compare</a>
+            <a href="https://ml3x.com">ML3X &mdash; Matrix Math</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+(function() {
+  var search = document.getElementById('npm-search');
+  var rows = document.querySelectorAll('#npm-table tbody tr');
+  search.addEventListener('input', function() {
+    var q = search.value.toLowerCase();
+    rows.forEach(function(row) {
+      row.style.display = !q || row.textContent.toLowerCase().indexOf(q) !== -1 ? '' : 'none';
+    });
+  });
+})();
+</script>
+<script>
+function downloadData(format) {
+  var entries = document.querySelectorAll('#npm-table tbody tr');
+  var data = Array.from(entries).map(function(el) {
+    var cells = el.querySelectorAll('td');
+    return {
+      rank: cells[0] ? cells[0].textContent.trim() : '',
+      package: cells[1] ? cells[1].textContent.trim() : '',
+      weekly_downloads: cells[2] ? cells[2].textContent.trim().replace(/[^0-9]/g,'') : '',
+      category: cells[3] ? cells[3].textContent.trim() : '',
+      description: cells[4] ? cells[4].textContent.trim() : ''
+    };
+  }).filter(function(d) { return d.package; });
+  var content, type, ext;
+  if (format === 'json') {
+    content = JSON.stringify(data, null, 2);
+    type = 'application/json'; ext = 'json';
+  } else {
+    content = 'rank,package,weekly_downloads,category,description\n' + data.map(function(d) {
+      return d.rank + ',"' + d.package + '",' + d.weekly_downloads + ',"' + d.category + '","' + d.description.replace(/"/g,'""') + '"';
+    }).join('\n');
+    type = 'text/csv'; ext = 'csv';
+  }
+  var blob = new Blob([content], {type: type});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'npm-download-trends.' + ext;
+  a.click();
+}
+</script>
+<script src="/assets/js/share.js"></script>
+</body>
+</html>
