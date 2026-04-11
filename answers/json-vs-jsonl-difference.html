@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON vs JSONL (JSON Lines) — What Is the Difference? | KappaKit</title>
+<meta name="description" content="JSON: one value per file. JSONL (JSON Lines): one JSON object per line, no wrapping array. JSONL is better for streaming and large datasets.">
+<link rel="canonical" href="https://kappakit.com/answers/json-vs-jsonl-difference.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON vs JSONL (JSON Lines) — What Is the Difference? | KappaKit">
+<meta property="og:description" content="JSON: one value per file. JSONL: one object per line, no wrapping array. JSONL is better for streaming.">
+<meta property="og:url" content="https://kappakit.com/answers/json-vs-jsonl-difference.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JSON vs JSONL — What Is the Difference? | KappaKit">
+<meta name="twitter:description" content="JSON: one value per file. JSONL: one object per line. JSONL is better for streaming.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between JSON and JSONL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSON contains one value (object or array) per file. JSONL (JSON Lines) contains one JSON object per line with no wrapping array. JSONL is better for streaming, appending, and processing large datasets line by line."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use JSONL instead of JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use JSONL when you need to: stream data line by line, append records without rewriting the file, process large datasets that don't fit in memory, or pipe data between Unix commands. Use JSON for configuration files, API responses, and data that needs to be loaded entirely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What file extension does JSONL use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSONL files typically use the .jsonl extension, though .ndjson (Newline Delimited JSON) is also common. Both formats are identical: one JSON value per line."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>JSON vs JSONL</span>
+    </nav>
+    <h1>What Is the Difference Between JSON and JSONL?</h1>
+    <p><strong>JSON: one value (object or array) per file. JSONL (JSON Lines): one JSON object per line, no wrapping array. JSONL is better for streaming and large datasets.</strong> In JSON, you must parse the entire file to access any record. In JSONL, you can read and process one line at a time.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Side-by-Side Comparison</h2>
+    <h3>JSON (data.json)</h3>
+    <pre><code>[
+  {"name": "Alice", "age": 30},
+  {"name": "Bob", "age": 25},
+  {"name": "Charlie", "age": 35}
+]</code></pre>
+
+    <h3>JSONL (data.jsonl)</h3>
+    <pre><code>{"name": "Alice", "age": 30}
+{"name": "Bob", "age": 25}
+{"name": "Charlie", "age": 35}</code></pre>
+
+    <h2>Key Differences</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Feature</th><th style="padding:0.5rem;">JSON</th><th style="padding:0.5rem;">JSONL</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Structure</td><td style="padding:0.5rem;">One value per file</td><td style="padding:0.5rem;">One value per line</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Streaming</td><td style="padding:0.5rem;">Must parse entire file</td><td style="padding:0.5rem;">Process line by line</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Appending</td><td style="padding:0.5rem;">Must rewrite file</td><td style="padding:0.5rem;">Append a new line</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Memory</td><td style="padding:0.5rem;">Load entire file</td><td style="padding:0.5rem;">One line at a time</td></tr>
+        <tr><td style="padding:0.5rem;">Use case</td><td style="padding:0.5rem;">Config, APIs</td><td style="padding:0.5rem;">Logs, datasets, ETL</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Reading JSONL</h2>
+    <h3>Python</h3>
+    <pre><code>import json
+with open('data.jsonl') as f:
+    for line in f:
+        record = json.loads(line)
+        print(record['name'])</code></pre>
+
+    <h3>Bash</h3>
+    <pre><code># Process each line with jq
+cat data.jsonl | jq -r '.name'</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Format your JSON with our <a href="/tools/json-formatter.html">JSON Formatter</a> or validate it with our <a href="/tools/json-validator.html">JSON Validator</a>.</p>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/validate-json-online.html" class="related-card">How to validate JSON online</a>
+      <a href="/answers/pretty-print-json-command-line.html" class="related-card">Pretty-print JSON from the command line</a>
+      <a href="/answers/minify-json-online.html" class="related-card">How to minify JSON</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

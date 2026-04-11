@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Encode &lt; in HTML (&amp;lt;) | KappaKit</title>
+<meta name="description" content="The less-than sign < in HTML becomes &lt;. Without encoding, the browser interprets < as the start of an HTML tag. Learn HTML entity encoding.">
+<link rel="canonical" href="https://kappakit.com/answers/html-encode-less-than.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Encode < in HTML (&lt;) | KappaKit">
+<meta property="og:description" content="The less-than sign < in HTML becomes &lt;. Without encoding, the browser interprets < as the start of an HTML tag.">
+<meta property="og:url" content="https://kappakit.com/answers/html-encode-less-than.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Encode < in HTML (&lt;) | KappaKit">
+<meta name="twitter:description" content="The less-than sign < in HTML becomes &lt;.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you encode the less-than sign in HTML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use &lt; to display a literal < in HTML. Without this encoding, the browser interprets < as the start of an HTML tag, which can break your page layout or create XSS vulnerabilities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the most common HTML entities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The five essential HTML entities are: &lt; for <, &gt; for >, &amp; for &, &quot; for double quotes, and &#39; or &apos; for single quotes."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>HTML Encode Less-Than</span>
+    </nav>
+    <h1>How to Encode &lt; in HTML</h1>
+    <p><strong>The less-than sign <code>&lt;</code> in HTML becomes <code>&amp;lt;</code>.</strong> Without this encoding, the browser interprets <code>&lt;</code> as the start of an HTML tag. This can break your page layout and, more critically, create cross-site scripting (XSS) vulnerabilities if user input contains <code>&lt;script&gt;</code> tags.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Essential HTML Entities</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Character</th><th style="padding:0.5rem;">Entity</th><th style="padding:0.5rem;">Numeric</th><th style="padding:0.5rem;">Description</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>&lt;</code></td><td style="padding:0.5rem;"><code>&amp;lt;</code></td><td style="padding:0.5rem;"><code>&amp;#60;</code></td><td style="padding:0.5rem;">Less-than</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>&gt;</code></td><td style="padding:0.5rem;"><code>&amp;gt;</code></td><td style="padding:0.5rem;"><code>&amp;#62;</code></td><td style="padding:0.5rem;">Greater-than</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>&amp;</code></td><td style="padding:0.5rem;"><code>&amp;amp;</code></td><td style="padding:0.5rem;"><code>&amp;#38;</code></td><td style="padding:0.5rem;">Ampersand</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>"</code></td><td style="padding:0.5rem;"><code>&amp;quot;</code></td><td style="padding:0.5rem;"><code>&amp;#34;</code></td><td style="padding:0.5rem;">Double quote</td></tr>
+        <tr><td style="padding:0.5rem;"><code>'</code></td><td style="padding:0.5rem;"><code>&amp;#39;</code></td><td style="padding:0.5rem;"><code>&amp;#39;</code></td><td style="padding:0.5rem;">Single quote</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>// Safe: use textContent (auto-escapes)
+element.textContent = '&lt;script&gt;alert("xss")&lt;/script&gt;';
+
+// Manual escaping
+function escapeHTML(str) {
+  return str.replace(/&amp;/g, '&amp;amp;')
+            .replace(/&lt;/g, '&amp;lt;')
+            .replace(/&gt;/g, '&amp;gt;')
+            .replace(/"/g, '&amp;quot;');
+}</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import html
+html.escape('&lt;script&gt;')
+# '&amp;lt;script&amp;gt;'</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/html-encode.html">HTML Entity Encode &amp; Decode tool</a> to encode any text for safe HTML display.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>What are the most common HTML entities?</summary>
+      <p>The five essential HTML entities are: <code>&amp;lt;</code> for &lt;, <code>&amp;gt;</code> for &gt;, <code>&amp;amp;</code> for &amp;, <code>&amp;quot;</code> for double quotes, and <code>&amp;#39;</code> for single quotes.</p>
+    </details>
+    <details>
+      <summary>Why is HTML encoding important for security?</summary>
+      <p>Without proper encoding, user-supplied input containing <code>&lt;script&gt;</code> tags will execute as JavaScript in other users' browsers. This is called cross-site scripting (XSS) and is one of the most common web vulnerabilities.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/url-encode-ampersand.html" class="related-card">How to encode &amp; in a URL</a>
+      <a href="/answers/url-encode-space.html" class="related-card">How is a space encoded in a URL?</a>
+      <a href="/answers/regex-remove-html-tags.html" class="related-card">Regex to remove HTML tags</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

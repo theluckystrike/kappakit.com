@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex for URL Validation | KappaKit</title>
+<meta name="description" content="URL regex: https?://[^\s/$.?#].[^\s]*. A practical pattern to match HTTP and HTTPS URLs. Learn how it works and test it.">
+<link rel="canonical" href="https://kappakit.com/answers/regex-url-validation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regex for URL Validation | KappaKit">
+<meta property="og:description" content="URL regex: https?://[^\s/$.?#].[^\s]* — a practical pattern to match HTTP/HTTPS URLs.">
+<meta property="og:url" content="https://kappakit.com/answers/regex-url-validation.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex for URL Validation | KappaKit">
+<meta name="twitter:description" content="URL regex: https?://[^\s/$.?#].[^\s]* — a practical pattern to match HTTP/HTTPS URLs.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a good regex for URL validation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A practical URL regex is: https?:\\/\\/[^\\s/$.?#].[^\\s]*. It matches HTTP and HTTPS URLs. For stricter validation, use the URL constructor in JavaScript which follows the WHATWG URL standard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use regex or the URL constructor to validate URLs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For production code, prefer new URL(string) in JavaScript or urllib.parse in Python. These follow the actual URL specification. Use regex only for quick pattern matching in text or when you need to extract URLs from unstructured content."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>URL Regex</span>
+    </nav>
+    <h1>What Is a Good Regex for URL Validation?</h1>
+    <p><strong>URL regex: <code>https?:\/\/[^\s/$.?#].[^\s]*</code></strong>. This practical pattern matches HTTP and HTTPS URLs. It checks for a protocol (<code>http</code> or <code>https</code>), a <code>://</code> separator, at least one valid character for the domain, and allows any non-whitespace characters for the rest of the URL.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Usage Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>// Regex approach
+const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
+const text = 'Visit https://example.com/path?q=1 for more';
+text.match(urlRegex);
+// ["https://example.com/path?q=1"]
+
+// Better: URL constructor (for strict validation)
+function isValidURL(str) {
+  try { new URL(str); return true; }
+  catch { return false; }
+}
+isValidURL('https://example.com');  // true
+isValidURL('not-a-url');            // false</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import re
+pattern = r'https?://[^\s/$.?#].[^\s]*'
+re.findall(pattern, 'Visit https://example.com for more')
+# ['https://example.com']
+
+# Better: urllib.parse
+from urllib.parse import urlparse
+result = urlparse('https://example.com/path')
+bool(result.scheme and result.netloc)  # True</code></pre>
+
+    <h2>When to Use Regex vs. URL Parser</h2>
+    <ul>
+      <li><strong>Regex:</strong> Extracting URLs from unstructured text, quick format checks</li>
+      <li><strong>URL constructor:</strong> Strict validation, production form inputs, API inputs</li>
+    </ul>
+
+    <h2>Try It Yourself</h2>
+    <p>Test this regex with our <a href="/tools/regex-tester.html">Regex Tester</a>.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Should I use regex or the URL constructor to validate URLs?</summary>
+      <p>For production code, prefer <code>new URL(string)</code> in JavaScript or <code>urllib.parse</code> in Python. Use regex for extracting URLs from unstructured content.</p>
+    </details>
+    <details>
+      <summary>Does this regex handle international domain names?</summary>
+      <p>This basic regex does not handle internationalized domain names (IDN) with non-ASCII characters. For full IDN support, convert to Punycode first or use a URL parser library.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/regex-email-validation.html" class="related-card">Regex for email validation</a>
+      <a href="/answers/regex-match-digits-only.html" class="related-card">Regex to match digits only</a>
+      <a href="/answers/url-encode-space.html" class="related-card">How is a space encoded in a URL?</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

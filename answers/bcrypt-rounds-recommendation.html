@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Many Bcrypt Rounds Should I Use? | KappaKit</title>
+<meta name="description" content="Use 10-12 bcrypt rounds for most applications. 10 rounds takes ~100ms per hash on modern hardware. Increase by 1 round every 2 years as hardware gets faster.">
+<link rel="canonical" href="https://kappakit.com/answers/bcrypt-rounds-recommendation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How Many Bcrypt Rounds Should I Use? | KappaKit">
+<meta property="og:description" content="Use 10-12 bcrypt rounds for most applications. 10 rounds takes ~100ms per hash.">
+<meta property="og:url" content="https://kappakit.com/answers/bcrypt-rounds-recommendation.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Many Bcrypt Rounds Should I Use? | KappaKit">
+<meta name="twitter:description" content="Use 10-12 bcrypt rounds for most applications. 10 rounds takes ~100ms per hash.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many bcrypt rounds should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use 10-12 rounds for most applications. 10 rounds takes approximately 100ms per hash on modern hardware. Each additional round doubles the computation time. Increase by 1 round every 2 years as hardware improves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the bcrypt rounds number mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The rounds parameter (also called the cost factor or work factor) determines how many iterations of the hashing function are performed. It's expressed as a power of 2: 10 rounds = 2^10 = 1,024 iterations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use bcrypt or Argon2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Argon2id is the current OWASP recommendation and winner of the Password Hashing Competition. However, bcrypt is battle-tested, widely supported, and still perfectly secure. Choose Argon2id for new projects; bcrypt is fine for existing systems."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>Bcrypt Rounds</span>
+    </nav>
+    <h1>How Many Bcrypt Rounds Should I Use?</h1>
+    <p><strong>Use 10-12 rounds for most applications. 10 rounds takes ~100ms per hash on modern hardware. Increase by 1 round every 2 years.</strong> Each additional round doubles the computation time (2^n iterations), so 12 rounds is 4x slower than 10 rounds. The goal is to make hashing slow enough to deter brute-force attacks while remaining fast enough for a good user experience.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Rounds vs. Time</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Rounds</th><th style="padding:0.5rem;">Iterations</th><th style="padding:0.5rem;">Time (approx.)</th><th style="padding:0.5rem;">Recommended For</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">8</td><td style="padding:0.5rem;">256</td><td style="padding:0.5rem;">~25ms</td><td style="padding:0.5rem;">Too low for most uses</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">10</td><td style="padding:0.5rem;">1,024</td><td style="padding:0.5rem;">~100ms</td><td style="padding:0.5rem;">Standard web apps</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">12</td><td style="padding:0.5rem;">4,096</td><td style="padding:0.5rem;">~400ms</td><td style="padding:0.5rem;">High-security apps</td></tr>
+        <tr><td style="padding:0.5rem;">14</td><td style="padding:0.5rem;">16,384</td><td style="padding:0.5rem;">~1.6s</td><td style="padding:0.5rem;">Very sensitive systems</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+    <h3>Node.js</h3>
+    <pre><code>const bcrypt = require('bcrypt');
+const saltRounds = 12;
+const hash = await bcrypt.hash('myPassword', saltRounds);
+const isMatch = await bcrypt.compare('myPassword', hash);</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import bcrypt
+password = b'myPassword'
+hashed = bcrypt.hashpw(password, bcrypt.gensalt(rounds=12))
+bcrypt.checkpw(password, hashed)  # True</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/bcrypt-generator.html">Bcrypt Generator</a> to generate and verify bcrypt hashes with any round count.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>What does the bcrypt rounds number mean?</summary>
+      <p>The rounds parameter (cost factor) determines the number of iterations as a power of 2. 10 rounds = 2^10 = 1,024 iterations. Each additional round doubles the time.</p>
+    </details>
+    <details>
+      <summary>Should I use bcrypt or Argon2?</summary>
+      <p>Argon2id is the current OWASP recommendation. However, bcrypt is battle-tested and still perfectly secure. Choose Argon2id for new projects; bcrypt is fine for existing systems.</p>
+    </details>
+    <details>
+      <summary>What is the maximum bcrypt password length?</summary>
+      <p>Bcrypt truncates passwords at 72 bytes. If your users might have passwords longer than 72 characters, pre-hash with SHA-256 before passing to bcrypt.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/sha256-hash-of-password.html" class="related-card">Why not use SHA-256 for passwords?</a>
+      <a href="/answers/generate-random-password.html" class="related-card">How to generate a strong random password</a>
+      <a href="/answers/sha256-hash-of-hello.html" class="related-card">SHA-256 hash of "hello"</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

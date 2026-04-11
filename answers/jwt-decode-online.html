@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Decode a JWT Token | KappaKit</title>
+<meta name="description" content="A JWT has 3 parts separated by dots: header.payload.signature. The header and payload are base64url-encoded JSON. JWTs are NOT encrypted — anyone can read the payload.">
+<link rel="canonical" href="https://kappakit.com/answers/jwt-decode-online.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Decode a JWT Token | KappaKit">
+<meta property="og:description" content="A JWT has 3 dot-separated parts: header.payload.signature. JWTs are NOT encrypted.">
+<meta property="og:url" content="https://kappakit.com/answers/jwt-decode-online.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Decode a JWT Token | KappaKit">
+<meta name="twitter:description" content="A JWT has 3 dot-separated parts: header.payload.signature. JWTs are NOT encrypted.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I decode a JWT token?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A JWT has 3 parts separated by dots: header.payload.signature. Split the token on '.', then base64url-decode the first two parts. They contain JSON. The third part is the cryptographic signature. JWTs are NOT encrypted — anyone can read the header and payload."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a JWT token encrypted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Standard JWTs (JWS — JSON Web Signature) are only signed, not encrypted. Anyone can decode and read the payload. Never put secrets in a JWT payload. If you need encrypted tokens, use JWE (JSON Web Encryption)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is in a JWT payload?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The payload contains claims — JSON key-value pairs. Standard claims include: sub (subject/user ID), iat (issued at timestamp), exp (expiration timestamp), iss (issuer), and aud (audience). Custom claims can include any application-specific data."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>Decode JWT</span>
+    </nav>
+    <h1>How to Decode a JWT Token</h1>
+    <p><strong>A JWT has 3 parts separated by dots: <code>header.payload.signature</code>. The header and payload are base64url-encoded JSON. JWTs are NOT encrypted -- anyone can read the payload.</strong> The signature verifies the token was not tampered with, but it does not hide the contents. Never store secrets or sensitive data in JWT payloads.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>JWT Structure</h2>
+    <pre><code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U
+|---- header ----|  |------ payload ------|  |------- signature -------|</code></pre>
+
+    <h3>Decoded Header</h3>
+    <pre><code>{"alg": "HS256"}</code></pre>
+
+    <h3>Decoded Payload</h3>
+    <pre><code>{"sub": "1234567890"}</code></pre>
+
+    <h2>Decode in Code</h2>
+    <h3>JavaScript</h3>
+    <pre><code>function decodeJWT(token) {
+  const [header, payload] = token.split('.').slice(0, 2)
+    .map(part => JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/'))));
+  return { header, payload };
+}
+
+decodeJWT('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgN...');
+// { header: {alg: "HS256"}, payload: {sub: "1234567890"} }</code></pre>
+
+    <h3>Command Line</h3>
+    <pre><code># Decode payload (second part)
+echo 'eyJzdWIiOiIxMjM0NTY3ODkwIn0' | base64 --decode
+# {"sub":"1234567890"}</code></pre>
+
+    <h2>Common JWT Claims</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Claim</th><th style="padding:0.5rem;">Name</th><th style="padding:0.5rem;">Description</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>sub</code></td><td style="padding:0.5rem;">Subject</td><td style="padding:0.5rem;">User ID or entity</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>iat</code></td><td style="padding:0.5rem;">Issued At</td><td style="padding:0.5rem;">Unix timestamp of creation</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>exp</code></td><td style="padding:0.5rem;">Expiration</td><td style="padding:0.5rem;">Unix timestamp when token expires</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>iss</code></td><td style="padding:0.5rem;">Issuer</td><td style="padding:0.5rem;">Who issued the token</td></tr>
+        <tr><td style="padding:0.5rem;"><code>aud</code></td><td style="padding:0.5rem;">Audience</td><td style="padding:0.5rem;">Intended recipient</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/jwt-decoder.html">JWT Decoder</a> to decode and inspect any JWT token instantly.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Is a JWT token encrypted?</summary>
+      <p>No. Standard JWTs (JWS) are only signed, not encrypted. Anyone can decode and read the payload. Use JWE (JSON Web Encryption) if you need encrypted tokens.</p>
+    </details>
+    <details>
+      <summary>What is the difference between JWT and JWE?</summary>
+      <p>JWT (JWS) is signed but readable by anyone. JWE is both signed and encrypted, so only the intended recipient can read the payload. Most APIs use JWS.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/base64-encode-hello-world.html" class="related-card">What is Base64 encoding?</a>
+      <a href="/answers/sha256-hash-of-hello.html" class="related-card">SHA-256 hash of "hello"</a>
+      <a href="/answers/what-is-a-uuid.html" class="related-card">What is a UUID?</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

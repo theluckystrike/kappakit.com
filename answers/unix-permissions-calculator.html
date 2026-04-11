@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unix File Permissions Explained (chmod 755, 644, etc.) | KappaKit</title>
+<meta name="description" content="chmod 755 = rwxr-xr-x (owner: all, group: read+execute, others: read+execute). chmod 644 = rw-r--r--. Learn Unix permission numbers.">
+<link rel="canonical" href="https://kappakit.com/answers/unix-permissions-calculator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unix File Permissions Explained (chmod 755, 644) | KappaKit">
+<meta property="og:description" content="chmod 755 = rwxr-xr-x. chmod 644 = rw-r--r--. Learn Unix permission numbers.">
+<meta property="og:url" content="https://kappakit.com/answers/unix-permissions-calculator.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unix File Permissions Explained | KappaKit">
+<meta name="twitter:description" content="chmod 755 = rwxr-xr-x. chmod 644 = rw-r--r--. Learn Unix permission numbers.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does chmod 755 mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "chmod 755 sets permissions to rwxr-xr-x: the owner can read, write, and execute; the group can read and execute; others can read and execute. This is the standard permission for executable files and directories."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does chmod 644 mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "chmod 644 sets permissions to rw-r--r--: the owner can read and write; the group and others can only read. This is the standard permission for regular files (HTML, CSS, images)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Unix permission numbers work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each digit represents permissions for owner, group, and others. The digit is the sum of: read (4) + write (2) + execute (1). So 7 = rwx (4+2+1), 5 = r-x (4+1), 4 = r-- (4), 0 = --- (none)."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>Unix Permissions</span>
+    </nav>
+    <h1>Unix File Permissions Explained (chmod 755, 644)</h1>
+    <p><strong><code>chmod 755</code> = <code>rwxr-xr-x</code> (owner: all, group: read+execute, others: read+execute). <code>chmod 644</code> = <code>rw-r--r--</code>.</strong> Each octal digit is the sum of read (4), write (2), and execute (1). Three digits set permissions for owner, group, and others respectively.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Permission Number Reference</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Number</th><th style="padding:0.5rem;">Letters</th><th style="padding:0.5rem;">Meaning</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">7</td><td style="padding:0.5rem;"><code>rwx</code></td><td style="padding:0.5rem;">Read + Write + Execute</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">6</td><td style="padding:0.5rem;"><code>rw-</code></td><td style="padding:0.5rem;">Read + Write</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">5</td><td style="padding:0.5rem;"><code>r-x</code></td><td style="padding:0.5rem;">Read + Execute</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">4</td><td style="padding:0.5rem;"><code>r--</code></td><td style="padding:0.5rem;">Read only</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">2</td><td style="padding:0.5rem;"><code>-w-</code></td><td style="padding:0.5rem;">Write only</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">1</td><td style="padding:0.5rem;"><code>--x</code></td><td style="padding:0.5rem;">Execute only</td></tr>
+        <tr><td style="padding:0.5rem;">0</td><td style="padding:0.5rem;"><code>---</code></td><td style="padding:0.5rem;">No permissions</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common chmod Values</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">chmod</th><th style="padding:0.5rem;">Symbolic</th><th style="padding:0.5rem;">Use Case</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>755</code></td><td style="padding:0.5rem;"><code>rwxr-xr-x</code></td><td style="padding:0.5rem;">Directories, executables, scripts</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>644</code></td><td style="padding:0.5rem;"><code>rw-r--r--</code></td><td style="padding:0.5rem;">Regular files (HTML, CSS, images)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>600</code></td><td style="padding:0.5rem;"><code>rw-------</code></td><td style="padding:0.5rem;">Private keys, credentials</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>700</code></td><td style="padding:0.5rem;"><code>rwx------</code></td><td style="padding:0.5rem;">Private directories (.ssh)</td></tr>
+        <tr><td style="padding:0.5rem;"><code>777</code></td><td style="padding:0.5rem;"><code>rwxrwxrwx</code></td><td style="padding:0.5rem;">Everyone can do everything (avoid!)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Examples</h2>
+    <pre><code># Set file permissions
+chmod 644 index.html
+chmod 755 deploy.sh
+chmod 600 ~/.ssh/id_rsa
+
+# Check permissions
+ls -la file.txt
+# -rw-r--r--  1 user group  1234 Apr 11 12:00 file.txt
+
+# Symbolic mode
+chmod u+x script.sh    # Add execute for owner
+chmod go-w file.txt    # Remove write for group and others</code></pre>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>How do Unix permission numbers work?</summary>
+      <p>Each digit is the sum of: read (4) + write (2) + execute (1). Three digits represent owner, group, and others. So 755 means: owner=7 (rwx), group=5 (r-x), others=5 (r-x).</p>
+    </details>
+    <details>
+      <summary>Why should I never use chmod 777?</summary>
+      <p><code>chmod 777</code> gives everyone read, write, and execute access. This is a security risk because any user on the system can modify or execute the file. Use the minimum permissions necessary.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/generate-random-password.html" class="related-card">How to generate a strong random password</a>
+      <a href="/answers/jwt-decode-online.html" class="related-card">How to decode a JWT token</a>
+      <a href="/answers/sha256-hash-of-hello.html" class="related-card">SHA-256 hash of "hello"</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

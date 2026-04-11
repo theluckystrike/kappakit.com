@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Trailing Comma Error — How to Fix It | KappaKit</title>
+<meta name="description" content="JSON does not allow trailing commas. Remove the comma before ] or }. Use a linter or formatter to catch these automatically.">
+<link rel="canonical" href="https://kappakit.com/answers/json-trailing-comma-fix.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON Trailing Comma Error — How to Fix It | KappaKit">
+<meta property="og:description" content="JSON does not allow trailing commas. Remove the comma before ] or }.">
+<meta property="og:url" content="https://kappakit.com/answers/json-trailing-comma-fix.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JSON Trailing Comma Error — How to Fix It | KappaKit">
+<meta name="twitter:description" content="JSON does not allow trailing commas. Remove the comma before ] or }.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does JSON allow trailing commas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. JSON (RFC 8259) does not allow trailing commas. A comma after the last item in an array or object will cause a parse error. Remove the comma before ] or } to fix this."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I fix trailing commas in JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Remove the comma before the closing ] or }. For example, change {\"a\": 1, \"b\": 2,} to {\"a\": 1, \"b\": 2}. Use a JSON formatter or linter to catch these automatically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which formats allow trailing commas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JavaScript objects and arrays allow trailing commas (ES5+). JSON5 and JSONC (JSON with Comments) also allow them. Standard JSON does not."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>JSON Trailing Comma</span>
+    </nav>
+    <h1>How to Fix the JSON Trailing Comma Error</h1>
+    <p><strong>JSON does not allow trailing commas. Remove the comma before <code>]</code> or <code>}</code>.</strong> This is the most common JSON syntax error. Unlike JavaScript, Python, and other languages that allow trailing commas, the JSON specification (RFC 8259) strictly forbids them.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Before and After</h2>
+    <pre><code>// INVALID — trailing comma after "b": 2
+{
+  "a": 1,
+  "b": 2,   &lt;-- remove this comma
+}
+
+// VALID
+{
+  "a": 1,
+  "b": 2
+}
+
+// INVALID — trailing comma in array
+[1, 2, 3,]   &lt;-- remove this comma
+
+// VALID
+[1, 2, 3]</code></pre>
+
+    <h2>How to Catch Trailing Commas</h2>
+    <ul>
+      <li><strong>VS Code:</strong> Built-in JSON validation highlights trailing commas in red</li>
+      <li><strong>ESLint:</strong> <code>no-trailing-commas</code> rule for JSON files</li>
+      <li><strong>Command line:</strong> <code>python -m json.tool &lt; file.json</code></li>
+      <li><strong>Online:</strong> Use our <a href="/tools/json-validator.html">JSON Validator</a></li>
+    </ul>
+
+    <h2>Regex to Remove Trailing Commas</h2>
+    <pre><code>// JavaScript — quick fix (use with caution)
+jsonStr = jsonStr.replace(/,\s*([}\]])/g, '$1');</code></pre>
+    <p>Warning: this regex can break JSON strings that contain <code>,}</code> or <code>,]</code> as literal text. Always validate after applying.</p>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/json-validator.html">JSON Validator</a> to find and fix errors, or our <a href="/tools/json-formatter.html">JSON Formatter</a> to clean up your JSON.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Which formats allow trailing commas?</summary>
+      <p>JavaScript (ES5+), JSON5, JSONC, Python, Rust, and Go all allow trailing commas. Standard JSON does not.</p>
+    </details>
+    <details>
+      <summary>Why doesn't JSON allow trailing commas?</summary>
+      <p>Douglas Crockford, who formalized JSON, chose simplicity: the grammar is smaller and parsers are simpler without optional trailing commas. This also avoids ambiguity with empty trailing elements.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/validate-json-online.html" class="related-card">How to validate JSON online</a>
+      <a href="/answers/json-vs-jsonl-difference.html" class="related-card">JSON vs JSONL: what is the difference?</a>
+      <a href="/answers/pretty-print-json-command-line.html" class="related-card">Pretty-print JSON from the command line</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to URL Encode an Ampersand (&amp; to %26) | KappaKit</title>
+<meta name="description" content="The ampersand & in a URL becomes %26. Without encoding, & is treated as a query parameter separator. Learn when and how to encode ampersands.">
+<link rel="canonical" href="https://kappakit.com/answers/url-encode-ampersand.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to URL Encode an Ampersand (& to %26) | KappaKit">
+<meta property="og:description" content="The ampersand & in a URL becomes %26. Without encoding, & is treated as a query parameter separator.">
+<meta property="og:url" content="https://kappakit.com/answers/url-encode-ampersand.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to URL Encode an Ampersand (& to %26) | KappaKit">
+<meta name="twitter:description" content="The ampersand & in a URL becomes %26.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you encode an ampersand in a URL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ampersand (&) becomes %26 in URL encoding. This is necessary because & is a reserved character that separates query parameters (e.g., ?key1=val1&key2=val2). If the literal character & is part of a value, it must be encoded as %26."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I don't encode an ampersand in a URL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The server will interpret the & as a query parameter separator, splitting your value into two separate parameters. For example, ?q=Tom&Jerry would create parameter q=Tom and a separate parameter Jerry with no value."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>URL Encode Ampersand</span>
+    </nav>
+    <h1>How to URL Encode an Ampersand (&amp; to %26)</h1>
+    <p><strong>The ampersand <code>&amp;</code> in a URL becomes <code>%26</code>.</strong> This is necessary because <code>&amp;</code> is a reserved character in URLs that separates query parameters (e.g., <code>?key1=val1&amp;key2=val2</code>). If the literal character <code>&amp;</code> is part of a parameter value, it must be encoded as <code>%26</code> to avoid being misinterpreted.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Example</h2>
+    <p>If you want to search for "Tom &amp; Jerry":</p>
+    <pre><code># Wrong — server sees two params: q=Tom, Jerry=
+?q=Tom&amp;Jerry
+
+# Correct — server sees one param: q=Tom &amp; Jerry
+?q=Tom%26Jerry</code></pre>
+
+    <h2>Code Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>encodeURIComponent('Tom & Jerry');
+// "Tom%20%26%20Jerry"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>from urllib.parse import quote
+quote('Tom & Jerry', safe='')
+# 'Tom%20%26%20Jerry'</code></pre>
+
+    <h2>Also Remember: &amp;amp; in HTML</h2>
+    <p>In HTML, use <code>&amp;amp;</code> to display a literal <code>&amp;</code>. In URLs inside HTML attributes, you need both: <code>href="?a=1&amp;amp;b=2"</code>.</p>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/url-encode.html">URL Encode &amp; Decode tool</a> to encode any string for URLs.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>What happens if I don't encode an ampersand in a URL?</summary>
+      <p>The server will interpret <code>&amp;</code> as a query parameter separator, splitting your value into two separate parameters. For example, <code>?q=Tom&amp;Jerry</code> creates parameter <code>q=Tom</code> and a separate parameter <code>Jerry</code> with no value.</p>
+    </details>
+    <details>
+      <summary>What is the difference between %26 and &amp;amp;?</summary>
+      <p><code>%26</code> is URL encoding for the ampersand character. <code>&amp;amp;</code> is the HTML entity for the ampersand. Use <code>%26</code> in URLs and <code>&amp;amp;</code> in HTML source code.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/url-encode-space.html" class="related-card">How is a space encoded in a URL?</a>
+      <a href="/answers/html-encode-less-than.html" class="related-card">How to encode &lt; in HTML</a>
+      <a href="/answers/base64-encode-hello-world.html" class="related-card">What is the Base64 of "Hello World"?</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

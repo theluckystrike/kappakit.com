@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex to Remove HTML Tags | KappaKit</title>
+<meta name="description" content="Strip HTML tags with regex: /<[^>]*>/g. But use a real parser like DOMParser for production. Learn why regex fails on nested HTML.">
+<link rel="canonical" href="https://kappakit.com/answers/regex-remove-html-tags.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regex to Remove HTML Tags | KappaKit">
+<meta property="og:description" content="Strip HTML tags: /<[^>]*>/g — but use a real parser (DOMParser) for production.">
+<meta property="og:url" content="https://kappakit.com/answers/regex-remove-html-tags.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex to Remove HTML Tags | KappaKit">
+<meta name="twitter:description" content="Strip HTML tags: /<[^>]*>/g — but use a real parser (DOMParser) for production.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What regex removes HTML tags?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The regex /<[^>]*>/g matches and removes HTML tags. However, regex cannot properly parse HTML because HTML is not a regular language. For production use, use DOMParser in JavaScript or BeautifulSoup in Python."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why should I not use regex to parse HTML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HTML is a context-free language, not a regular language. Regex cannot handle nested tags, attributes containing >, CDATA sections, comments, or malformed HTML. This makes regex-based HTML stripping unreliable and potentially a security risk (XSS)."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>Remove HTML Tags Regex</span>
+    </nav>
+    <h1>What Regex Removes HTML Tags?</h1>
+    <p><strong>Strip HTML tags: <code>/&lt;[^&gt;]*&gt;/g</code> -- but use a real parser (DOMParser) for production.</strong> This regex matches anything between <code>&lt;</code> and <code>&gt;</code> and removes it. It works for simple cases but fails on nested tags, attributes containing <code>&gt;</code>, comments, and malformed HTML.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Quick Regex Approach</h2>
+    <h3>JavaScript</h3>
+    <pre><code>const html = '&lt;p&gt;Hello &lt;b&gt;world&lt;/b&gt;&lt;/p&gt;';
+const text = html.replace(/&lt;[^&gt;]*&gt;/g, '');
+// "Hello world"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import re
+html = '&lt;p&gt;Hello &lt;b&gt;world&lt;/b&gt;&lt;/p&gt;'
+text = re.sub(r'&lt;[^&gt;]*&gt;', '', html)
+# 'Hello world'</code></pre>
+
+    <h2>Better: Use a Parser</h2>
+    <h3>JavaScript (DOMParser)</h3>
+    <pre><code>function stripHTML(html) {
+  const doc = new DOMParser()
+    .parseFromString(html, 'text/html');
+  return doc.body.textContent || '';
+}
+stripHTML('&lt;p&gt;Hello &lt;b&gt;world&lt;/b&gt;&lt;/p&gt;');
+// "Hello world"</code></pre>
+
+    <h3>Python (BeautifulSoup)</h3>
+    <pre><code>from bs4 import BeautifulSoup
+soup = BeautifulSoup('&lt;p&gt;Hello&lt;/p&gt;', 'html.parser')
+soup.get_text()
+# 'Hello'</code></pre>
+
+    <h2>Why Regex Fails on HTML</h2>
+    <ul>
+      <li>Attributes with <code>&gt;</code>: <code>&lt;div data-x="a&gt;b"&gt;</code></li>
+      <li>Comments: <code>&lt;!-- &lt;tag&gt; --&gt;</code></li>
+      <li>Script content: <code>&lt;script&gt;if (a&gt;b)&lt;/script&gt;</code></li>
+      <li>Security: malformed HTML can bypass regex-based sanitization (XSS)</li>
+    </ul>
+
+    <h2>Try It Yourself</h2>
+    <p>Test regex patterns with our <a href="/tools/regex-tester.html">Regex Tester</a> or encode HTML with our <a href="/tools/html-encode.html">HTML Encoder</a>.</p>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/html-encode-less-than.html" class="related-card">How to encode &lt; in HTML</a>
+      <a href="/answers/regex-match-digits-only.html" class="related-card">Regex to match digits only</a>
+      <a href="/answers/regex-email-validation.html" class="related-card">Regex for email validation</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

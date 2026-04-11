@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID v4 vs v7 — What Is the Difference? | KappaKit</title>
+<meta name="description" content="UUIDv4 is fully random (122 random bits). UUIDv7 has a 48-bit Unix timestamp prefix + random bits, so they sort chronologically. Use v7 for database primary keys.">
+<link rel="canonical" href="https://kappakit.com/answers/uuid-v4-vs-v7-difference.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UUID v4 vs v7 — What Is the Difference? | KappaKit">
+<meta property="og:description" content="UUIDv4: fully random. UUIDv7: timestamp + random, sorts chronologically. Use v7 for DB keys.">
+<meta property="og:url" content="https://kappakit.com/answers/uuid-v4-vs-v7-difference.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UUID v4 vs v7 — What Is the Difference? | KappaKit">
+<meta name="twitter:description" content="UUIDv4: fully random. UUIDv7: timestamp + random, sorts chronologically. Use v7 for DB keys.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between UUID v4 and UUID v7?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UUIDv4 is fully random (122 random bits). UUIDv7 has a 48-bit Unix millisecond timestamp prefix followed by random bits, so UUIDv7s sort chronologically. Use v7 for database primary keys (better index performance) and v4 when you need pure randomness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use UUID v4 or v7 for database primary keys?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use UUID v7 for database primary keys. Because v7 UUIDs are time-sorted, they produce sequential B-tree inserts, reducing page splits and fragmentation. UUIDv4's randomness causes scattered writes and poor index locality in B-tree indexes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is UUID v7 standardized?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. UUID v7 was standardized in RFC 9562 (May 2024), which replaces RFC 4122. Major languages and frameworks are adding native v7 support."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>UUID v4 vs v7</span>
+    </nav>
+    <h1>What Is the Difference Between UUID v4 and UUID v7?</h1>
+    <p><strong>UUIDv4 is fully random (122 random bits). UUIDv7 has a 48-bit Unix timestamp prefix + random bits, so they sort chronologically. Use v7 for database primary keys.</strong> UUIDv7 was standardized in RFC 9562 and provides the best of both worlds: globally unique identifiers that also sort by creation time.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Comparison</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Feature</th><th style="padding:0.5rem;">UUID v4</th><th style="padding:0.5rem;">UUID v7</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Structure</td><td style="padding:0.5rem;">122 random bits</td><td style="padding:0.5rem;">48-bit timestamp + random</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Sortable</td><td style="padding:0.5rem;">No</td><td style="padding:0.5rem;">Yes (chronological)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">DB index perf</td><td style="padding:0.5rem;">Poor (random inserts)</td><td style="padding:0.5rem;">Excellent (sequential)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">Reveals time</td><td style="padding:0.5rem;">No</td><td style="padding:0.5rem;">Yes (ms precision)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;">RFC</td><td style="padding:0.5rem;">RFC 9562 (was 4122)</td><td style="padding:0.5rem;">RFC 9562</td></tr>
+        <tr><td style="padding:0.5rem;">Best for</td><td style="padding:0.5rem;">Tokens, nonces</td><td style="padding:0.5rem;">Primary keys, event IDs</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Examples</h2>
+    <pre><code>// UUID v4 (random)
+550e8400-e29b-41d4-a716-446655440000
+                ^--- version 4
+
+// UUID v7 (timestamp + random)
+018f6a7c-e8a0-7b12-8c34-56789abcdef0
+^^^^^^^^^^^^^^^^--- timestamp  ^--- version 7</code></pre>
+
+    <h2>Why v7 Is Better for Databases</h2>
+    <p>B-tree indexes (used by PostgreSQL, MySQL, etc.) perform best with sequential inserts. UUIDv4's randomness causes scattered writes across the index, leading to page splits and fragmentation. UUIDv7's time-sorted structure produces near-sequential inserts, behaving more like auto-increment integers.</p>
+
+    <h2>Try It Yourself</h2>
+    <p>Generate UUIDs with our <a href="/tools/uuid-v4.html">UUID v4 Generator</a> or <a href="/tools/uuid-v7.html">UUID v7 Generator</a>.</p>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/what-is-a-uuid.html" class="related-card">What is a UUID?</a>
+      <a href="/answers/generate-random-password.html" class="related-card">How to generate a strong random password</a>
+      <a href="/answers/sha256-hash-of-hello.html" class="related-card">SHA-256 hash of "hello"</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
