@@ -1,0 +1,48 @@
+name: Generate Answer Pages
+
+on:
+  schedule:
+    # Run weekly on Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate answer pages
+        run: node scripts/generate.js
+
+      - name: Validate generated pages
+        run: node scripts/validate.js
+
+      - name: Check for new pages
+        id: check
+        run: |
+          if [[ -n "$(git status --porcelain answers/)" ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "New answer pages detected"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new pages to commit"
+          fi
+
+      - name: Commit and push
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add answers/ sitemap.xml
+          git commit -m "chore: generate incremental answer pages (automated)"
+          git push

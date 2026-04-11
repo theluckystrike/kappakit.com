@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Encode Question Mark (?) to %3F | KappaKit</title>
+<meta name="description" content="URL encode ? as %3F. Learn when and why to encode this character.">
+<link rel="canonical" href="https://kappakit.com/answers/url-encode-question-mark.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URL Encode Question Mark (?) to %3F | KappaKit">
+<meta property="og:description" content="URL encode ? as %3F. Learn when and why to encode this character.">
+<meta property="og:url" content="https://kappakit.com/answers/url-encode-question-mark.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="URL Encode Question Mark (?) to %3F | KappaKit">
+<meta name="twitter:description" content="URL encode ? as %3F. Learn when and why to encode this character.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should I NOT encode a question mark in a URL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Do not encode the question mark that separates the URL path from the query string. Only encode question marks that appear inside parameter values. For example, in /search?q=What%3F, the first ? is structural and the second is encoded data."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between encodeURI and encodeURIComponent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "encodeURI preserves URL structure characters (?, &, =, /, #) while encodeURIComponent encodes everything except unreserved characters. Use encodeURIComponent for parameter values and encodeURI for complete URLs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is %3F case-sensitive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Both %3F and %3f are valid. However, RFC 3986 recommends uppercase hex digits for consistency."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>URL Encode ?</span>
+    </nav>
+    <h1>How Do You URL Encode a Question Mark (?)?</h1>
+    <p><strong>The url encoding of "?" is <code>%3F</code>.</strong> The question mark (?) is URL encoded as <code>%3F</code>. In URLs, the question mark has a special meaning -- it separates the path from the query string. When you need a literal question mark inside a query parameter value, you must encode it as %3F to prevent the URL parser from treating it as a query separator.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Why Encode "?"?</h2>
+    <p>The ? character delimits the query string in a URL (e.g., /search?q=hello). If your data contains a literal question mark (e.g., a quiz question "What is 2+2?"), encoding it prevents the URL parser from misinterpreting it as a second query separator.</p>
+
+    <h2>Encoding Details</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Character</strong></td><td style="padding:0.5rem;"><code>?</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoded form</strong></td><td style="padding:0.5rem;"><code>%3F</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoding type</strong></td><td style="padding:0.5rem;">URL encoding</td></tr>
+        <tr><td style="padding:0.5rem;"><strong>Unicode code point</strong></td><td style="padding:0.5rem;">U+003F</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>encodeURIComponent('What is 2+2?');
+// "What%20is%202%2B2%3F"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>from urllib.parse import quote
+quote('What is 2+2?')
+# 'What%20is%202%2B2%3F'</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/url-encode.html">URL Encoder</a> to encode any character instantly.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>When should I NOT encode a question mark in a URL?</summary>
+      <p>Do not encode the question mark that separates the URL path from the query string. Only encode question marks that appear inside parameter values. For example, in /search?q=What%3F, the first ? is structural and the second is encoded data.</p>
+    </details>
+    <details>
+      <summary>What is the difference between encodeURI and encodeURIComponent?</summary>
+      <p>encodeURI preserves URL structure characters (?, &, =, /, #) while encodeURIComponent encodes everything except unreserved characters. Use encodeURIComponent for parameter values and encodeURI for complete URLs.</p>
+    </details>
+    <details>
+      <summary>Is %3F case-sensitive?</summary>
+      <p>No. Both %3F and %3f are valid. However, RFC 3986 recommends uppercase hex digits for consistency.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/url-encode-space.html" class="related-card">Url Encode Space</a>
+      <a href="/answers/url-encode-ampersand.html" class="related-card">Url Encode Ampersand</a>
+      <a href="/answers/url-encode-hash.html" class="related-card">Url Encode Hash</a>
+      <a href="/answers/url-encode-at-sign.html" class="related-card">Url Encode At Sign</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

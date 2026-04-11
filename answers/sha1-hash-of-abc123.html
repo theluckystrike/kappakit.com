@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is the SHA-1 Hash of "abc123"? | KappaKit</title>
+<meta name="description" content="The SHA-1 hash of &#39;abc123&#39; is 6367c48dd193d56ea7b0baad25b19455e529f5ee. Learn how SHA-1 works and verify it yourself.">
+<link rel="canonical" href="https://kappakit.com/answers/sha1-hash-of-abc123.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Is the SHA-1 Hash of "abc123"? | KappaKit">
+<meta property="og:description" content="SHA-1 of &#39;abc123&#39; is 6367c48dd193d56ea7b0baad25b19455e529f5ee.">
+<meta property="og:url" content="https://kappakit.com/answers/sha1-hash-of-abc123.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Is the SHA-1 Hash of "abc123"? | KappaKit">
+<meta name="twitter:description" content="SHA-1 of &#39;abc123&#39; is 6367c48dd193d56ea7b0baad25b19455e529f5ee.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the SHA-1 hash of 'abc123'?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SHA-1 hash of 'abc123' is 6367c48dd193d56ea7b0baad25b19455e529f5ee. This is a 40-character hexadecimal string representing 160 bits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SHA-1 safe to use in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SHA-1 is cryptographically broken and should not be used for security purposes. It is still acceptable for non-security checksums and cache keys."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I reverse a SHA-1 hash?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. SHA-1 is a one-way function. However, common inputs like 'abc123' can be found via precomputed rainbow tables. This is why salting and using password-specific hash functions (bcrypt, Argon2) are essential."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>SHA-1 of "abc123"</span>
+    </nav>
+    <h1>What Is the SHA-1 Hash of "abc123"?</h1>
+    <p><strong>The SHA-1 hash of "abc123" is <code>6367c48dd193d56ea7b0baad25b19455e529f5ee</code>.</strong> This is a 40-character hexadecimal string representing 160 bits. Even a single-character change to the input produces a completely different hash due to the avalanche effect.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>About SHA-1</h2>
+    <p>SHA-1 (Secure Hash Algorithm 1) produces a 160-bit (40-character hex) hash. Developed by the NSA and published by NIST in 1995, SHA-1 was the standard for TLS certificates, Git commits, and file integrity. In 2017, Google demonstrated the first practical SHA-1 collision (SHAttered). SHA-1 is deprecated for security uses -- modern applications should use SHA-256 or SHA-3.</p>
+
+    <h2>How SHA-1 Computes This Hash</h2>
+    <ol>
+      <li>Pad the message to a multiple of 512 bits (append 1 bit, zeros, then 64-bit length)</li>
+      <li>Initialize five 32-bit state variables (h0-h4) to fixed constants</li>
+      <li>Expand each 512-bit block into 80 32-bit words using XOR and left rotation</li>
+      <li>Process through 80 rounds using nonlinear functions (Ch, Parity, Maj)</li>
+      <li>After all blocks, concatenate h0-h4 to produce the 160-bit digest</li>
+    </ol>
+
+    <h2>Hash Details</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Input</strong></td><td style="padding:0.5rem;"><code>abc123</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Algorithm</strong></td><td style="padding:0.5rem;">SHA-1</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Hash (hex)</strong></td><td style="padding:0.5rem;word-break:break-all;"><code>6367c48dd193d56ea7b0baad25b19455e529f5ee</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Character count</strong></td><td style="padding:0.5rem;">40 hex characters</td></tr>
+        <tr><td style="padding:0.5rem;"><strong>Bit length</strong></td><td style="padding:0.5rem;">160 bits</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Security warning:</strong> SHA-1 is cryptographically broken. Do not use it for passwords, digital signatures, or any security-critical purpose. Use bcrypt, Argon2, or scrypt for password hashing, and SHA-256+ for data integrity.</p>
+    <p><strong>Common password alert:</strong> "abc123" appears in virtually every common password list and breach database. If this hash appears in your system, the associated account is trivially compromised via rainbow table lookup.</p>
+
+    <h2>Verify It Yourself</h2>
+    <h3>JavaScript (Node.js)</h3>
+    <pre><code>require('crypto').createHash('sha1').update('abc123').digest('hex');
+// "6367c48dd193d56ea7b0baad25b19455e529f5ee"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import hashlib
+hashlib.sha1(b'abc123').hexdigest()
+# '6367c48dd193d56ea7b0baad25b19455e529f5ee'</code></pre>
+
+    <h3>Bash</h3>
+    <pre><code>echo -n 'abc123' | sha1sum
+# 6367c48dd193d56ea7b0baad25b19455e529f5ee  -</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/sha1-hash.html">SHA-1 Hash Generator</a> to hash any string instantly.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Is SHA-1 safe to use in 2026?</summary>
+      <p>SHA-1 is cryptographically broken and should not be used for security purposes. It is still acceptable for non-security checksums and cache keys.</p>
+    </details>
+    <details>
+      <summary>Can I reverse a SHA-1 hash?</summary>
+      <p>No. SHA-1 is a one-way function. Common inputs like "abc123" can be found via rainbow tables, which is why you should never use plain SHA-1 for passwords -- use bcrypt or Argon2 instead.</p>
+    </details>
+    <details>
+      <summary>What is the avalanche effect?</summary>
+      <p>The avalanche effect means that a tiny change in the input (even one bit) causes roughly 50% of the output bits to change. This makes it impossible to predict the hash of a similar input from a known hash.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/md5-hash-of-abc123.html" class="related-card">MD5 hash of &quot;abc123&quot;</a>
+      <a href="/answers/sha256-hash-of-abc123.html" class="related-card">SHA-256 hash of &quot;abc123&quot;</a>
+      <a href="/answers/sha1-hash-of-test.html" class="related-card">SHA-1 hash of &quot;test&quot;</a>
+      <a href="/answers/sha1-hash-of-admin.html" class="related-card">SHA-1 hash of &quot;admin&quot;</a>
+      <a href="/answers/bcrypt-rounds-recommendation.html" class="related-card">How many bcrypt rounds should I use?</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

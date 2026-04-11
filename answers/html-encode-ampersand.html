@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Encode Ampersand (&) to &amp;amp; | KappaKit</title>
+<meta name="description" content="HTML encode &amp; as &amp;amp;. Learn when and why to encode this character.">
+<link rel="canonical" href="https://kappakit.com/answers/html-encode-ampersand.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Encode Ampersand (&) to &amp;amp; | KappaKit">
+<meta property="og:description" content="HTML encode &amp; as &amp;amp;. Learn when and why to encode this character.">
+<meta property="og:url" content="https://kappakit.com/answers/html-encode-ampersand.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HTML Encode Ampersand (&) to &amp;amp; | KappaKit">
+<meta name="twitter:description" content="HTML encode &amp; as &amp;amp;. Learn when and why to encode this character.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is & the most important character to encode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because & is the escape character itself. Every HTML entity starts with &. If & is not encoded, the parser may interpret the following text as an entity, leading to garbled output or security vulnerabilities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to encode & in URLs inside HTML?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. URL query separators (e.g., ?a=1&b=2) must be encoded as ?a=1&amp;b=2 when placed in HTML attributes like href. This is one of the most common HTML validation errors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I do not encode &?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If followed by text that resembles an entity name (e.g., &copy), the browser may render a copyright symbol instead of \"&copy\". If followed by unknown text, modern browsers display it as-is but the HTML is technically invalid."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>HTML Encode &</span>
+    </nav>
+    <h1>How Do You HTML Encode an Ampersand (&)?</h1>
+    <p><strong>The html encoding of "&amp;" is <code>&amp;amp;</code>.</strong> The ampersand (&) is HTML encoded as <code>&amp;amp;</code>. The ampersand is the most important character to encode because it introduces all HTML entities. An unescaped & can cause parsing errors, broken entities, and XSS vulnerabilities.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Why Encode "&amp;"?</h2>
+    <p>The & character starts HTML entities (like &amp;, &lt;, &copy;). If you write "Tom & Jerry" in HTML without encoding, the browser tries to parse "& Jerry" as an entity reference. Encoding it as &amp;amp; ensures the literal ampersand is displayed correctly.</p>
+
+    <h2>Encoding Details</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Character</strong></td><td style="padding:0.5rem;"><code>&amp;</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoded form</strong></td><td style="padding:0.5rem;"><code>&amp;amp;</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoding type</strong></td><td style="padding:0.5rem;">HTML encoding</td></tr>
+        <tr><td style="padding:0.5rem;"><strong>Unicode code point</strong></td><td style="padding:0.5rem;">U+0026</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>// Using built-in text content (auto-escapes)
+element.textContent = 'Tom & Jerry';
+
+// Manual encoding
+'Tom & Jerry'.replace(/&/g, '&amp;');
+// "Tom &amp; Jerry"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import html
+html.escape('Tom & Jerry')
+# 'Tom &amp; Jerry'</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/html-encode.html">HTML Encoder</a> to encode any character instantly.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Why is & the most important character to encode?</summary>
+      <p>Because & is the escape character itself. Every HTML entity starts with &. If & is not encoded, the parser may interpret the following text as an entity, leading to garbled output or security vulnerabilities.</p>
+    </details>
+    <details>
+      <summary>Do I need to encode & in URLs inside HTML?</summary>
+      <p>Yes. URL query separators (e.g., ?a=1&b=2) must be encoded as ?a=1&amp;b=2 when placed in HTML attributes like href. This is one of the most common HTML validation errors.</p>
+    </details>
+    <details>
+      <summary>What happens if I do not encode &?</summary>
+      <p>If followed by text that resembles an entity name (e.g., &copy), the browser may render a copyright symbol instead of "&copy". If followed by unknown text, modern browsers display it as-is but the HTML is technically invalid.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/html-encode-less-than.html" class="related-card">Html Encode Less Than</a>
+      <a href="/answers/html-encode-greater-than.html" class="related-card">Html Encode Greater Than</a>
+      <a href="/answers/url-encode-ampersand.html" class="related-card">Url Encode Ampersand</a>
+      <a href="/answers/url-encode-space.html" class="related-card">Url Encode Space</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex for US ZIP Code Validation | KappaKit</title>
+<meta name="description" content="Regex for US ZIP Code Validation: ^\d{5}(-\d{4})?$. Learn how it works, see test cases, and copy the pattern.">
+<link rel="canonical" href="https://kappakit.com/answers/regex-us-zip-code.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regex for US ZIP Code Validation | KappaKit">
+<meta property="og:description" content="Regex for US ZIP Code Validation: ^\d{5}(-\d{4})?$. Learn how it works, see test cases, and copy the pattern.">
+<meta property="og:url" content="https://kappakit.com/answers/regex-us-zip-code.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex for US ZIP Code Validation | KappaKit">
+<meta name="twitter:description" content="Regex for US ZIP Code Validation: ^\d{5}(-\d{4})?$. Learn how it works, see test cases, and copy the pattern.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is ZIP+4?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ZIP+4 adds a hyphen and 4 more digits to the basic ZIP code, identifying a specific delivery segment (block, building, or PO box). It is optional for addressing but improves mail sorting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do ZIP codes ever start with zero?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. ZIP codes in the northeastern US (CT, MA, ME, NH, NJ, NY, PR, RI, VT, VI) start with 0. Always store ZIP codes as strings, never as integers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this regex valid for international postal codes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Other countries use completely different formats. UK postcodes have letters, Canadian codes alternate letters and digits, and many countries have 4 or 6-digit codes."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>ZIP Code Regex</span>
+    </nav>
+    <h1>What Is a Good Regex for US ZIP Code Validation?</h1>
+    <p><strong>Pattern: <code>^\d{5}(-\d{4})?$</code></strong>. US ZIP codes are either 5 digits (ZIP) or 9 digits in ZIP+4 format (12345-6789). The first digit indicates the region (0 = Northeast, 9 = West Coast). While this regex validates the format, only the USPS database can confirm a ZIP code actually exists.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Breaking Down the Pattern</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Part</th><th style="padding:0.5rem;">Meaning</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>^</code></td><td style="padding:0.5rem;">Start of string</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>\d{5}</code></td><td style="padding:0.5rem;">Five digits (basic ZIP code)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>(-\d{4})?</code></td><td style="padding:0.5rem;">Optional: hyphen followed by 4 digits (ZIP+4)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>$</code></td><td style="padding:0.5rem;">End of string</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Test Cases</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <thead><tr style="border-bottom:2px solid var(--border-color,#333);text-align:left;">
+        <th style="padding:0.5rem;">Input</th><th style="padding:0.5rem;">Match?</th><th style="padding:0.5rem;">Note</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>90210</code></td><td style="padding:0.5rem;">Yes</td><td style="padding:0.5rem;">Valid format</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>10001</code></td><td style="padding:0.5rem;">Yes</td><td style="padding:0.5rem;">Valid format</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>94105-1234</code></td><td style="padding:0.5rem;">Yes</td><td style="padding:0.5rem;">Valid format</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>1234</code></td><td style="padding:0.5rem;">No</td><td style="padding:0.5rem;">Only 4 digits (need exactly 5)</td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><code>123456</code></td><td style="padding:0.5rem;">No</td><td style="padding:0.5rem;">6 digits without the +4 format</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Usage Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>const pattern = /^\d{5}(-\d{4})?$/;
+pattern.test('90210');   // true
+pattern.test('1234');   // false</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import re
+pattern = r'^\d{5}(-\d{4})?$'
+bool(re.match(pattern, '90210'))  # True
+bool(re.match(pattern, '1234'))  # False</code></pre>
+
+    <h2>Common Pitfalls</h2>
+    <ul>
+      <li>This validates the format but not whether the ZIP code actually exists. ZIP 00000 passes but is invalid.</li>
+      <li>Some ZIP codes start with 0 (e.g., 01001 in Massachusetts) -- never store them as numbers.</li>
+      <li>US territories (PR, GU, VI) have valid ZIP codes that follow the same format.</li>
+    </ul>
+
+    <h2>Try It Yourself</h2>
+    <p>Test this regex with our <a href="/tools/regex-tester.html">Regex Tester</a>.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>What is ZIP+4?</summary>
+      <p>ZIP+4 adds a hyphen and 4 more digits to the basic ZIP code, identifying a specific delivery segment (block, building, or PO box). It is optional for addressing but improves mail sorting.</p>
+    </details>
+    <details>
+      <summary>Do ZIP codes ever start with zero?</summary>
+      <p>Yes. ZIP codes in the northeastern US (CT, MA, ME, NH, NJ, NY, PR, RI, VT, VI) start with 0. Always store ZIP codes as strings, never as integers.</p>
+    </details>
+    <details>
+      <summary>Is this regex valid for international postal codes?</summary>
+      <p>No. Other countries use completely different formats. UK postcodes have letters, Canadian codes alternate letters and digits, and many countries have 4 or 6-digit codes.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/regex-match-digits-only.html" class="related-card">Regex Match Digits Only</a>
+      <a href="/answers/regex-us-zip-code.html" class="related-card">Regex Us Zip Code</a>
+      <a href="/answers/regex-alphanumeric-only.html" class="related-card">Regex Alphanumeric Only</a>
+      <a href="/answers/regex-phone-number-us.html" class="related-card">Regex Phone Number Us</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

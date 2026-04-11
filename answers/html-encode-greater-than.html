@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Encode Greater Than (>) to &amp;gt; | KappaKit</title>
+<meta name="description" content="HTML encode &gt; as &amp;gt;. Learn when and why to encode this character.">
+<link rel="canonical" href="https://kappakit.com/answers/html-encode-greater-than.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Encode Greater Than (>) to &amp;gt; | KappaKit">
+<meta property="og:description" content="HTML encode &gt; as &amp;gt;. Learn when and why to encode this character.">
+<meta property="og:url" content="https://kappakit.com/answers/html-encode-greater-than.html">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HTML Encode Greater Than (>) to &amp;gt; | KappaKit">
+<meta name="twitter:description" content="HTML encode &gt; as &amp;gt;. Learn when and why to encode this character.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it really necessary to encode >?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Technically, the HTML5 spec allows unescaped > in text content nodes. However, best practice is to always encode it. Attribute values, XHTML documents, and XML contexts require proper encoding, and consistent escaping prevents XSS vulnerabilities and HTML validation errors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the numeric code for >?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The greater-than sign can also be encoded as &amp;#62; (decimal) or &amp;#x3E; (hexadecimal). The named entity &amp;gt; is more readable and widely preferred. All three forms are semantically identical and supported by every browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I display HTML code in a web page?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Encode both < as &amp;lt; and > as &amp;gt;. For example, to show a div element, write &amp;lt;div&amp;gt; in your HTML source. Alternatively, use the pre and code elements with proper encoding for displaying code blocks with syntax highlighting."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/answers/">Answers</a> <span>/</span> <span>HTML Encode ></span>
+    </nav>
+    <h1>How Do You HTML Encode the Greater Than Sign (>)?</h1>
+    <p><strong>The html encoding of "&gt;" is <code>&amp;gt;</code>.</strong> The greater-than sign (>) is HTML encoded as <code>&amp;gt;</code>. While browsers can often render an unescaped > correctly (unlike <), encoding it is required inside attribute values and is best practice everywhere to prevent XSS vulnerabilities and ensure valid HTML.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Why Encode "&gt;"?</h2>
+    <p>The > character closes HTML tags. While a bare > in text content is usually rendered correctly by browsers, encoding it as &amp;gt; ensures valid markup, passes HTML validation, and prevents potential injection vulnerabilities when combined with other characters in user-generated content. Always encode both < and > together for consistency. In XHTML (which follows stricter XML rules), unescaped > in text content can cause parsing errors.</p>
+
+    <h2>Encoding Details</h2>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;">
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Character</strong></td><td style="padding:0.5rem;"><code>&gt;</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoded form</strong></td><td style="padding:0.5rem;"><code>&amp;gt;</code></td></tr>
+        <tr style="border-bottom:1px solid var(--border-color,#333);"><td style="padding:0.5rem;"><strong>Encoding type</strong></td><td style="padding:0.5rem;">HTML encoding</td></tr>
+        <tr><td style="padding:0.5rem;"><strong>Unicode code point</strong></td><td style="padding:0.5rem;">U+003E</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Code Examples</h2>
+    <h3>JavaScript</h3>
+    <pre><code>// Using built-in text content (auto-escapes)
+element.textContent = '5 > 3';
+
+// Manual encoding
+'5 > 3'.replace(/>/g, '&gt;');
+// "5 &gt; 3"</code></pre>
+
+    <h3>Python</h3>
+    <pre><code>import html
+html.escape('5 > 3')
+# '5 &gt; 3'</code></pre>
+
+    <h2>Try It Yourself</h2>
+    <p>Use our <a href="/tools/html-encode.html">HTML Encoder</a> to encode any character instantly.</p>
+  </section>
+
+  <section class="faq-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Frequently Asked Questions</h2>
+    <details>
+      <summary>Is it really necessary to encode >?</summary>
+      <p>Technically, the HTML5 spec allows unescaped > in text content nodes. However, best practice is to always encode it. Attribute values, XHTML documents, and XML contexts require proper encoding, and consistent escaping prevents XSS vulnerabilities and HTML validation errors.</p>
+    </details>
+    <details>
+      <summary>What is the numeric code for >?</summary>
+      <p>The greater-than sign can also be encoded as &amp;#62; (decimal) or &amp;#x3E; (hexadecimal). The named entity &amp;gt; is more readable and widely preferred. All three forms are semantically identical and supported by every browser.</p>
+    </details>
+    <details>
+      <summary>How do I display HTML code in a web page?</summary>
+      <p>Encode both < as &amp;lt; and > as &amp;gt;. For example, to show a div element, write &amp;lt;div&amp;gt; in your HTML source. Alternatively, use the pre and code elements with proper encoding for displaying code blocks with syntax highlighting.</p>
+    </details>
+  </section>
+
+  <section class="related-section" style="max-width:720px;margin:2rem auto;">
+    <h2>Related Questions</h2>
+    <div class="related-grid">
+      <a href="/answers/html-encode-less-than.html" class="related-card">Html Encode Less Than</a>
+      <a href="/answers/html-encode-ampersand.html" class="related-card">Html Encode Ampersand</a>
+      <a href="/answers/url-encode-space.html" class="related-card">Url Encode Space</a>
+      <a href="/answers/url-encode-ampersand.html" class="related-card">Url Encode Ampersand</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Answers & Reference | KappaKit</title>
+<meta name="description" content="Quick answers to common developer questions: hash values, regex patterns, encoding references, JSON, UUIDs, and more. Verified, copy-paste ready.">
+<link rel="canonical" href="https://kappakit.com/answers/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Developer Answers & Reference | KappaKit">
+<meta property="og:description" content="Quick answers to common developer questions: hash values, regex patterns, encoding references, and more.">
+<meta property="og:url" content="https://kappakit.com/answers/">
+<meta property="og:site_name" content="KappaKit">
+<meta property="og:image" content="https://kappakit.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Developer Answers & Reference | KappaKit">
+<meta name="twitter:description" content="Quick answers to common developer questions: hash values, regex patterns, encoding references, and more.">
+<meta name="twitter:image" content="https://kappakit.com/assets/og-image.png">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="/" class="site-logo">KappaKit</a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/tools/">Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/about.html">About</a>
+    <div class="nav-right">
+      <a href="https://zovo.one/pricing?utm_source=kappakit.com&amp;utm_medium=satellite&amp;utm_campaign=nav-link" class="nav-pro" target="_blank">Go Pro &#10022;</a>
+      <a href="https://zovo.one/tools" class="nav-zovo">Zovo Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="tool-page-hero">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <span>Answers</span>
+    </nav>
+    <h1>Developer Answers &amp; Reference</h1>
+    <p>Quick, verified answers to common developer questions. Every hash is computed and verified, every regex is tested, every encoding is correct.</p>
+  </div>
+
+  <section style="max-width:720px;margin:2rem auto;">
+    <h2>Hash Values</h2>
+    <p>Pre-computed hash values for common strings, verified using Node.js crypto module.</p>
+
+    <h3>MD5 Hashes</h3>
+    <div class="related-grid">
+      <a href="/answers/md5-hash-of-empty-string.html" class="related-card">MD5 of empty string</a>
+      <a href="/answers/md5-hash-of-test.html" class="related-card">MD5 of "test"</a>
+      <a href="/answers/md5-hash-of-admin.html" class="related-card">MD5 of "admin"</a>
+      <a href="/answers/md5-hash-of-root.html" class="related-card">MD5 of "root"</a>
+      <a href="/answers/md5-hash-of-example.html" class="related-card">MD5 of "example"</a>
+      <a href="/answers/md5-hash-of-foo.html" class="related-card">MD5 of "foo"</a>
+      <a href="/answers/md5-hash-of-bar.html" class="related-card">MD5 of "bar"</a>
+      <a href="/answers/md5-hash-of-foobar.html" class="related-card">MD5 of "foobar"</a>
+      <a href="/answers/md5-hash-of-123456.html" class="related-card">MD5 of "123456"</a>
+      <a href="/answers/md5-hash-of-qwerty.html" class="related-card">MD5 of "qwerty"</a>
+      <a href="/answers/md5-hash-of-letmein.html" class="related-card">MD5 of "letmein"</a>
+      <a href="/answers/md5-hash-of-abc.html" class="related-card">MD5 of "abc"</a>
+      <a href="/answers/md5-hash-of-abc123.html" class="related-card">MD5 of "abc123"</a>
+      <a href="/answers/md5-hash-of-welcome.html" class="related-card">MD5 of "welcome"</a>
+      <a href="/answers/md5-hash-of-monkey.html" class="related-card">MD5 of "monkey"</a>
+      <a href="/answers/md5-hash-of-the-quick-brown-fox-jumps-over-the-lazy-dog.html" class="related-card">MD5 of "The quick brown fox..."</a>
+    </div>
+
+    <h3>SHA-1 Hashes</h3>
+    <div class="related-grid">
+      <a href="/answers/sha1-hash-of-test.html" class="related-card">SHA-1 of "test"</a>
+      <a href="/answers/sha1-hash-of-admin.html" class="related-card">SHA-1 of "admin"</a>
+      <a href="/answers/sha1-hash-of-root.html" class="related-card">SHA-1 of "root"</a>
+      <a href="/answers/sha1-hash-of-example.html" class="related-card">SHA-1 of "example"</a>
+      <a href="/answers/sha1-hash-of-foo.html" class="related-card">SHA-1 of "foo"</a>
+      <a href="/answers/sha1-hash-of-bar.html" class="related-card">SHA-1 of "bar"</a>
+      <a href="/answers/sha1-hash-of-foobar.html" class="related-card">SHA-1 of "foobar"</a>
+      <a href="/answers/sha1-hash-of-123456.html" class="related-card">SHA-1 of "123456"</a>
+      <a href="/answers/sha1-hash-of-qwerty.html" class="related-card">SHA-1 of "qwerty"</a>
+      <a href="/answers/sha1-hash-of-letmein.html" class="related-card">SHA-1 of "letmein"</a>
+      <a href="/answers/sha1-hash-of-abc.html" class="related-card">SHA-1 of "abc"</a>
+      <a href="/answers/sha1-hash-of-abc123.html" class="related-card">SHA-1 of "abc123"</a>
+      <a href="/answers/sha1-hash-of-welcome.html" class="related-card">SHA-1 of "welcome"</a>
+      <a href="/answers/sha1-hash-of-monkey.html" class="related-card">SHA-1 of "monkey"</a>
+      <a href="/answers/sha1-hash-of-the-quick-brown-fox-jumps-over-the-lazy-dog.html" class="related-card">SHA-1 of "The quick brown fox..."</a>
+    </div>
+
+    <h3>SHA-256 Hashes</h3>
+    <div class="related-grid">
+      <a href="/answers/sha256-hash-of-hello.html" class="related-card">SHA-256 of "hello"</a>
+      <a href="/answers/sha256-hash-of-password.html" class="related-card">SHA-256 of "password"</a>
+      <a href="/answers/sha256-hash-of-test.html" class="related-card">SHA-256 of "test"</a>
+      <a href="/answers/sha256-hash-of-admin.html" class="related-card">SHA-256 of "admin"</a>
+      <a href="/answers/sha256-hash-of-root.html" class="related-card">SHA-256 of "root"</a>
+      <a href="/answers/sha256-hash-of-example.html" class="related-card">SHA-256 of "example"</a>
+      <a href="/answers/sha256-hash-of-foo.html" class="related-card">SHA-256 of "foo"</a>
+      <a href="/answers/sha256-hash-of-bar.html" class="related-card">SHA-256 of "bar"</a>
+      <a href="/answers/sha256-hash-of-foobar.html" class="related-card">SHA-256 of "foobar"</a>
+      <a href="/answers/sha256-hash-of-123456.html" class="related-card">SHA-256 of "123456"</a>
+      <a href="/answers/sha256-hash-of-qwerty.html" class="related-card">SHA-256 of "qwerty"</a>
+      <a href="/answers/sha256-hash-of-letmein.html" class="related-card">SHA-256 of "letmein"</a>
+      <a href="/answers/sha256-hash-of-abc.html" class="related-card">SHA-256 of "abc"</a>
+      <a href="/answers/sha256-hash-of-abc123.html" class="related-card">SHA-256 of "abc123"</a>
+      <a href="/answers/sha256-hash-of-welcome.html" class="related-card">SHA-256 of "welcome"</a>
+      <a href="/answers/sha256-hash-of-monkey.html" class="related-card">SHA-256 of "monkey"</a>
+      <a href="/answers/sha256-hash-of-the-quick-brown-fox-jumps-over-the-lazy-dog.html" class="related-card">SHA-256 of "The quick brown fox..."</a>
+    </div>
+
+    <h3>SHA-512 Hashes</h3>
+    <div class="related-grid">
+      <a href="/answers/sha512-hash-of-test.html" class="related-card">SHA-512 of "test"</a>
+      <a href="/answers/sha512-hash-of-admin.html" class="related-card">SHA-512 of "admin"</a>
+      <a href="/answers/sha512-hash-of-root.html" class="related-card">SHA-512 of "root"</a>
+      <a href="/answers/sha512-hash-of-example.html" class="related-card">SHA-512 of "example"</a>
+      <a href="/answers/sha512-hash-of-foo.html" class="related-card">SHA-512 of "foo"</a>
+      <a href="/answers/sha512-hash-of-bar.html" class="related-card">SHA-512 of "bar"</a>
+      <a href="/answers/sha512-hash-of-foobar.html" class="related-card">SHA-512 of "foobar"</a>
+      <a href="/answers/sha512-hash-of-123456.html" class="related-card">SHA-512 of "123456"</a>
+      <a href="/answers/sha512-hash-of-qwerty.html" class="related-card">SHA-512 of "qwerty"</a>
+      <a href="/answers/sha512-hash-of-letmein.html" class="related-card">SHA-512 of "letmein"</a>
+      <a href="/answers/sha512-hash-of-abc.html" class="related-card">SHA-512 of "abc"</a>
+      <a href="/answers/sha512-hash-of-abc123.html" class="related-card">SHA-512 of "abc123"</a>
+      <a href="/answers/sha512-hash-of-welcome.html" class="related-card">SHA-512 of "welcome"</a>
+      <a href="/answers/sha512-hash-of-monkey.html" class="related-card">SHA-512 of "monkey"</a>
+      <a href="/answers/sha512-hash-of-the-quick-brown-fox-jumps-over-the-lazy-dog.html" class="related-card">SHA-512 of "The quick brown fox..."</a>
+    </div>
+
+    <h2>Regex Patterns</h2>
+    <p>Tested regex patterns with breakdowns, test cases, and code examples.</p>
+    <div class="related-grid">
+      <a href="/answers/regex-email-validation.html" class="related-card">Email validation regex</a>
+      <a href="/answers/regex-phone-number-us.html" class="related-card">US phone number regex</a>
+      <a href="/answers/regex-url-validation.html" class="related-card">URL validation regex</a>
+      <a href="/answers/regex-match-digits-only.html" class="related-card">Match digits only regex</a>
+      <a href="/answers/regex-remove-html-tags.html" class="related-card">Remove HTML tags regex</a>
+      <a href="/answers/regex-uuid-validation.html" class="related-card">UUID v4 validation regex</a>
+      <a href="/answers/regex-ip-address-v4.html" class="related-card">IPv4 address regex</a>
+      <a href="/answers/regex-ip-address-v6.html" class="related-card">IPv6 address regex</a>
+      <a href="/answers/regex-date-yyyy-mm-dd.html" class="related-card">YYYY-MM-DD date regex</a>
+      <a href="/answers/regex-hex-color.html" class="related-card">Hex color code regex</a>
+      <a href="/answers/regex-alphanumeric-only.html" class="related-card">Alphanumeric only regex</a>
+      <a href="/answers/regex-strong-password.html" class="related-card">Strong password regex</a>
+      <a href="/answers/regex-credit-card-number.html" class="related-card">Credit card number regex</a>
+      <a href="/answers/regex-us-zip-code.html" class="related-card">US ZIP code regex</a>
+      <a href="/answers/regex-slug-validation.html" class="related-card">URL slug validation regex</a>
+    </div>
+
+    <h2>Encoding Reference</h2>
+    <p>How to encode special characters in URLs and HTML.</p>
+    <div class="related-grid">
+      <a href="/answers/url-encode-space.html" class="related-card">URL encode space (%20)</a>
+      <a href="/answers/url-encode-ampersand.html" class="related-card">URL encode ampersand (%26)</a>
+      <a href="/answers/url-encode-question-mark.html" class="related-card">URL encode ? (%3F)</a>
+      <a href="/answers/url-encode-hash.html" class="related-card">URL encode # (%23)</a>
+      <a href="/answers/url-encode-at-sign.html" class="related-card">URL encode @ (%40)</a>
+      <a href="/answers/html-encode-less-than.html" class="related-card">HTML encode &lt; (&amp;lt;)</a>
+      <a href="/answers/html-encode-greater-than.html" class="related-card">HTML encode &gt; (&amp;gt;)</a>
+      <a href="/answers/html-encode-ampersand.html" class="related-card">HTML encode &amp; (&amp;amp;)</a>
+      <a href="/answers/base64-encode-hello-world.html" class="related-card">Base64 encode "hello world"</a>
+      <a href="/answers/base64-decode-SGVsbG8gV29ybGQ.html" class="related-card">Base64 decode SGVsbG8gV29ybGQ=</a>
+    </div>
+
+    <h2>JSON &amp; Data Formats</h2>
+    <div class="related-grid">
+      <a href="/answers/validate-json-online.html" class="related-card">Validate JSON online</a>
+      <a href="/answers/json-trailing-comma-fix.html" class="related-card">Fix JSON trailing comma</a>
+      <a href="/answers/json-vs-jsonl-difference.html" class="related-card">JSON vs JSONL difference</a>
+      <a href="/answers/pretty-print-json-command-line.html" class="related-card">Pretty print JSON (CLI)</a>
+      <a href="/answers/minify-json-online.html" class="related-card">Minify JSON online</a>
+    </div>
+
+    <h2>UUIDs &amp; Identifiers</h2>
+    <div class="related-grid">
+      <a href="/answers/what-is-a-uuid.html" class="related-card">What is a UUID?</a>
+      <a href="/answers/uuid-v4-vs-v7-difference.html" class="related-card">UUID v4 vs v7 difference</a>
+    </div>
+
+    <h2>Security &amp; Passwords</h2>
+    <div class="related-grid">
+      <a href="/answers/bcrypt-rounds-recommendation.html" class="related-card">Bcrypt rounds recommendation</a>
+      <a href="/answers/generate-random-password.html" class="related-card">Generate random password</a>
+    </div>
+
+    <h2>Other</h2>
+    <div class="related-grid">
+      <a href="/answers/jwt-decode-online.html" class="related-card">JWT decode online</a>
+      <a href="/answers/color-hex-to-rgb.html" class="related-card">Hex to RGB conversion</a>
+      <a href="/answers/unix-permissions-calculator.html" class="related-card">Unix permissions calculator</a>
+    </div>
+  </section>
+
+  <section class="author-section" style="max-width:720px;margin:2rem auto;">
+    <p style="font-size:0.85rem;color:var(--text-muted);">Built by <a href="/about.html">Michael Lip</a>. 100% client-side — no data leaves your browser.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">Zovo Tools</div>
+        <div class="footer-tagline">Free developer tools by a solo dev. No tracking.</div>
+        <a href="https://zovo.one/pricing?utm_source=kappakit.com&utm_medium=satellite&utm_campaign=footer-link" class="footer-cta">Zovo Lifetime — $99 once, free forever &#8594;</a>
+        <div class="footer-copy">&copy; 2026 <a href="https://zovo.one">Zovo</a></div>
+    </div>
+</footer>
+
+<nav class="zovo-network" aria-label="Zovo Tools Network">
+    <div class="zovo-network-inner">
+        <h3 class="zovo-network-title">Explore More Tools</h3>
+        <div class="zovo-network-links">
+            <a href="https://abwex.com">ABWex — A/B Testing</a>
+            <a href="https://claudflow.com">ClaudFlow — Workflows</a>
+            <a href="https://claudhq.com">ClaudHQ — Prompts</a>
+            <a href="https://claudkit.com">ClaudKit — API</a>
+            <a href="https://enhio.com">Enhio — Text Tools</a>
+            <a href="https://epochpilot.com">EpochPilot — Timestamps</a>
+            <a href="https://gen8x.com">Gen8X — Color Tools</a>
+            <a href="https://gpt0x.com">GPT0X — AI Models</a>
+            <a href="https://heytensor.com">HeyTensor — ML Tools</a>
+            <a href="https://invokebot.com">InvokeBot — Webhooks</a>
+            <a href="https://kappafy.com">Kappafy — JSON</a>
+            <a href="https://kickllm.com">KickLLM — LLM Costs</a>
+            <a href="https://krzen.com">Krzen — Image Tools</a>
+            <a href="https://lochbot.com">LochBot — Security</a>
+            <a href="https://lockml.com">LockML — ML Compare</a>
+            <a href="https://ml3x.com">ML3X — Matrix Math</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
