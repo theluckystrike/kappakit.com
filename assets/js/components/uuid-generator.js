@@ -1,5 +1,5 @@
 /* KappaKit — UUID/ULID Generator Component */
-/* Supports: v4, v7, ulid */
+/* Supports: v4, v7, ulid, password, nanoid */
 
 window.KappaKit_uuid_generator = function(mount, config) {
   var type = config.type || 'v4';
@@ -7,7 +7,9 @@ window.KappaKit_uuid_generator = function(mount, config) {
   var titles = {
     'v4': 'UUID v4 Generator (Random)',
     'v7': 'UUID v7 Generator (Timestamp)',
-    'ulid': 'ULID Generator (Sortable)'
+    'ulid': 'ULID Generator (Sortable)',
+    'password': 'Password Generator (Secure)',
+    'nanoid': 'NanoID Generator (URL-safe)'
   };
 
   var html = '<h3>' + (titles[type] || 'UUID Generator') + '</h3>';
@@ -73,9 +75,18 @@ window.KappaKit_uuid_generator = function(mount, config) {
         meta = 'Version 7 (timestamp) | Created: ' + new Date(ts).toISOString();
       } else if (type === 'ulid') {
         id = generateULID();
-        var ulidTs = decodeULIDTimestamp(id);
-        meta = 'ULID | Created: ' + new Date(ulidTs).toISOString();
+        try {
+          var ulidTs = decodeULIDTimestamp(id);
+          meta = 'ULID | Created: ' + new Date(ulidTs).toISOString();
+        } catch (e) { meta = 'ULID | 26-char Crockford Base32'; }
+      } else if (type === 'password') {
+        id = generatePassword(20);
+        meta = 'Password | Length: 20 | Charset: A-Z a-z 0-9 !@#$%&*';
+      } else if (type === 'nanoid') {
+        id = generateNanoID(21);
+        meta = 'NanoID | Length: 21 | URL-safe alphabet';
       }
+      if (!id) { id = '(error)'; meta = meta || 'Unknown type'; }
       items.push({ id: id, meta: meta });
     }
 
@@ -155,10 +166,9 @@ window.KappaKit_uuid_generator = function(mount, config) {
     }
 
     // Random part (16 chars = 80 bits)
-    var rand = new Uint8Array(10);
+    var rand = new Uint8Array(16);
     crypto.getRandomValues(rand);
-    for (var j = 0; j < 10; j++) {
-      // Map each byte to Crockford base32 characters
+    for (var j = 0; j < 16; j++) {
       result += CROCKFORD[rand[j] & 31];
     }
 
@@ -177,7 +187,30 @@ window.KappaKit_uuid_generator = function(mount, config) {
     return ts;
   }
 
+  function generatePassword(len) {
+    var charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
+    var bytes = new Uint8Array(len);
+    crypto.getRandomValues(bytes);
+    var result = '';
+    for (var i = 0; i < len; i++) {
+      result += charset[bytes[i] % charset.length];
+    }
+    return result;
+  }
+
+  function generateNanoID(len) {
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';
+    var bytes = new Uint8Array(len);
+    crypto.getRandomValues(bytes);
+    var result = '';
+    for (var i = 0; i < len; i++) {
+      result += alphabet[bytes[i] & 63];
+    }
+    return result;
+  }
+
   function escH(s) {
+    if (typeof s !== 'string') return '';
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 };
